@@ -1,0 +1,1 @@
+env\windows\scripts\activate.bat && cls

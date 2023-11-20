@@ -1,0 +1,20 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form>
+            {% csrf_token %}
+            {% render_field pForm.name%}
+            {% render_field pForm.price%}
+            {% render_field pForm.measure_choice%}
+            {% render_field pForm.measure%}
+            {% render_field pForm.extends required="false"%}
+            {% render_field pForm.amount%}
+
+        <form>
+    </body>
+</html>
