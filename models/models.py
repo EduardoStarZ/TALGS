@@ -24,8 +24,7 @@ class Product(models.Model):
     measure = models.IntegerField(null=False)
     extends = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     amount = models.BigIntegerField(null=False)
-    category = models.ForeignKey("Category", default="1", on_delete=models.PROTECT)
-    
+    category = models.ForeignKey("Category", default="1", on_delete=models.PROTECT)   
     
     def __str__(self):
         return f"{self.name} - {self.measure}{self.measure_choice}"
@@ -48,3 +47,12 @@ class Loss(models.Model):
     
     def __str__(self):
         return f"{self.id} - {self.date} {self.time}"
+
+class batch(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    expire_date = models.DateField(nul=False)
+    product = models.ManyToManyField(Product)
+    
+    def __str__(self):
+        return f"{self.id} - {self.expire_date}"
+    
