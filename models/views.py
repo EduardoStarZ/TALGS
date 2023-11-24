@@ -3,10 +3,11 @@ from . import forms
 
 # Create your views here.
 
+
 def main(request):
     form = forms.ProductForm
     template = 'index.html'
     context = {
-        'pForm': form
+        'TestForm': form
     }
     return render(request, template, context)
