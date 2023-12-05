@@ -1,0 +1,83 @@
+*{margin: 0; padding: 0;}
+
+.make-registry-card,
+.make-registry-card * {
+  box-sizing: border-box;
+}
+.make-registry-card {
+  width: 160px;
+  height: 250px;
+  position: relative;
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+}
+.make-registry-card.verde {
+  width: 160px;
+  height: 250px;
+  position: relative;
+  box-shadow: 0px 6px 10px 0px rgba(26, 85, 24, 0.75);
+  border-radius: 10px;
+}
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+.card-text {
+  color: #000000;
+  text-align: center;
+  font: 800 16px "JetBrainsMono-ExtraBold", sans-serif;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 65.2%;
+  top: 18%;
+  height: 16.8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-link {
+  position: absolute;
+  right: 17.5%;
+  left: 17.5%;
+  width: 65%;
+  bottom: 19.6%;
+  top: 64.4%;
+  height: 16%;
+  box-shadow: 0px 4px 4px 0px rgba(255, 182, 182, 0.5);
+}
+.link-component {
+  background: #ff6161;
+  border-radius: 8px;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+}
+.link-text {
+  color: #ffffff;
+  text-align: center;
+  font: 800 24px "JetBrainsMono-ExtraBold", sans-serif;
+  position: absolute;
+  right: 42.31%;
+  left: 43.27%;
+  width: 14.42%;
+  bottom: 10%;
+  top: 10%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
