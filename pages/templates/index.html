@@ -1,9 +1,19 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
+        {% include "head-meta.html" %}
     </head>
 
     <body>
-        {% include 'assets/link/link-red.html' with text="Hello" href="https://youtube.com" %}
+        <div class="frame is-blue mt-5">
+        {% include 'assets/link/red.html' with text="Hello" href="https://youtube.com" %}
+        {% include 'assets/link/blue.html' with text="whatsapp danger" href="https://youtube.com" %}
+        {% include 'assets/link/green.html' with text="i hate myself" href="https://youtube.com" %}
+        {% include 'assets/link/yellow.html' with text="there will be cake" href="https://youtube.com" %}
+
+        {% include 'assets/card/standart.html' with image_link="images/logo.jpg" title="Produto" content="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum" %}
+        </div>
     </body>
 </html>
