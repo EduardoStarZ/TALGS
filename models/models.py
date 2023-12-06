@@ -50,7 +50,7 @@ class Loss(models.Model):
 
 class batch(models.Model):
     id = models.BigAutoField(primary_key=True)
-    expire_date = models.DateField(nul=False)
+    expire_date = models.DateField(null=False)
     product = models.ManyToManyField(Product)
     
     def __str__(self):
