@@ -1,3 +1,14 @@
+@font-face{
+    font-family: 'JetBrainsMono';
+    src:  url('/static/fonts/JetBrainsMono.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+*{
+    font-family: JetBrainsMono;
+}
+
 ul.navigation {
     position: fixed;
     top: 0;
@@ -27,5 +38,6 @@ a.button:hover{
 }
 
 #first{
+    scroll-behavior: smooth;
     margin-top: 10vh;
 }

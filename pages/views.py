@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 def main(request):
-    template = 'index.html'
+    template = 'home.html'
     context = {}
     
     return render(request, template, context)
