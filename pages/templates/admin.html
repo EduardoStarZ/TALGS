@@ -13,6 +13,20 @@
                 <li class="right">{% include 'assets/link/red.html' with text="Log-Out" %}</li>
                 <li class="right">{% include 'assets/link/red.html' with text="Topo" properties='href="javascript:void(0)" id="topo" ' %}</li>
             </ul>
-          </navbar>
+            </navbar>
+
+            <div class="main">
+                <ul class="cards">
+                    <li class="cards_item">
+                        <div class="card">
+                            <div class="card_image"><img src="{% static 'images/logo.jpg' %}"></div>
+                                <div class="card_content">
+                                    <h2 class="card_title">Produto</h2>
+                                        <p class="card_text">{% lorem 1 b random %}</p>
+                                </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
     </body>
 </html>
