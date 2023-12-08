@@ -4,7 +4,13 @@ from django.shortcuts import render
 
 
 def main(request):
-    template = 'home.html'
+    template = 'index.html'
+    context = {}
+    
+    return render(request, template, context)
+
+def admin(request):
+    template = 'admin.html'
     context = {}
     
     return render(request, template, context)

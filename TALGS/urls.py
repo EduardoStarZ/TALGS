@@ -20,6 +20,7 @@ from models import api
 from pages import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", views.main, name='')
+    path('admin-panel/', admin.site.urls),
+    path("", views.main, name='main'),
+    path("admin/", views.admin, name='admin')
 ]
