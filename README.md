@@ -1,6 +1,10 @@
+# Documentação:
+
+- Encontra-se agora no diretório `docs` para facilitar a visualização dos arquivos do diretório.
+
 # Protótipos: 
 
-## Observar o sistema de páginas criado 
+Observar o sistema de páginas criado: 
 
 - Uma página guarda todos os elementos criados como componentes.
 
