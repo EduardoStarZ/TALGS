@@ -1,0 +1,15 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'head-meta.html' %}
+    
+    {% block head %}
+      
+    {% endblock head %}
+  </head>
+  <body id="body">
+    <div hx-get="/home" hx-trigger="load" hx-target="#body" hx-swap="outerHTML"></div>
+  </body>
+</html>

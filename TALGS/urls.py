@@ -21,6 +21,7 @@ from pages import views
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
-    path("", views.main, name='main'),
+    path("", views.frame, name='frame'),
+    path("home/", views.home, name='main'),
     path("admin/", views.admin, name='admin')
 ]
