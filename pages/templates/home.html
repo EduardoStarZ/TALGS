@@ -70,24 +70,7 @@
             </ul>
           </div>
 
-            <dialog id="dialog">
-                <div class="my-5">
-                {% include 'assets/link/red.html' with  text="<<" properties=' id="closeButton" class="button is-danger is-medium mx-0" ' %}
-                </div>
-                
-				<form>
-			
-					<h1 class="title is-1 my-5 mx-0">Login</h1>
-			
-					<h3 class="subtitle is-3 mt-6">Usuário:</h3>
-					<input class="input is-medium mb-6" type="text" placeholder="Nome de Usuário" max-length="20" />
-			
-					<h3 class="subtitle is-3 ">Senha:</h3>
-					<input class="input is-medium mb-6" type="password" placeholder="Nome de Usuário" max-length="20" />
-			
-					{% include 'assets/link/green.html' with text="Fazer Login" properties='class="button is-success is-medium" ' %}
-		
-				</form>
+            <dialog id="dialog" hx-get="/auth/login" hx-target="#dialog" hx-trigger="load">
         	</dialog>
         </div>
 	</body>

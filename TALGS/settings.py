@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'pages',
     'models',
+    'key',
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
