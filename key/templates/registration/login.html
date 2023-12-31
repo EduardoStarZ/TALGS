@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form>
+<form id="loginForm">
         {% csrf_token %}
 
         
@@ -15,7 +15,7 @@
                 <h3 class="subtitle is-3 ">Senha:</h3>
                 {% render_field form.password class="input is-medium mb-6" type="password" placeholder="Nome de Usuário" max-length="20" %}
 
-                {% include 'assets/link/green.html' with text="Fazer Login" properties='class="button is-success is-medium" href="javascript:void(0)" onclick="" ' %}
+                <input type="submit" class="button is-success is-medium" value="Entrar" />
 </form>
 
 <script type="text/javascript">  
