@@ -1,0 +1,13 @@
+echo off
+
+clear
+
+python3 manage.py collectstatic
+
+python3 manage.py makemigrations
+
+python3 manage.py migrate
+
+xdg-open "http://127.0.0.1:8000"
+
+python3 manage.py runserver
