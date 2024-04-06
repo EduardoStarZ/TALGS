@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-MASTER_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MASTER_BASE_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -60,8 +60,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                os.path.join(MASTER_DIR, 'TALGS.templates'),
-            ],
+                os.path.join(MASTER_BASE_DIR, 'templates')
+             ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

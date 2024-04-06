@@ -1,0 +1,1 @@
+env\windows\scripts\deactivate && cls
