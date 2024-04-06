@@ -5,8 +5,8 @@
 	
 	<navbar>
           <ul class="navigation">
-            <li class="left">{% include 'assets/link/red.html' with text="Login" properties='id="login"' %}</li>
-            <li class="right">{% include 'assets/link/red.html' with text="Topo" properties='href="javascript:void(0)" id="topo" ' %}</li>
+            <li class="left">{% include 'TALGS/assets/link/red.html' with text="Login" properties='id="login"' %}</li>
+            <li class="right">{% include 'TALGS/assets/link/red.html' with text="Topo" properties='href="javascript:void(0)" id="topo" ' %}</li>
           </ul>
         </navbar>
 
@@ -70,7 +70,7 @@
             </ul>
           </div>
 
-            <dialog id="dialog" hx-get="/auth" hx-target="#dialog" hx-trigger="load">
+            <dialog id="dialog" hx-get="/auth/login/" hx-target="#dialog" hx-trigger="load">
               
         	</dialog>
         </div>

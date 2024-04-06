@@ -4,7 +4,12 @@
         <navbar>
             <ul class="navigation">
                 <li class="left">{% include 'assets/link/red.html' with text="Home" properties=' hx-get="/" hx-target="#body" ' %}</li>
-                <li class="right">{% include 'assets/link/red.html' with text="Log-Out" %}</li>
+				<li class="right">
+						<form method="post" action="/auth/logout/" target="_self" >
+								{% csrf_token %}
+								<input type="submit" class="button is-danger mx-3 my-3 is-normal" value="Log-out" />
+						</form>
+				</li>
                 <li class="right">{% include 'assets/link/red.html' with text="Topo" properties='href="javascript:void(0)" id="topo" ' %}</li>
             </ul>
             </navbar>

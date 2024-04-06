@@ -1,6 +1,9 @@
 {% load widget_tweaks %}
 
-<form id="loginForm">
+<head>
+{% include 'head-meta.html' %}
+</head>
+<form id="loginForm" method="post">
         {% csrf_token %}
 
         
