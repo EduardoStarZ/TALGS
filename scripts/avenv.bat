@@ -1,1 +1,1 @@
-windows\scripts\activate && cls
+windows\scripts\activate

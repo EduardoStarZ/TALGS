@@ -1,7 +1,5 @@
-echo off
-
-linux/bin/python3 manage.py collectstatic
-
 linux/bin/python3 manage.py makemigrations
 
 linux/bin/python3 manage.py migrate
+
+linux/bin/python3 manage.py collectstatic

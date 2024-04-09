@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-class Category(models.Model):
+
+class Section(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(null=False, max_length=300)
     
@@ -22,9 +23,8 @@ class Product(models.Model):
     price = models.FloatField(null=False)
     measure_choice = models.CharField(choices=measure_units, default="mg", max_length=3, null=False)
     measure = models.IntegerField(null=False)
-    extends = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
-    amount = models.BigIntegerField(null=False)
-    category = models.ForeignKey("Category", default="1", on_delete=models.PROTECT)   
+    total_amount = models.BigIntegerField(null=False)
+    category = models.ForeignKey("Section", on_delete=models.PROTECT)   
     
     def __str__(self):
         return f"{self.name} - {self.measure}{self.measure_choice}"
@@ -48,11 +48,17 @@ class Loss(models.Model):
     def __str__(self):
         return f"{self.id} - {self.date} {self.time}"
 
-class batch(models.Model):
+class Stock(models.Model):
     id = models.BigAutoField(primary_key=True)
     expire_date = models.DateField(null=False)
     product = models.ManyToManyField(Product)
     
     def __str__(self):
         return f"{self.id} - {self.expire_date}"
+
+class Customer(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=300, null=False)
     
+    def __str__(self):
+        return f"{self.name} - {self.id}"

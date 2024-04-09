@@ -1,4 +1,4 @@
 from django.urls import path
-from models import api
+from models import models
 
 urlpatterns = []

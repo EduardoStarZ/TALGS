@@ -1,1 +1,1 @@
-windows\scripts\deactivate && cls
+windows\scripts\deactivate
