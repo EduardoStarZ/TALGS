@@ -1,6 +1,5 @@
 *.pyc
 .vscode
 __pycache__/*
-docs/tarefa_pi.md
 windows/
 linux/
