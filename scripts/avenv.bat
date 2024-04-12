@@ -1,1 +1,1 @@
-windows\scripts\activate
+windows\Scripts\activate
