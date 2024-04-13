@@ -43,7 +43,12 @@ html {
     .navbar-burger {
         margin-left:0 !important;
         padding-left: 0 !important;
-    }
+		color: #FFFFFF !important;
+	}
+
+	.navbar-burger:hover {
+		background-color: rgba(227, 206, 189, 0.3);
+	}
 
     .navbar-center-mobile p, .navbar-center-mobile {
         display: inline !important;
