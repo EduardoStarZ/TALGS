@@ -28,24 +28,28 @@
 
         <div class="navbar-menu">
             <div class="navbar-start">
-                {% include 'assets/link.html' with text="Home" color="light" size="normal" my="3" mx="3" other_classes="" %}
+					{% block left_buttons %}
+                {% include 'assets/link.html' with text="Home" color="light" size="normal" my="4" mx="2" other_classes="" %}
 
-                {% include 'assets/link.html' with text="Documentation" color="light" size="normal" my="3" mx="3" other_classes="" %}
-            </div>
+                {% include 'assets/link.html' with text="Documentation" color="light" size="normal" my="4" mx="2" other_classes="" %}
+				{% endblock %}
+			</div>
         </div>
 
         <div class="navbar-center">
-            <p class="subtitle is-3 my-2">T.A.L.G.S</p>
+            <p class="subtitle is-3 my-4">T.A.L.G.S</p>
         </div>
 
         <div class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        {% include 'assets/link.html' with text="Sign Up" color="light" size="normal" my="" mx="" other_classes="" %}
+							{% block right_buttons %}
+							{% include 'assets/link.html' with text="Sign Up" color="light" size="normal" other_classes="" %}
 
-                        {% include 'assets/link.html' with text="Log In" color="light" size="normal" my="3" mx="3" other_classes="" %}
-                    </div>
+                        {% include 'assets/link.html' with text="Log In" color="light" size="normal" other_classes="" %}
+						{% endblock %}
+					</div>
                 </div>
             </div>
         </div>
