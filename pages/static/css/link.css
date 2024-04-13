@@ -1,0 +1,14 @@
+a.light {
+    color: #322030 !important;
+    background-color: #E3CEBD !important;
+}
+
+a.dark {
+    color: #FCFDEB !important;
+    background-color: #322030 !important;
+}
+
+a.gray {
+    color: #FCFDEB !important;
+    background-color: #6A6179 !important;
+}
