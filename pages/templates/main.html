@@ -3,5 +3,6 @@
 {% block title %}Testando ahhah{% endblock %}
 
 {% block body %}
-    {% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
+{% block nav_burger %}{% include 'navbar-burger.html' %}{% endblock %}
+		{% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
 {% endblock %}
