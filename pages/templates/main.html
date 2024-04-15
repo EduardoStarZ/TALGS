@@ -2,7 +2,28 @@
 
 {% block title %}Testando ahhah{% endblock %}
 
+{% block nav_burger %}
+    {% include 'navbar-burger.html' %}
+{% endblock %}
+
 {% block body %}
-{% block nav_burger %}{% include 'navbar-burger.html' %}{% endblock %}
-		{% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
+
+<div class="spacing"></div>
+    
+    {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
+        {% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
+    {% include 'assets/close_frame.html' %}
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 {% endblock %}
