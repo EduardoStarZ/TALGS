@@ -1,19 +1,19 @@
 # Documentação:
 
-- Encontra-se agora no diretório `docs` para facilitar a visualização dos arquivos do diretório.
+- [Abrir Documentação](https://github.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/blob/960ed1c7955de856288db28e09a91f09765002a0/docs/Documentation.pdf)
+
+- [Fazer Download Da Documentação](https://raw.githubusercontent.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/main/docs/Documentation.pdf?token=GHSAT0AAAAAACQMOGTP52CJ3THCEN2IIBOCZQ4SJEQ)
 
 # Protótipos: 
 
 Observar o sistema de páginas criado: 
 
-- Uma página guarda todos os elementos criados como componentes.
+- A página 'Assets' guarda todos os elementos criados como componentes.
 
-- A outra guarda todas as páginas já desenvolvidas com instâncias desses componentes em dois formatos para computador:
+- A página 'Pages' guarda todas as páginas já desenvolvidas com instâncias desses componentes em dois formatos para computador:
      820x540 e 1920x1080, um para a criação das páginas, a outra para visualização em escala real.
      A orientação a ser seguida na visualização das telas é: horizontalmente se encontram variações de estado e formato da mesma página, e verticalmente se encontram páginas diferentes.
 
-
-- Algumas páginas podem conter mais de um estado, como possuir modais que podem ser exibidos ao longo da interação com as páginas.
-
+- A página 'CS & Fonts' detém uma amostra da paleta de cores e seleção de fontes do sistema.
 
 ### [Acessar Protótipos no Figma](https://www.figma.com/file/KbNXx5lTg3nPsh3BdhbXnd/Telas?type=design&node-id=94%3A1723&mode=design&t=jdZ9EERA4lX4QtZm-1)
