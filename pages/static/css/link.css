@@ -15,3 +15,7 @@ a.gray {
     background-color: #6A6179 !important;
     height: fit-content !important;
 }
+
+a.fit-space {
+    width: 100%;
+}
