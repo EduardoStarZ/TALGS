@@ -1,3 +1,2 @@
-xdg-open "http://127.0.0.1:8000"
-
-linux/bin/python3 manage.py runserver
+exec linux/bin/python3 manage.py runserver
+exec xdg-open "http://127.0.0.1:8000"
