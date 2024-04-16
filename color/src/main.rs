@@ -7,22 +7,26 @@ use std::{
 fn main() {
     let start: u128 = counter();
 
-    let args: Vec<String> = get_args();
+    let mut args: Vec<String> = get_args();
 
-    let mut result: ColoredString = "".to_string().black();
+    let mut result: ColoredString = match args[1].as_str() {
+        "-blue" => args[0].bright_cyan(),
+        "-yellow" => args[0].bright_yellow(),
+        "-red" => args[0].bright_red(),
+        "-green" => args[0].bright_green(),
+        _ => args[0].normal(),
+    };
 
-    match args[1].as_str() {
-        "-green" => {
-            result = args[0].bright_green().bold();
-        }
-        _ => (),
-    }
+    args.remove(0);
 
-    if args.len() >= 3 {
-        match args[2].as_str() {
-            "-underline" => result = result.underline(),
-            "-italic" => result = result.italic(),
-            _ => (),
+    if args.len() > 1 {
+        for x in args.iter() {
+            result = match x.as_str() {
+                "-bold" => result.bold(),
+                "-italic" => result.italic(),
+                "-underline" => result.underline(),
+                _ => result,
+            }
         }
     }
 

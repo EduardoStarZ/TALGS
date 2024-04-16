@@ -1,3 +1,7 @@
+.\color.exe "Creating a virtual environment for Windows at the T.A.L.G.S. root folder with name 'windows'" -blue -bold
 python -m venv linux
 
+.\color.exe "Installing the dependencies into the virtual environment through PIP" -yellow -bold
 linux/bin/pip3 install -r requirements.txt
+
+.\color.exe "Virtual environment installed successfully" -green -bold
