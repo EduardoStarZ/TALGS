@@ -1,5 +1,11 @@
+./color.exe "Checking for changes in the database modeling structure" -blue -italic
+
 linux/bin/python3 manage.py makemigrations
 
+./color.exe "Applying found changes into the database" -yellow -bold
 linux/bin/python3 manage.py migrate
 
+./color.exe "Injecting the static files into cache" -yellow -bold
 linux/bin/python3 manage.py collectstatic
+
+./color.exe "Migrations and static file injections done" -green -bold

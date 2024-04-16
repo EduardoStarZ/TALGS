@@ -1,2 +1,7 @@
+./color.exe "Starting Django server protocol" -blue -bold 
 exec linux/bin/python3 manage.py runserver
+
+./color.exe "Django server initialized" -green -bold
+
+./color.exe "Opening browser windows at http://127.0.0.1:8000" -blue -bold -underline
 exec xdg-open "http://127.0.0.1:8000"
