@@ -5,7 +5,7 @@
 
 <head>
     {% include 'head-meta.html' %}
-    <title>{% block title %}{% endblock %}</title>
+    <title>T.A.L.G.S - {% block title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -22,11 +22,8 @@
 
         <div class="navbar-menu">
             <div class="navbar-start">
-					{% block left_buttons %}
-                {% include 'assets/link.html' with text="Home" color="light" size="normal" my="4" mx="2" other_classes="" %}
-
-                {% include 'assets/link.html' with text="Documentation" color="light" size="normal" my="4" mx="2" other_classes="" %}
-				{% endblock %}
+				{% block left_buttons %}
+                {% endblock %}
 			</div>
         </div>
 
@@ -38,16 +35,15 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-							{% block right_buttons %}
-							{% include 'assets/link.html' with text="Sign Up" color="light" size="normal" other_classes="" %}
-
-                        {% include 'assets/link.html' with text="Log In" color="light" size="normal" other_classes="" %}
+				        {% block right_buttons %}
 						{% endblock %}
 					</div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <div class="spacing"></div>
 
     {% block body %}
     {% endblock %}

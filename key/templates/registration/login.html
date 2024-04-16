@@ -1,0 +1,14 @@
+{% extends 'master.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
+        <p class="title is-3 center">Login</p>    
+    
+        {% include 'assets/link.html' with color="gray" text="Cancelar" other_classes="" %}
+        {% include 'assets/link.html' with color="light" text="Login" other_classes="" %}
+
+    {%include 'assets/close_frame.html'%}
+    
+{% endblock %}
