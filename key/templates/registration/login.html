@@ -1,13 +1,40 @@
 {% extends 'master.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Login{% endblock %}
 
 {% block body %}
     {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
-        <p class="title is-3 center">Login</p>    
-    
-        {% include 'assets/link.html' with color="gray" text="Cancelar" other_classes="" %}
-        {% include 'assets/link.html' with color="light" text="Login" other_classes="" %}
+        <form method="post">
+            {% csrf_token %}
+            <p class="title is-3 center">Login</p>    
+            
+            {% include 'assets/frame.html' with color="dark" width="80" height="auto" shadow="no" my="5" %}
+                <label for="nome">Nome de Usuário</label>
+                {% render_field form.username name="nome" id="nome" class="input normal w-100 h-auto center my-4" placeholder="Insira seu nome de usuário" autocomplete="off"  %}
+                <label for="password">Senha</label>
+                {% render_field form.password name="password" id="password" class="input normal w-100 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off"  %}
+            {% include 'assets/close_frame.html'%}
+            
+            <div class="joiner">
+                {% include 'assets/input.html' with color="gray" value="Limpar campos" other_classes="fit-space" type="reset" %}
+                {% include 'assets/input.html' with color="light" value="Login"  other_classes="fit-space" type="submit" %}
+            </div>
+        </form>
+
+        <style>
+            input.button {
+                width: 49% !important;
+                margin: 0 auto;
+            }
+
+            .joiner {
+                width: 80%;
+                height: fit-content;
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
 
     {%include 'assets/close_frame.html'%}
     

@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+    width: 1dvw;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #726687;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3c314e;
+}
+
 @font-face {
     font-family: 'JetBrainsMono';
     src: url('/static/fonts/JetBrainsMono.ttf') format('truetype');
@@ -40,22 +52,28 @@ div.spacing {
     height: 2px;
 }
 
+.center {
+    text-align: center;
+
+}
+
 @media screen and (max-width: 1023px) {
     .navbar-center p {
         display: none;
     }
 
     .navbar-burger {
-        margin-left:0 !important;
+        margin-left: 0 !important;
         padding-left: 0 !important;
-		color: #FFFFFF !important;
-	}
+        color: #FFFFFF !important;
+    }
 
-	.navbar-burger:hover {
-		background-color: rgba(227, 206, 189, 0.3);
-	}
+    .navbar-burger:hover {
+        background-color: rgba(227, 206, 189, 0.3);
+    }
 
-    .navbar-center-mobile p, .navbar-center-mobile {
+    .navbar-center-mobile p,
+    .navbar-center-mobile {
         display: inline !important;
         align-items: center !important;
         font-family: TextMeOne;
