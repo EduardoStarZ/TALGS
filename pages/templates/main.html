@@ -14,4 +14,8 @@
 
     <br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    {% if user.is_authenticated %}
+        <p class="title is-1">Hello, {{ user.username }}</p>
+    {% endif %}
 {% endblock %}
