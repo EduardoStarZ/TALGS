@@ -5,9 +5,3 @@ def login(request):
         context = {}
         
         return render(request, template, context)
-
-def logout(request):
-        template = 'logout.html'
-        context = {}
-        
-        return render(request, template, context)
