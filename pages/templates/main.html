@@ -2,6 +2,13 @@
 
 {% block title %}Testando ahhah{% endblock %}
 
+{% block right_buttons %}
+		<form method="post">
+		{% csrf_token %}
+		{% include 'assets/input.html' with value="Log-Out" color="light" type="submit" size="normal" properties="" %}
+		</form>		
+{% endblock %}
+
 {% block nav_burger %}
     {% include 'navbar-burger.html' %}
 {% endblock %}
