@@ -4,6 +4,7 @@ use diesel::prelude::*;
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::schema::section)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[derive(Clone)]
 pub struct Section {
     pub id: i32,
     pub name: String

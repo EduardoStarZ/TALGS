@@ -25,9 +25,21 @@ pub fn establish_remote_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-pub fn counter() -> u128 {
-    SystemTime::now()
+pub fn counter() -> Vec<u128> {
+    vec![
+        SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap()
-        .as_micros()
+        .as_nanos(),
+
+        SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_micros(),
+        
+        SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_millis()
+    ]
 }
