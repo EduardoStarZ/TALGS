@@ -5,7 +5,7 @@ use std::{
 };
 
 fn main() {
-    let start: u128 = counter();
+    let start: Vec<u128> = counter();
 
     let mut args: Vec<String> = get_args();
 
@@ -32,18 +32,29 @@ fn main() {
 
     println!("{result}");
 
-    let end: u128 = counter();
+    let end: Vec<u128> = counter();
 
     if args.contains(&"-et".to_string()) {
-        println!("\nColoring was executed in {} microseconds", end - start);
+        println!("\nColoring was executed in {} ms ({} ns, {} mcs)", end[2] - start[2], end[0] - start[0], end[1] - start[1]);
     }
 }
 
-fn counter() -> u128 {
-    SystemTime::now()
+fn counter() -> Vec<u128> {
+    vec![SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap()
-        .as_micros()
+        .as_nanos(),
+
+         SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_micros(),
+
+         SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis()
+    ]
 }
 
 fn get_args() -> Vec<String> {
