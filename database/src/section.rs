@@ -70,3 +70,37 @@ pub fn create_section(connection: &mut SqliteConnection, namespace: &String) {
         .execute(connection)
         .unwrap();
 }
+
+pub fn delete_section(connection : &mut SqliteConnection, id_num : i32) {
+    let result : Vec<Section> = section
+        .select(Section::as_select())
+        .filter(section::id.eq(id_num))
+        .load(connection)
+        .expect("could not load table section");
+
+    if result.len() >= 1 {
+        diesel::delete(section::table)
+            .filter(section::id.eq(id_num))
+            .execute(connection)
+            .expect("could not realise delete operation");
+    }
+}
+
+pub fn list_sections(connection : &mut SqliteConnection) {
+    let sections : Vec<Section> = section
+        .select(Section::as_select())
+        .load(connection)
+        .expect("could not load table section from such database");
+
+    for x in sections {
+        println!("ID: {} | \tName: {}", x.id, x.name);
+    }
+
+    println!("");
+}
+
+pub fn drop_sections(connection : &mut SqliteConnection) {
+    diesel::delete(section::table)
+        .execute(connection)
+        .expect("could not run drop table command on table section");
+}
