@@ -2,14 +2,14 @@ use crate::models::{NewSection, Section};
 use crate::schema::section::{self, dsl::*};
 use diesel::prelude::*;
 
-pub fn sync_local_sections(
-    local_connection: &mut SqliteConnection,
-    remote_connection: &mut SqliteConnection,
+pub async fn sync_sections(
+    connection_to_be_synced: &mut SqliteConnection,
+    reference_connection: &mut SqliteConnection,
 ) {
     //Vector with all instances of sections on the local database
     let local_sections: Vec<Section> = section
         .select(Section::as_select())
-        .load(local_connection)
+        .load(connection_to_be_synced)
         .expect("could not load table section");
 
     //Tuple with the values of local instances of sections
@@ -36,7 +36,7 @@ pub fn sync_local_sections(
     let remote_unique_sections: Vec<Section> = section
         .select(Section::as_select())
         .filter(id.ne_all(values.0).and(name.ne_all(values.1)))
-        .load(remote_connection)
+        .load(reference_connection)
         .expect("could not load remote table section");
 
     /*
@@ -49,16 +49,41 @@ pub fn sync_local_sections(
                 id: &x.id,
                 name: &x.name,
             })
-            .execute(local_connection)
+            .execute(connection_to_be_synced)
             .expect("could not apply values");
     }
 }
 
-pub fn create_section(connection: &mut SqliteConnection, namespace: &String) {
+/*
+ * A function that returns the section table as an vector of tuples, where value 0 is the id 
+ * and value 1 is the name 
+ */ 
+pub async fn section_as_tuple_vec(connection: &mut SqliteConnection) -> Vec<(i32, String)> {
+    let local_sections: Vec<Section> = section
+        .select(Section::as_select())
+        .load(connection)
+        .expect("could not load table section");
+
+    let mut results: Vec<(i32, String)> = Vec::new();
+
+    for x in local_sections {
+        results.push((x.id, x.name));
+    }
+
+    return results;
+}
+
+
+pub async fn create_section(connection: &mut SqliteConnection, namespace: &String) {
     let results: Vec<Section> = section
         .select(Section::as_select())
         .load(connection)
         .expect("could not load profiles from database");
+
+    if section_as_tuple_vec(connection).await.iter().map(| x | x.1.clone()).collect::<Vec<String>>().contains(namespace) {
+        println!("\n Value \"{namespace}\" already exists at this table, skipping...");
+        return;
+    }
 
     let new_section: NewSection<'_> = NewSection {
         id: &(results.len() as i32),
@@ -71,8 +96,8 @@ pub fn create_section(connection: &mut SqliteConnection, namespace: &String) {
         .unwrap();
 }
 
-pub fn delete_section(connection : &mut SqliteConnection, id_num : i32) {
-    let result : Vec<Section> = section
+pub async fn delete_section(connection: &mut SqliteConnection, id_num: i32) {
+    let result: Vec<Section> = section
         .select(Section::as_select())
         .filter(section::id.eq(id_num))
         .load(connection)
@@ -86,8 +111,8 @@ pub fn delete_section(connection : &mut SqliteConnection, id_num : i32) {
     }
 }
 
-pub fn list_sections(connection : &mut SqliteConnection) {
-    let sections : Vec<Section> = section
+pub async fn list_sections(connection: &mut SqliteConnection) {
+    let sections: Vec<Section> = section
         .select(Section::as_select())
         .load(connection)
         .expect("could not load table section from such database");
@@ -99,7 +124,7 @@ pub fn list_sections(connection : &mut SqliteConnection) {
     println!("");
 }
 
-pub fn drop_sections(connection : &mut SqliteConnection) {
+pub async fn drop_sections(connection: &mut SqliteConnection) {
     diesel::delete(section::table)
         .execute(connection)
         .expect("could not run drop table command on table section");
