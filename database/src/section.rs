@@ -120,14 +120,14 @@ pub async fn delete_section(connection: &mut SqliteConnection, id_num: i32) {
 
 /*
  * A function that updates a section name based on it's id
- */ 
-pub async fn update_section(connection : &mut SqliteConnection, row_id : i32, new_name : String) {
+ */
+pub async fn update_section(connection: &mut SqliteConnection, row_id: i32, new_name: String) {
     diesel::update(section)
-    .filter(id.eq(row_id))
-    .set(name.eq(new_name))
-    .execute(connection)
-    .expect("could not access table section");
-} 
+        .filter(id.eq(row_id))
+        .set(name.eq(new_name))
+        .execute(connection)
+        .expect("could not access table section");
+}
 
 /*
  *  A function that displays the entire table contents
