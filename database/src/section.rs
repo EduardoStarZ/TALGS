@@ -55,9 +55,9 @@ pub async fn sync_sections(
 }
 
 /*
- * A function that returns the section table as an vector of tuples, where value 0 is the id 
- * and value 1 is the name 
- */ 
+ * A function that returns the section table as an vector of tuples, where value 0 is the id
+ * and value 1 is the name
+ */
 pub async fn section_as_tuple_vec(connection: &mut SqliteConnection) -> Vec<(i32, String)> {
     let local_sections: Vec<Section> = section
         .select(Section::as_select())
@@ -73,14 +73,18 @@ pub async fn section_as_tuple_vec(connection: &mut SqliteConnection) -> Vec<(i32
     return results;
 }
 
-
+/*
+ * Function that creates a section row if the provided name does not exist in the database already
+ */
 pub async fn create_section(connection: &mut SqliteConnection, namespace: &String) {
-    let results: Vec<Section> = section
-        .select(Section::as_select())
-        .load(connection)
-        .expect("could not load profiles from database");
+    let results: Vec<(i32, String)> = section_as_tuple_vec(connection).await;
 
-    if section_as_tuple_vec(connection).await.iter().map(| x | x.1.clone()).collect::<Vec<String>>().contains(namespace) {
+    if results
+        .iter()
+        .map(|x| x.1.clone())
+        .collect::<Vec<String>>()
+        .contains(namespace)
+    {
         println!("\n Value \"{namespace}\" already exists at this table, skipping...");
         return;
     }
@@ -96,6 +100,9 @@ pub async fn create_section(connection: &mut SqliteConnection, namespace: &Strin
         .unwrap();
 }
 
+/*
+ * A section that deletes a row from the database based on it's id
+ */
 pub async fn delete_section(connection: &mut SqliteConnection, id_num: i32) {
     let result: Vec<Section> = section
         .select(Section::as_select())
@@ -111,6 +118,9 @@ pub async fn delete_section(connection: &mut SqliteConnection, id_num: i32) {
     }
 }
 
+/*
+ *  A function that displays the entire table contents
+ */
 pub async fn list_sections(connection: &mut SqliteConnection) {
     let sections: Vec<Section> = section
         .select(Section::as_select())
@@ -124,6 +134,9 @@ pub async fn list_sections(connection: &mut SqliteConnection) {
     println!("");
 }
 
+/*
+ * A function that drops the table
+ */
 pub async fn drop_sections(connection: &mut SqliteConnection) {
     diesel::delete(section::table)
         .execute(connection)
