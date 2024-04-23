@@ -58,7 +58,7 @@ pub async fn sync_sections(
  * A function that returns the section table as an vector of tuples, where value 0 is the id
  * and value 1 is the name
  */
-pub async fn section_as_tuple_vec(connection: &mut SqliteConnection) -> Vec<(i32, String)> {
+async fn section_as_tuple_vec(connection: &mut SqliteConnection) -> Vec<(i32, String)> {
     let local_sections: Vec<Section> = section
         .select(Section::as_select())
         .load(connection)
@@ -117,6 +117,17 @@ pub async fn delete_section(connection: &mut SqliteConnection, id_num: i32) {
             .expect("could not realise delete operation");
     }
 }
+
+/*
+ * A function that updates a section name based on it's id
+ */ 
+pub async fn update_section(connection : &mut SqliteConnection, row_id : i32, new_name : String) {
+    diesel::update(section)
+    .filter(id.eq(row_id))
+    .set(name.eq(new_name))
+    .execute(connection)
+    .expect("could not access table section");
+} 
 
 /*
  *  A function that displays the entire table contents
