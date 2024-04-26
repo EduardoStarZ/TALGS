@@ -1,6 +1,7 @@
 pub mod schema;
 pub mod models;
 pub mod section;
+pub mod product;
 
 use diesel::prelude::*;
 use dotenvy::dotenv;

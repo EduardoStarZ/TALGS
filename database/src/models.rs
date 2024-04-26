@@ -16,3 +16,13 @@ pub struct NewSection<'a> {
     pub id : &'a i32,
     pub name: &'a String
 }
+
+
+pub struct Product {
+    pub id: i32,
+    pub name: String,
+    pub total_amount : i32,
+    pub measure_unit : String,
+    pub measure : f32,
+    pub section_id : i32
+}

@@ -6,3 +6,14 @@ diesel::table! {
         name -> Text,
     }
 }
+
+diesel::table! {
+    product (id) {
+        id -> Integer,
+        name -> Text,
+        total_amount -> Integer,
+        measure_unit -> Text,
+        measure -> Float,
+        section_id -> Integer
+    }
+}
