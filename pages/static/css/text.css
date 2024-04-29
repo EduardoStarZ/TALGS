@@ -1,0 +1,27 @@
+.title {
+    font-family: TextMeOne !important;
+}
+
+.subtitle {
+    font-family: JetBrainsMono !important;
+}
+
+.is-dark {
+    color: #322030 !important;
+}
+
+.is-light {
+    color: #FCFDEB !important;
+}
+
+.is-normal {
+    color: #C1A2A0 !important;
+}
+
+.is-light-gray {
+    color: #ACA8B3 !important;
+}
+
+.is-gray {
+    color: #6A6179 !important;
+}

@@ -3,25 +3,22 @@
 {% block title %}Testando ahhah{% endblock %}
 
 {% block right_buttons %}
-		<form method="post" target="_self" action="/auth/logout/">
-		{% csrf_token %}
-		{% include 'assets/input.html' with value="Log-Out" color="light" type="submit" size="normal" properties="" %}
-		</form>		
+<form method="post" target="_self" action="/auth/logout/">
+    {% csrf_token %}
+    {% include 'assets/input.html' with value="Log-Out" color="light" type="submit" size="normal" properties="" %}
+</form>
 {% endblock %}
 
 {% block nav_burger %}
-    {% include 'navbar-burger.html' %}
+{% include 'navbar-burger.html' %}
 {% endblock %}
 
 {% block body %}
-    
-    {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
-        {% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
-    {% include 'assets/close_frame.html' %}
 
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
+{% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
+{% include 'assets/close_frame.html' %}
 
-    {% if user.is_authenticated %}
-        <p class="title is-1">Hello, {{ user.username }}</p>
-    {% endif %}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<p class="title is-1">Hello, {{ user.username }}</p>
 {% endblock %}

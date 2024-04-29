@@ -19,3 +19,9 @@ a.gray {
 a.fit-space {
     width: 100%
 }
+
+a.center {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
