@@ -29,8 +29,20 @@ html {
 }
 
 .navbar-center p {
-    align-items: center;
+    display: inline;
+    align-items: center !important;
     font-family: TextMeOne !important;
+    align-self: center !important;
+    margin: auto !important;
+    display: inline;
+}
+
+.navbar-center {
+    position: absolute;
+    align-self: center;
+    left: calc(50% - 3dvw);
+    z-index: 200;
+    margin: 0;
 }
 
 .navbar-center-mobile p {
@@ -40,6 +52,8 @@ html {
 .navbar {
     background-color: #322030 !important;
     width: 100% !important;
+    align-content: center !important;
+    align-items: center !important;
 }
 
 .navbar-menu {
@@ -54,6 +68,11 @@ div.spacing {
 
 .center {
     text-align: center;
+}
+
+.navbar-start a,
+.navbar-end .navbar-item .buttons a {
+    align-self: center;
 }
 
 @media screen and (max-width: 1023px) {
@@ -79,6 +98,13 @@ div.spacing {
         align-self: center !important;
         margin-right: auto !important;
         margin-left: auto !important;
+    }
+
+    .navbar-center-mobile {
+        position: absolute;
+        left: calc(50% - 4.5dvh);
+        z-index: 200;
+        margin: 0;
     }
 
     div.spacing {

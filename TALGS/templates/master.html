@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <div class="navbar-center my-4 center">
+        <p class="title is-light-gray is-5">T.A.L.G.S</p>
+    </div>
 
     <nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
 
@@ -16,27 +19,24 @@
             <div class="navbar-center-mobile">
                 <p class="title is-light-gray is-5 my-2">T.A.L.G.S</p>
             </div>
-				{% block nav_burger %}{% endblock %}
+            {% block nav_burger %}{% endblock %}
         </div>
 
         <div class="navbar-menu">
             <div class="navbar-start">
-				{% block left_buttons %}
+                {% block left_buttons %}
                 {% endblock %}
-			</div>
+            </div>
         </div>
 
-        <div class="navbar-center">
-            <p class="title is-light-gray is-5 my-4">T.A.L.G.S</p>
-        </div>
 
         <div class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-				        {% block right_buttons %}
-						{% endblock %}
-					</div>
+                        {% block right_buttons %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
         </div>

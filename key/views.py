@@ -1,13 +1,31 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
-from django.contrib import messages
+from key.group import group_user
+from key.forms import SignupForm
 
 
 def login(request):
     template = 'login.html'
     context = {}
         
+    return render(request, template, context)
+
+def create_account(request):
+    template = 'create_account.html'
+    
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            group_user(form['username'].value())
+            return redirect('login')
+    else:
+        form = SignupForm()
+    
+    context = {
+        'form': form
+    }
+    
     return render(request, template, context)
     
 @login_required

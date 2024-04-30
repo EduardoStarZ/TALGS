@@ -3,6 +3,14 @@
 
 {% block title %}Login{% endblock %}
 
+{% block left_buttons %}
+    {% include 'assets/link.html' with color="light" mx="2" size="normal" text="Registrar-se" properties="href='/auth/register/'" %}
+{% endblock %}
+
+{% block nav_burger %}
+    {% include 'navbar-burger.html' %}
+{% endblock %}
+
 {% block body %}
     {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
         <form method="post">
