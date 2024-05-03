@@ -21,4 +21,20 @@
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <p class="title is-1">Hello, {{ user.username }}</p>
+
+{% if group == "Administrator" %}
+    <center>
+        <p>your assigned role is {{ group }}</p>
+    </center> 
+
+{% elif group == "Client" %}
+    <center>
+        <p>You should not be seeing this mr. {{ group }}</p>
+    </center>
+
+    <div hx-get="/client_panel/" hx-trigger="load" hx-swap="outerHTML">
+    </div>
+{% endif %}
+
+
 {% endblock %}

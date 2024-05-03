@@ -5,4 +5,3 @@ def group_user(username):
     user = User.objects.get(username=username)
     
     user.groups.add(group)
-    
