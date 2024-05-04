@@ -1,1 +1,17 @@
-{% include 'assets/frame.html' with color="light" w="80" h="auto" %}
+{% include 'assets/frame.html' with color="light" width="80" heigth="auto" %}
+    <p id="header" class="subtitle is-3 is-dark has-text-centered">Meus Pedidos</p>
+    {% include 'assets/link.html' with text="Novo Pedido" color="dark" properties="id='new-request'" float="right" size="normal" %}
+
+    <div class="spacing " ></div>
+    {% include 'assets/frame.html' with color="normal" width="100" height="auto" %}
+{% include 'assets/close_frame.html' %}
+
+<style>
+    #header {
+        font-weight: bolder;
+        position:relative
+    }
+
+    #new-request{
+    }
+</style>
