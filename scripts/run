@@ -4,4 +4,4 @@ exec linux/bin/python3 manage.py runserver
 ./rust-color "Django server initialized" -green -bold
 
 ./rust-color "Opening browser windows at http://127.0.0.1:8000" -blue -bold -underline
-exec xdg-open "http://127.0.0.1:8000"
+xdg-open "http://127.0.0.1:8000"
