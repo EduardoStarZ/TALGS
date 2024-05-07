@@ -1,8 +1,8 @@
 # Documentação:
 
-- [Abrir Documentação](https://github.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/blob/960ed1c7955de856288db28e09a91f09765002a0/docs/Documentation.pdf)
+- [Abrir Documentação]([https://github.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/blob/960ed1c7955de856288db28e09a91f09765002a0/docs/Documentation.pdf](https://github.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/blob/main/docs/Documentation.pdf))
 
-- [Fazer Download Da Documentação](https://raw.githubusercontent.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/main/docs/Documentation.pdf?token=GHSAT0AAAAAACQMOGTP52CJ3THCEN2IIBOCZQ4SJEQ)
+- [Fazer Download Da Documentação](https://raw.githubusercontent.com/infocbra/2023-2-vespertino-pi1-g3-2023-2/main/docs/Documentation.pdf?token=GHSAT0AAAAAACQMOGTOCGRYCYE63RQXTIOUZRZQ46A)
 
 # Protótipos: 
 
