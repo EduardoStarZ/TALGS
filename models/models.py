@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Categoria(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -25,7 +26,7 @@ class Produto(models.Model):
     unidade_escolhida = models.CharField(choices=unidades_medida, default="mg", max_length=3, null=False)
     medida = models.IntegerField(null=False)
     quantidade_total = models.PositiveIntegerField(null=False)
-    categoria = models.ForeignKey("Section", on_delete=models.PROTECT)   
+    categoria = models.ForeignKey("Categoria", on_delete=models.PROTECT)   
     
     def __str__(self):
         return f"{self.nome} - {self.medida}{self.unidade_escolhida}"
@@ -53,10 +54,10 @@ class Compra(models.Model):
     id = models.BigAutoField(primary_key=True)
     usuario = models.ForeignKey("auth.User", null=True, on_delete=models.PROTECT)
     horario = models.DateTimeField(auto_now=True, null=False)
-    status = models.CharField(choices=escolhas_status, default="Na fila", max_length=10, null=False)
+    status = models.SmallIntegerField(choices=escolhas_status, default=0, null=False)
     
     def __str__(self):
-        return f"{self.id} - {self.horario}"
+        return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()}"
 
 
 
@@ -86,7 +87,7 @@ class Fornecedor(models.Model):
         return f"{self.name} - {self.id}"
 
 
-class Email(models.Model):
+class Emails(models.Model):
     id = models.BigAutoField(primary_key=True)
     id_usuario = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
     id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT, null=True)
@@ -99,33 +100,35 @@ class Email(models.Model):
 
 
 class Endereço(models.Model):
-    estados = [("Acre", "AC"),
-    ("Alagoas", "AL"),
-    ("Amapá", "AP"),
-    ("Amazonas", "AM"),
-    ("Bahia", "BA"),
-    ("Ceará", "CE"),
-    ("Distrito Federal", "DF"),
-    ("Espírito Santo", "ES"),
-    ("Goiás", "GO"),
-    ("Maranhão", "MA"),
-    ("Mato Grosso", "MT"),
-    ("Mato Grosso do Sul", "MS"),
-    ("Minas Gerais", "MG"),
-    ("Pará", "PA"),
-    ("Paraíba", "PB"),
-    ("Paraná", "PR"),
-    ("Pernambuco", "PE"),
-    ("Piauí", "PI"),
-    ("Rio de Janeiro", "RJ"),
-    ("Rio Grande do Norte", "RN"),
-    ("Rio Grande do Sul", "RS"),
-    ("Rondônia", "RO"),
-    ("Roraima", "RR"),
-    ("Santa Catarina", "SC"),
-    ("São Paulo", "SP"),
-    ("Sergipe", "SE"),
-    ("Tocantins", "TO")]
+    estados = [
+    ("AC", "Acre"),
+    ("AL", "Alagoas"),
+    ("AP", "Amapá"),
+    ("AM", "Amazonas"),
+    ("BA", "Bahia"),
+    ("CE", "Ceará"),
+    ("DF", "Distrito Federal"),
+    ("ES", "Espírito Santo"),
+    ("GO", "Goiás"),
+    ("MA", "Maranhão"),
+    ("MT", "Mato Grosso"),
+    ("MS", "Mato Grosso do Sul"),
+    ("MG", "Minas Gerais"),
+    ("PA", "Pará"),
+    ("PB", "Paraíba"),
+    ("PR", "Paraná"),
+    ("PE", "Pernambuco"),
+    ("PI", "Piauí"),
+    ("RJ", "Rio de Janeiro"),
+    ("RN", "Rio Grande do Norte"),
+    ("RS", "Rio Grande do Sul"),
+    ("RO", "Rondônia"),
+    ("RR", "Roraima"),
+    ("SC", "Santa Catarina"),
+    ("SP", "São Paulo"),
+    ("SE", "Sergipe"),
+    ("TO", "Tocantins")
+    ]
     
     
     id = models.BigAutoField(primary_key=True)

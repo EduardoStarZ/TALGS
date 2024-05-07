@@ -1,5 +1,6 @@
 @ .\color.exe "Checking for changes in the database modeling structure" -blue -italic
 @ windows\Scripts\python.exe -m manage makemigrations
+@ windows\Scripts\python.exe -m manage makemigrations models 
 
 @ .\color.exe "Applying found changes into the database" -yellow -bold
 @ windows\Scripts\python.exe -m manage migrate
