@@ -56,8 +56,11 @@ class Compra(models.Model):
     horario = models.DateTimeField(auto_now=True, null=False)
     status = models.SmallIntegerField(choices=escolhas_status, default=0, null=False)
     
+    def status_str(self):
+        return self.escolhas_status[self.status][1]
+    
     def __str__(self):
-        return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()}"
+        return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()} - {self.status}"
 
 
 

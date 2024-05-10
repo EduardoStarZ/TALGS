@@ -1,4 +1,6 @@
 from django.urls import path
-from models import models
+from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('sale/client', views.sale_client),
+]

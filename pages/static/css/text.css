@@ -25,3 +25,7 @@
 .is-gray {
     color: #6A6179 !important;
 }
+
+.center {
+    text-align: center;
+}

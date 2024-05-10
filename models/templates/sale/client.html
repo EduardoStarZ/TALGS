@@ -1,0 +1,29 @@
+{% for compra in compras %}
+    {% include 'assets/frame.html' with color="normal" width="100" height="20" my="5" %}
+        <div class="columns is-mobile">
+
+            <div class="column is-one-quarter info">
+                <p class="subtitle is-5 is-dark">{{ compra.horario }}</p><p class="subtitle is-5 is-dark">Status: {{ compra.status_str }}</p>
+                {% include 'assets/link.html' with color="dark" text="Click me" my="1" %}
+            </div>
+            
+                <div class="column auto description"><p class="is-dark">{% lorem 1 p random %}</p></div>
+            
+        </div>
+    {% include 'assets/close_frame.html' %}
+{% endfor %}
+
+<style>
+    .description {
+        padding: 0;
+        text-align: left;
+    }
+
+    .description p {
+        overflow: hidden !important;
+    }
+    .h-20 {
+        height: 20% !important;
+        max-height: 20% !important;
+    }
+</style>
