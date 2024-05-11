@@ -46,7 +46,6 @@ class Artigo(models.Model):
         return f"{self.id_compra} - {self.id_estoque} / {self.quantidade}"
 
 
-
 class Compra(models.Model):
     escolhas_status = [
         (0, 'Na fila'),
