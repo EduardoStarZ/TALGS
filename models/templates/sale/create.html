@@ -1,3 +1,7 @@
 {% for product in products %}
-	{{ product.id_Produto.nome }}
+	<p>Nome: {{ product.id_produto.nome }}</p>
+	<p>Preço: R${{ product.id_produto.preço }}</p>
+	<p>Categoria: {{ product.id_produto.categoria }}</p>
+	<p>Quantidade total: {{ product.id_produto.quantidade_total }} </p>
+	<br />
 {% endfor %}

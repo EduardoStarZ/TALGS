@@ -1,18 +1,9 @@
 from django.shortcuts import render
-from .models import Compra, Artigo, Estoque, Produto
+from .models import Compra, Estoque, Produto
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from .behaviour import product_sync
 
-# Create your views here.
-    
-def behaviour():
-    print("i started executing")
-    produtos = Produto.objects.all()
-
-    for produto in produtos:
-        produto.sync_amount()
-
-    print("i finished executing")
 
 @login_required
 def sale_client(request):
@@ -23,21 +14,24 @@ def sale_client(request):
     context = {
         'compras': sale_query,
     }
-    
+
     return render(request, template, context)
 
 
 @login_required
 def create_sale(request):
 
-    behaviour()
+    product_sync()
 
     template = "sale/create.html"
 
     user = request.user
 
     context = {
-            "products": Estoque.objects.filter(~Q(quantidade=0))
+        "user": user,
+        "products": Estoque.objects.filter(
+            ~Q(quantidade=0) & Q(disponivel=True)
+            )
     }
 
     return render(request, template, context)
