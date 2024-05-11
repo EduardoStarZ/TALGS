@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models import Q
 
 class Categoria(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -37,7 +38,10 @@ class Artigo(models.Model):
     id_estoque = models.ForeignKey("Estoque", on_delete=models.PROTECT, null=False)
     id_compra = models.ForeignKey("Compra", on_delete=models.PROTECT, null=False)
     quantidade = models.PositiveIntegerField(null=False)
-    
+
+    def get_art_name(self):
+        return Estoque.objects.get(id=self.id_estoque.id).id_Produto.nome
+
     def __str__(self):
         return f"{self.id_compra} - {self.id_estoque} / {self.quantidade}"
 
@@ -56,14 +60,15 @@ class Compra(models.Model):
     horario = models.DateTimeField(auto_now=True, null=False)
     status = models.SmallIntegerField(choices=escolhas_status, default=0, null=False)
     
+    def get_arts(self):
+        return Artigo.objects.filter(Q(id_compra=self.id))
+
     def status_str(self):
         return self.escolhas_status[self.status][1]
     
     def get_time(self):
         raw_timestamp = str(self.horario.astimezone().time())
-        
         raw_timestamp = raw_timestamp.split(":")
-        
         hours = raw_timestamp[0]
         minutes = raw_timestamp[1]
                 
@@ -71,22 +76,15 @@ class Compra(models.Model):
     
     def get_date(self):
         raw_date = str(self.horario.date())
-        
-        raw_date = raw_date.split("-")
-        
-        print(raw_date)
-        
+        raw_date = raw_date.split("-")    
         year = raw_date[0]
         month = raw_date[1]
         day = raw_date[2]
-        
+
         return str(day + "/" + month + "/" + year)
-    
-    
-    
+
     def __str__(self):
         return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()} - {self.status}"
-
 
 
 class Estoque(models.Model):
@@ -98,10 +96,9 @@ class Estoque(models.Model):
     vencido = models.BooleanField(null=False)
     disponivel = models.BooleanField(null=False)
     id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT)
-    
+
     def __str__(self):
         return f"{self.id} - {self.validade}"
-
 
 
 class Fornecedor(models.Model):

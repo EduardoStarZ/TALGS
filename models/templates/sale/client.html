@@ -11,7 +11,11 @@
             
             <div class="column auto description h-20 mx-3">
                 <div class="limiter">
-                    <p class="is-dark">{% lorem 2 b random %}</p>
+			<p class="is-dark">
+			{% for artigo in compra.get_arts %}
+				{{ artigo.get_art_name }},
+			{% endfor %}
+			</p>
                 </div>
             </div>
             

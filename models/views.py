@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Compra
+from .models import Compra, Artigo
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -8,19 +8,11 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def sale_client(request):
     template = 'sale/client.html'
-        
+
     user = request.user
-    query = Compra.objects.filter(Q(usuario=user.id))
-    
-    status_codes = ["Na fila", "Pendente", "Pronto", "Completa"]
-    
-    status_names = []
-    
-    for x in query:
-        status_names.append(status_codes[x.status])
-    
+    sale_query = Compra.objects.filter(Q(usuario=user.id))
     context = {
-        'compras': query,
+        'compras': sale_query,
     }
     
     return render(request, template, context)
