@@ -28,7 +28,17 @@ class Produto(models.Model):
     medida = models.IntegerField(null=False)
     quantidade_total = models.PositiveIntegerField(null=False)
     categoria = models.ForeignKey("Categoria", on_delete=models.PROTECT)   
-    
+
+    def sync_amount(self):
+        stocks = Estoque.objects.filter(id_Produto=self)
+
+        total = 0
+        for stock in stocks:
+            total += stock.quantidade
+
+        self.quantidade_total = total
+        self.save()
+
     def __str__(self):
         return f"{self.nome} - {self.medida}{self.unidade_escolhida}"
 

@@ -1,10 +1,19 @@
 from django.shortcuts import render
-from .models import Compra, Artigo, Estoque
+from .models import Compra, Artigo, Estoque, Produto
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
     
+def behaviour():
+    print("i started executing")
+    produtos = Produto.objects.all()
+
+    for produto in produtos:
+        produto.sync_amount()
+
+    print("i finished executing")
+
 @login_required
 def sale_client(request):
     template = 'sale/client.html'
@@ -21,6 +30,8 @@ def sale_client(request):
 @login_required
 def create_sale(request):
 
+    behaviour()
+
     template = "sale/create.html"
 
     user = request.user
@@ -30,4 +41,3 @@ def create_sale(request):
     }
 
     return render(request, template, context)
-
