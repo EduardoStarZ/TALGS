@@ -1,17 +1,25 @@
 {% include 'assets/frame.html' with color="light" width="80" heigth="auto" %}
-    <p id="header" class="subtitle is-3 is-dark has-text-centered">Meus Pedidos</p>
-    {% include 'assets/link.html' with text="Novo Pedido" color="dark" properties="id='new-request' " float="right" size="normal" %}
+    <div class="columns is-mobile mt-4 mb-6">
 
-    <div class="spacing" ></div>
+        <div class="column auto">
+            <h2 id="header" class="subtitle is-2 is-dark has-text-centered mx-4">Meus Pedidos</h2>
+        </div>
+
+        <div class="column is-one-quarter">
+            {% include 'assets/link.html' with text="Novo Pedido" color="dark" properties="id='new-request' " float="right" size="medium" %}
+        </div>
+    </div>
+
     <div id="frame" hx-get="/api/sale/client" hx-target="#frame" hx-trigger="load, every 5s"></div>
 {% include 'assets/close_frame.html' %}
 
 <style>
     #header {
         font-weight: bolder;
-        position:relative
+        text-align: left !important;
     }
 
-    #new-request{
+    div.w-80 {
+        width: 95% !important;
     }
 </style>

@@ -59,6 +59,31 @@ class Compra(models.Model):
     def status_str(self):
         return self.escolhas_status[self.status][1]
     
+    def get_time(self):
+        raw_timestamp = str(self.horario.astimezone().time())
+        
+        raw_timestamp = raw_timestamp.split(":")
+        
+        hours = raw_timestamp[0]
+        minutes = raw_timestamp[1]
+                
+        return str(hours + ':' + minutes)
+    
+    def get_date(self):
+        raw_date = str(self.horario.date())
+        
+        raw_date = raw_date.split("-")
+        
+        print(raw_date)
+        
+        year = raw_date[0]
+        month = raw_date[1]
+        day = raw_date[2]
+        
+        return str(day + "/" + month + "/" + year)
+    
+    
+    
     def __str__(self):
         return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()} - {self.status}"
 
