@@ -1,40 +1,40 @@
 {% extends 'master.html' %}
 
-{% block title %}Testando ahhah{% endblock %}
+{% block title %}Principal{% endblock %}
 
-{% block right_buttons %}
+{% block left_buttons %}
 <form method="post" target="_self" action="/auth/logout/">
     {% csrf_token %}
-    {% include 'assets/input.html' with value="Log-Out" color="light" type="submit" size="normal" properties="" %}
+    {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="normal" properties="" %}
 </form>
 {% endblock %}
 
-{% block nav_burger %}
-{% include 'navbar-burger.html' %}
+{% block right_buttons %}
+    {% include 'assets/link.html' with text="Topo" color="light" href="javascript:topo()" %}
 {% endblock %}
+
+{% block nav_burger %}
+    {% include 'navbar-burger.html' %}
+{% endblock %}
+
+
+
+
+
 
 {% block body %}
 
-{% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
-{% include 'assets/link.html' with text="eyheyeheyehyeheyhey" color="is-warning" %}
-{% include 'assets/close_frame.html' %}
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<p class="title is-1">Hello, {{ user.username }}</p>
-
 {% if group == "Administrator" %}
-    <center>
-        <p>your assigned role is {{ group }}</p>
-    </center> 
+
+        <center>
+            <p>your assigned role is {{ group }}</p>
+        </center> 
 
 {% elif group == "Client" %}
-    <center>
-        <p>You should not be seeing this mr. {{ group }}</p>
-    </center>
 
-    <div hx-get="/client_panel/" hx-trigger="load" hx-swap="outerHTML">
-    </div>
-{% endif %}
+        <div hx-get="/client_panel/" hx-trigger="load" hx-swap="outerHTML"></div>
 
+        
+        {% endif %}
 
 {% endblock %}
