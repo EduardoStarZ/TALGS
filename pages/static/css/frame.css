@@ -1,3 +1,7 @@
+.cell {
+    display: grid !important;
+}
+
 .frame {
     padding: 2% !important;
     border-radius: 1.5rem;
@@ -23,4 +27,8 @@
 
 .gray{
     background-color: #6A6179;
+}
+
+.no-center {
+    margin: 0 !important;
 }

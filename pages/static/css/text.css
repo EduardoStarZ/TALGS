@@ -27,5 +27,17 @@
 }
 
 .center {
-    text-align: center;
+    margin: 0 auto !important;
+}
+
+is-lighter {
+    font-weight: lighter;
+}
+
+is-bold {
+    font-weight: bold;
+}
+
+is-bolder {
+    font-weight: bolder;
 }

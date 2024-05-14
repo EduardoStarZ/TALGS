@@ -29,10 +29,21 @@ input.light {
 
 input.dark {
     background-color: #322030 !important;
-    color: #E3CEBD !important;
+    color: #EEEEEE !important;
 }
 
 input.gray {
     background-color: #6A6179 !important;
     color: #EEEEEE !important;
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    
+}
+
+input[type="number"]:hover {
+    cursor:text !important;
 }

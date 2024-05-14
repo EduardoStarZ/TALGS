@@ -48,7 +48,7 @@ class Artigo(models.Model):
     quantidade = models.PositiveIntegerField(null=False)
 
     def get_art_name(self):
-        return Estoque.objects.get(id=self.id_estoque.id).id_Produto.nome
+        return Estoque.objects.get(id=self.id_estoque.id).id_produto.nome
 
     def __str__(self):
         return f"{self.id_compra} - {self.id_estoque} / {self.quantidade}"
