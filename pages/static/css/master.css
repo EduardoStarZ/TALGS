@@ -126,6 +126,10 @@ div.spacing {
     width: 80% !important;
 }
 
+.w-90 {
+    width: 90% !important;
+}
+
 .w-100 {
     width: 100% !important;
 }
@@ -148,6 +152,10 @@ div.spacing {
 
 .h-80 {
     height: 80% !important;
+}
+
+.h-90 {
+    height: 90% !important;
 }
 
 .h-100 {

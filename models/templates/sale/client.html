@@ -1,12 +1,24 @@
+{% include 'assets/frame.html' with color="dark" my="5" width="80" heigth="auto" %}
+    <div class="columns is-mobile mt-4 mb-6">
+
+        <div class="column auto">
+            <h2 id="header" class="subtitle is-2 is-light is-bolder mx-4">Meus Pedidos</h2>
+        </div>
+
+        <div class="column is-one-quarter">
+            {% include 'assets/link.html' with text="Novo Pedido" color="light" properties="id='new-request' " float="right" size="medium" %}
+        </div>
+    </div>
+
 {% for compra in compras %}
-    {% include 'assets/frame.html' with color="normal" width="100" height="20" my="5" mx="4" %}
+    {% include 'assets/frame.html' with color="normal" width="100" height="20" my="5" mx="" %}
         <div class="columns">
 
             <div class="column is-one-quarter info h-20 mx-3">
                 <p class="subtitle is-5 is-dark">Data: {{ compra.get_date }}</p>
                 <p class="subtitle is-5 is-dark">Horário: {{ compra.get_time }}</p>
                 <p class="subtitle is-5 is-dark">Status: {{ compra.status_str }}</p>
-                {% include 'assets/link.html' with color="dark" size="medium" text="Expandir" my="1" other_classes="fit" %}
+                {% include 'assets/link.html' with href="#" color="dark" size="medium" text="Expandir" my="1" other_classes="fit" %}
             </div>
             
             <div class="column auto description h-20 mx-3">
@@ -23,7 +35,13 @@
     {% include 'assets/close_frame.html' %}
 {% endfor %}
 
+{% include 'assets/close_frame.html' %}
+
 <style>
+    div.w-80 {
+        width: 95% !important;
+    }
+    
     div.info {
         text-align: center;
     }
