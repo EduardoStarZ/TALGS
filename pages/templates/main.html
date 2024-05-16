@@ -5,12 +5,12 @@
 {% block left_buttons %}
 <form method="post" target="_self" action="/auth/logout/">
     {% csrf_token %}
-    {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="normal" properties="" %}
+    {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="medium" properties="" %}
 </form>
 {% endblock %}
 
 {% block right_buttons %}
-    {% include 'assets/link.html' with text="Topo" color="light" href="javascript:topo()" %}
+    {% include 'assets/link.html' with text="Topo" size="medium" color="light" href="javascript:topo()" %}
 {% endblock %}
 
 {% block nav_burger %}

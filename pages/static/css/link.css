@@ -1,3 +1,11 @@
+a{
+    font-family: JetBrainsMono !important
+}
+
+a.button {
+    font-weight: 700 !important;
+}
+
 a.light {
     color: #322030 !important;
     background-color: #E3CEBD !important;

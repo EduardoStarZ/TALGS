@@ -5,6 +5,12 @@ input {
     border: none !important;
     box-shadow: none !important;
     caret-color: #6A6179;
+    font-family: JetBrainsMono !important;
+    font-weight: 500 !important;
+}
+
+input.button {
+    font-weight: 700 !important;
 }
 
 input::placeholder {

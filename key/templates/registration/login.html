@@ -4,7 +4,7 @@
 {% block title %}Login{% endblock %}
 
 {% block left_buttons %}
-    {% include 'assets/link.html' with color="light" mx="2" size="normal" text="Registrar-se" properties="href='/auth/register/'" %}
+    {% include 'assets/link.html' with color="light" mx="2" size="normal" text="Registrar-se" href="/auth/register" %}
 {% endblock %}
 
 {% block nav_burger %}
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'assets/frame.html' with color="dark" width="80" height="auto" %}
+    {% include 'assets/frame.html' with color="dark" width="90" height="80" %}
         <form method="post">
             {% csrf_token %}
             <p class="title is-3 center">Login</p>    
