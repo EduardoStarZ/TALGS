@@ -36,6 +36,18 @@ class Produto(models.Model):
 
         self.quantidade_total = total
         self.save()
+        
+    def available_input(self):
+        return f"available-input-{self.id}"
+    
+    def selected_input(self):
+        return f"selected-input-{self.id}"
+    
+    def selected_card(self):
+        return f"selected-card-{self.id}"
+    
+    def available_card(self):
+        return f"available-card-{self.id}"
 
     def __str__(self):
         return f"{self.nome} - {self.medida}{self.unidade_escolhida}"
