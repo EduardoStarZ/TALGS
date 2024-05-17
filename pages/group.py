@@ -8,5 +8,6 @@ def get_user_group(username):
 
     if len(groups) == 0:
         return "Administrator"
+
     return groups[0].__str__
 

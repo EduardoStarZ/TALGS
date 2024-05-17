@@ -6,6 +6,7 @@ from key.forms import SignupForm
 
 def login(request):
     template = 'login.html'
+    
     context = {}
         
     return render(request, template, context)
