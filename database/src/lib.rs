@@ -1,3 +1,16 @@
+/*
+ *
+ * lib.rs
+ *
+ * Copyright (c) 2023-2024 (authors)
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the () license, see LICENSE for details
+ * 
+ * */
+
+
 pub mod schema;
 pub mod models;
 pub mod section;

@@ -1,3 +1,16 @@
+/*
+ *
+ * section.rs
+ *
+ * Copyright (c) 2023-2024 (authors)
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the () license, see LICENSE for details
+ * 
+ * */
+
+
 use crate::models::{NewSection, Section};
 use crate::schema::section::{self, dsl::*};
 use diesel::prelude::*;
