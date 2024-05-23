@@ -1,3 +1,15 @@
+#
+#
+# asgi.py
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
 """
 ASGI config for TALGS project.
 

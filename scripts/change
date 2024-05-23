@@ -1,3 +1,15 @@
+#
+#
+# change.sh
+# 
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
 ./rust-color "Checking for changes in the database modeling structure" -blue -italic
 
 linux/bin/python3 manage.py makemigrations

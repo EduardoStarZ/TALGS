@@ -1,3 +1,16 @@
+/*
+ *
+ * craete-page.js
+ *
+ * Copyright (c) 2023-2024 (authors)
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the () license, see LICENSE for details
+ * 
+ * */
+
+
 $(".has-consequences").click(function(e){
     let element_id = $(this).attr('id');
 

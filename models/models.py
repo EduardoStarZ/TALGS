@@ -1,3 +1,15 @@
+#
+#
+# models.py
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
 from django.db import models
 from django.db.models import Q
 
@@ -36,16 +48,16 @@ class Produto(models.Model):
 
         self.quantidade_total = total
         self.save()
-        
+
     def available_input(self):
         return f"available-input-{self.id}"
-    
+
     def selected_input(self):
         return f"selected-input-{self.id}"
-    
+
     def selected_card(self):
         return f"selected-card-{self.id}"
-    
+
     def available_card(self):
         return f"available-card-{self.id}"
 

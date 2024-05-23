@@ -1,3 +1,15 @@
+#
+#
+# views.py
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
 from django.shortcuts import render
 from .models import Compra, Estoque, Categoria
 from django.db.models import Q

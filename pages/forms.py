@@ -1,13 +1,20 @@
-from django.forms import ModelForm
+#
+#
+# forms.py
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
 
-from models.models import *
+from django.forms import ModelForm
+from models.models import Compra
+
 
 class SaleForm(ModelForm):
-    class Meta:
-        model = Compra
-        fields = '__all__'
-        
-class Form(ModelForm):
     class Meta:
         model = Compra
         fields = '__all__'

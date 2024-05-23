@@ -1,5 +1,17 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+
+#
+#
+# manage.py
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
 import os
 import sys
 
