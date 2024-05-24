@@ -14,4 +14,4 @@
 
 {% endcomment %}
 
-<div id="{{ id }}" class="frame {{ color }} my-{{ my }} mx-{{ mx }} w-{{ width }} h-{{ height }} {{ shadow }}-shadow {{ other_classes }} {{ center }}-center" {{ properties }}>
+<div {% if id %} id="{{ id }}" {% endif %} class="frame{% if color %} {{ color }}{% endif %}{% if my %} my-{{ my }}{% endif %}{% if mx %} mx-{{ mx }}{% endif %}{% if width %} w-{{ width }}{% endif %}{% if height %} h-{{ height }}{% endif %}{% if shadow %} {{ shadow }}-shadow{% endif %}{% if other_classes %} {{ other_classes }}{% endif %}{% if center %} {{ center }}-center{% endif %}" {{ properties }}>

@@ -15,6 +15,7 @@ from pages import views
 
 urlpatterns = [
     path('', views.main),
-    path('client_panel/', views.client)
+    path('client_panel/', views.client),
+    path('admin_panel/', views.admin)
 ]
 

@@ -15,4 +15,4 @@
 {% endcomment %}
 
 
-<input class="input button dark w-{{ width }} h-{{ height }} my-{{ my }} mx-{{ mx }} " value="{{ value }}" type="number" min="{{ min }}" max="{{ max }}" step="{{ step }}" />
+<input class="input button dark{% if width %} w-{{ width }}{% endif %}{% if height %} h-{{ height }}{% endif %}{% if my %} my-{{ my }}{% endif %}{% if mx%} mx-{{ mx }}{% endif %}" {% if value %}value="{{ value }}"{% endif %} type="number" {% if min %}min="{{ min }}"{% endif %} {% if max %}max="{{ max }}"{% endif %} {% if step %}step="{{ step }}"{% endif %} />

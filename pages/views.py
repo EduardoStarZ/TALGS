@@ -39,3 +39,10 @@ def client(request):
 
     return render(request, template, context)
 
+
+def admin(request):
+    template = 'admin_panel.html'
+
+    context = {}
+
+    return render(request, template, context)

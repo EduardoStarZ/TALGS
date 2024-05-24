@@ -14,4 +14,4 @@
 
 {% endcomment %}
 
-<input id="{{ id }}" name="{{ name }}" type="{{ type }}" value="{{ value }}" placeholder="{{ placeholder}}" {{ properties }} class="button {{ color }} is-{{ size }} mx-{{ mx }} my-{{ my }} {{other_classes}}" />
+<input {% if id %} id="{{ id }}" {% endif %}  {% if name %} name="{{ name }}" {% endif %} {%if type %} type="{{ type }}" {% endif %} {% if value %} value="{{ value }}" {% endif %} {% if placeholder %} placeholder="{{ placeholder}}" {% endif %} class="button{% if color %} {{ color }}{% endif %}{% if size %} is-{{ size }}{% endif %}{% if mx %} mx-{{ mx }}{% endif %}{% if my %} my-{{ my }}{% endif %}{% if other_classes %} {{other_classes}}{% endif %}" {{ properties }} />

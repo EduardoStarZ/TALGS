@@ -1,3 +1,7 @@
+{% extends 'master.html' %}
+
+
+
 {% comment %}
 
 #
@@ -15,7 +19,6 @@
 {% endcomment %}
 
 
-{% extends 'master.html' %}
 
 {% block title %}Principal{% endblock %}
 
@@ -45,7 +48,9 @@
 
         <center>
             <p>your assigned role is {{ group }}</p>
-        </center> 
+        </center>
+
+		<div hx-get="/admin_panel/" hx-trigger="load" hx-swap="outerHTML" ></div>
 
 {% elif group == "Client" %}
 
