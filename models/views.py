@@ -11,7 +11,7 @@
 #
 
 from django.shortcuts import render
-from .models import Compra, Estoque, Categoria
+from .models import Compra, Estoque, Categoria, Produto
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .behaviour import product_sync
@@ -41,9 +41,7 @@ def create_sale(request):
 
     context = {
         "user": user,
-        "products": Estoque.objects.filter(
-            ~Q(quantidade=0) & Q(disponivel=True)
-            ),
+        "products": Produto.objects.filter(~Q(quantidade_total=0)),
         "categorias": Categoria.objects.all()
     }
 

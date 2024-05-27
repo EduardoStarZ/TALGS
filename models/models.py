@@ -12,7 +12,7 @@
 
 from django.db import models
 from django.db.models import Q
-
+from .queryset import EstoqueQuerySet
 
 class Categoria(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -49,15 +49,19 @@ class Produto(models.Model):
         self.quantidade_total = total
         self.save()
 
+    #Função que retorna uma string com o id do produto formatado, para um input disponível
     def available_input(self):
         return f"available-input-{self.id}"
 
+    #Função que retorna uma string com o id do produto formatado, para um input selecionado
     def selected_input(self):
         return f"selected-input-{self.id}"
 
+    #Função que retorna uma string com o id do produto formatado, para um card selecionado
     def selected_card(self):
         return f"selected-card-{self.id}"
 
+    #Função que retorna uma string com o id do produto formatado, para um card disponível
     def available_card(self):
         return f"available-card-{self.id}"
 
@@ -71,6 +75,7 @@ class Artigo(models.Model):
     id_compra = models.ForeignKey("Compra", on_delete=models.PROTECT, null=False)
     quantidade = models.PositiveIntegerField(null=False)
 
+    #Retorna o nome do produto referente ao artigo
     def get_art_name(self):
         return Estoque.objects.get(id=self.id_estoque.id).id_produto.nome
 
@@ -91,12 +96,15 @@ class Compra(models.Model):
     horario = models.DateTimeField(auto_now=True, null=False)
     status = models.SmallIntegerField(choices=escolhas_status, default=0, null=False)
 
+    # Função que retorna os artigos provênientes da instância do produto
     def get_arts(self):
         return Artigo.objects.filter(Q(id_compra=self.id))
 
+    #Função que retorna uma string com o nome do status, ao inves do número do status
     def status_str(self):
         return self.escolhas_status[self.status][1]
 
+    #Função que retorna uma string apropriada com o horário do pedido 
     def get_time(self):
         raw_timestamp = str(self.horario.astimezone().time())
         raw_timestamp = raw_timestamp.split(":")
@@ -105,6 +113,7 @@ class Compra(models.Model):
 
         return str(hours + ':' + minutes)
 
+    #Função que retorna uma string apropriada com a data do pedido
     def get_date(self):
         raw_date = str(self.horario.date())
         raw_date = raw_date.split("-")
@@ -128,8 +137,16 @@ class Estoque(models.Model):
     disponivel = models.BooleanField(null=False)
     id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT)
 
+    # Queryset customizado do Estoque
+    objects = EstoqueQuerySet().as_manager()
+
     def __str__(self):
         return f"{self.id} - {self.validade}"
+
+    # Função que é executada quando um estoque de produtos está vencido
+    def due(self):
+        self.vencido = True
+        self.id_produto.quantidade_total -= self.quantidade
 
 
 class Fornecedor(models.Model):

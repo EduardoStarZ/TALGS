@@ -31,21 +31,21 @@
 {% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile"  %}
     <div class="grid">
         {% for product in products %}
-            {% include 'assets/frame.html' with id=product.id_produto.selected_card color="light" width="80" height="auto" my="5" other_classes="cell hidden"  %}
+            {% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell hidden"  %}
                     <img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" />
                     <div class="center mx-3">
-                        <h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.id_produto.nome }}  <a class="button dark is-disabled">{{ product.id_produto.medida}}{{ product.id_produto.unidade_escolhida }}</a></p>
+                        <h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.nome }}  <a class="button dark is-disabled">{{ product.medida}}{{ product.unidade_escolhida }}</a></p>
                     </div>
 
-                    <p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.id_produto.categoria }}</p> 
-                    <p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.id_produto.preço }}</p>
+                    <p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.categoria }}</p> 
+                    <p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.preço }}</p>
                 
                 <div class="columns is-mobile mx-1">
                     <div class="column is-half">
-                        {% include 'assets/input.html' with id=product.id_produto.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences"  %}
+                        {% include 'assets/input.html' with id=product.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences"  %}
                     </div>
                     <div class="column is-half">
-                        <input type="number" class="input button dark w-100 my-2" value="1" min="1" max="{{ product.id_produto.quantidade_total }}" step="1" />
+                        <input type="number" class="input button dark w-100 my-2" value="1" min="1" max="{{ product.quantidade_total }}" step="1" />
                     </div>
                 </div>
             {% include 'assets/close_frame.html' %}
@@ -78,17 +78,17 @@
     <div class="grid">
 
         {% for product in products %}
-            {% include 'assets/frame.html' with id=product.id_produto.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  %}
+            {% include 'assets/frame.html' with id=product.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  %}
             <img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" />
         
             <div class="center mx-3">
-                <h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.id_produto.nome }}  <a class="button dark is-disabled">{{ product.id_produto.medida}}{{ product.id_produto.unidade_escolhida }}</a></p>
+                <h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.nome }}  <a class="button dark is-disabled">{{ product.medida}}{{ product.unidade_escolhida }}</a></p>
             </div>
             
-            <p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.id_produto.categoria }}</p> 
-            <p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.id_produto.preço }}</p>
+            <p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.categoria }}</p> 
+            <p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.preço }}</p>
                     
-            {% include 'assets/input.html' with id=product.id_produto.available_input type="button" color="dark" width="100" my="2" value="Selecionar" other_classes="has-consequences" %}
+            {% include 'assets/input.html' with id=product.available_input type="button" color="dark" width="100" my="2" value="Selecionar" other_classes="has-consequences" %}
             
             {% include 'assets/close_frame.html' %}
         {% endfor %}
