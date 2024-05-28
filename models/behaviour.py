@@ -10,11 +10,11 @@
 #
 #
 
-from .models import Produto
+from .models import Product
 
 
 def product_sync():
-    produtos = Produto.objects.all()
+    products = Product.objects.all()
 
-    for produto in produtos:
-        produto.sync_amount()
+    for product in products:
+        product.sync_amount()

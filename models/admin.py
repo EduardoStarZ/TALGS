@@ -15,12 +15,12 @@ from . import models
 
 # Register your models here.
 
-admin.site.register(models.Categoria)
-admin.site.register(models.Produto)
-admin.site.register(models.Compra)
-admin.site.register(models.Artigo)
+admin.site.register(models.Category)
+admin.site.register(models.Product)
+admin.site.register(models.Purchase)
+admin.site.register(models.Article)
 admin.site.register(models.Emails)
-admin.site.register(models.Estoque)
-admin.site.register(models.Endereço)
-admin.site.register(models.Telefone)
-admin.site.register(models.Fornecedor)
+admin.site.register(models.Stock)
+admin.site.register(models.Adress)
+admin.site.register(models.Phone)
+admin.site.register(models.Supplier)

@@ -18,4 +18,3 @@ urlpatterns = [
     path('client_panel/', views.client),
     path('admin_panel/', views.admin)
 ]
-

@@ -27,22 +27,22 @@
         </div>
     </div>
 
-{% for compra in compras %}
+{% for purchase in Purchases %}
     {% include 'assets/frame.html' with color="normal" width="100" height="20" my="5" mx="" %}
         <div class="columns">
 
             <div class="column is-one-quarter info h-20 mx-3">
-                <p class="subtitle is-5 is-dark">Data: {{ compra.get_date }}</p>
-                <p class="subtitle is-5 is-dark">Horário: {{ compra.get_time }}</p>
-                <p class="subtitle is-5 is-dark">Status: {{ compra.status_str }}</p>
+                <p class="subtitle is-5 is-dark">Data: {{ purchase.get_date }}</p>
+                <p class="subtitle is-5 is-dark">Horário: {{ purchase.get_time }}</p>
+                <p class="subtitle is-5 is-dark">Status: {{ purchase.status_str }}</p>
                 {% include 'assets/link.html' with href="#" color="dark" size="medium" text="Expandir" my="1" other_classes="fit" %}
             </div>
             
             <div class="column auto description h-20 mx-3">
                 <div class="limiter">
 			<p class="is-dark">
-			{% for artigo in compra.get_arts %}
-				{{ artigo.get_art_name }},
+			{% for article in purchase.get_arts %}
+				{{ article.get_art_name }},
 			{% endfor %}
 			</p>
                 </div>

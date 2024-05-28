@@ -11,10 +11,10 @@
 #
 
 from django.forms import ModelForm
-from models.models import Compra
+from models.models import Purchase
 
 
-class SaleForm(ModelForm):
+class PurchaseForm(ModelForm):
     class Meta:
-        model = Compra
+        model = Purchase
         fields = '__all__'

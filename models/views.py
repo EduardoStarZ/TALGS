@@ -11,7 +11,7 @@
 #
 
 from django.shortcuts import render
-from .models import Compra, Estoque, Categoria, Produto
+from .models import Purchase, Stock, Category, Product
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .behaviour import product_sync
@@ -23,7 +23,7 @@ def sale_client(request):
 
     user = request.user
     context = {
-        'compras': Compra.objects.filter(Q(usuario=user.id)),
+        'Purchases': Purchase.objects.filter(Q(user=user.id)),
     }
 
     return render(request, template, context)
@@ -34,7 +34,7 @@ def create_sale(request):
 
     product_sync()
 
-    stocks = Estoque.objects.due_today()
+    stocks = Stock.objects.due_today()
 
     for stock in stocks:
         stock.due()
@@ -45,8 +45,8 @@ def create_sale(request):
 
     context = {
         "user": user,
-        "products": Produto.objects.filter(~Q(quantidade_total=0) & Q(disponivel=True)),
-        "categorias": Categoria.objects.all()
+        "Products": Product.objects.filter(~Q(total_amount=0) & Q(available=True)),
+        "Categories": Category.objects.all()
     }
 
     return render(request, template, context)

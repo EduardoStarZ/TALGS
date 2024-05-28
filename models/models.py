@@ -12,18 +12,18 @@
 
 from django.db import models
 from django.db.models import Q
-from .queryset import EstoqueQuerySet
+from .queryset import StockQuerySet
 
-class Categoria(models.Model):
+class Category(models.Model):
     id = models.BigAutoField(primary_key=True)
-    nome = models.CharField(null=False, max_length=300)
+    name = models.CharField(null=False, max_length=300)
 
     def __str__(self):
-        return f"{self.nome}"
+        return f"{self.name}"
 
 
-class Produto(models.Model):
-    unidades_medida = [
+class Product(models.Model):
+    measure_units = [
         ("mg", "Miligramas"),
         ("g", "Gramas"),
         ("kg", "Quilogramas"),
@@ -32,22 +32,22 @@ class Produto(models.Model):
     ]
 
     id = models.BigAutoField(primary_key=True)
-    nome = models.CharField(max_length=300, null=False)
-    preço = models.FloatField(null=False)
-    unidade_escolhida = models.CharField(choices=unidades_medida, default="mg", max_length=3, null=False)
-    medida = models.IntegerField(null=False)
-    disponivel = models.BooleanField(null=False, default=True)
-    quantidade_total = models.PositiveIntegerField(null=False)
-    categoria = models.ForeignKey("Categoria", on_delete=models.PROTECT)
+    name = models.CharField(max_length=300, null=False)
+    price = models.FloatField(null=False)
+    choosen_measure = models.CharField(choices=measure_units, default="mg", max_length=3, null=False)
+    measure = models.IntegerField(null=False)
+    available = models.BooleanField(null=False, default=True)
+    total_amount = models.PositiveIntegerField(null=False)
+    category = models.ForeignKey("Category", on_delete=models.PROTECT)
 
     def sync_amount(self):
-        stocks = Estoque.objects.filter(id_produto=self).filter(vencido=False)
+        stocks = Stock.objects.filter(id_product=self).filter(due=False)
 
         total = 0
         for stock in stocks:
-            total += stock.quantidade
+            total += stock.amount
 
-        self.quantidade_total = total
+        self.total_amount = total
         self.save()
 
     #Função que retorna uma string com o id do produto formatado, para um input disponível
@@ -67,25 +67,25 @@ class Produto(models.Model):
         return f"available-card-{self.id}"
 
     def __str__(self):
-        return f"{self.nome} - {self.medida}{self.unidade_escolhida}"
+        return f"{self.name} - {self.measure}{self.choosen_measure}"
 
 
-class Artigo(models.Model):
+class Article(models.Model):
     id = models.BigAutoField(primary_key=True)
-    id_estoque = models.ForeignKey("Estoque", on_delete=models.PROTECT, null=False)
-    id_compra = models.ForeignKey("Compra", on_delete=models.PROTECT, null=False)
-    quantidade = models.PositiveIntegerField(null=False)
+    id_stock = models.ForeignKey("Stock", on_delete=models.PROTECT, null=False)
+    id_purchase = models.ForeignKey("Purchase", on_delete=models.PROTECT, null=False)
+    amount = models.PositiveIntegerField(null=False)
 
     #Retorna o nome do produto referente ao artigo
     def get_art_name(self):
-        return Estoque.objects.get(id=self.id_estoque.id).id_produto.nome
+        return Stock.objects.get(id=self.id_stock.id).id_product.name
 
     def __str__(self):
-        return f"{self.id_compra} - {self.id_estoque} / {self.quantidade}"
+        return f"{self.id_purchase} - {self.id_stock} / {self.amount}"
 
 
-class Compra(models.Model):
-    escolhas_status = [
+class Purchase(models.Model):
+    status_codes = [
         (0, 'Na fila'),
         (1, 'Pendente'),
         (2, 'Pronto'),
@@ -93,21 +93,21 @@ class Compra(models.Model):
     ]
 
     id = models.BigAutoField(primary_key=True)
-    usuario = models.ForeignKey("auth.User", null=True, on_delete=models.PROTECT)
-    horario = models.DateTimeField(auto_now=True, null=False)
-    status = models.SmallIntegerField(choices=escolhas_status, default=0, null=False)
+    user = models.ForeignKey("auth.User", null=True, on_delete=models.PROTECT)
+    time = models.DateTimeField(auto_now=True, null=False)
+    status = models.SmallIntegerField(choices=status_codes, default=0, null=False)
 
     # Função que retorna os artigos provênientes da instância do produto
     def get_arts(self):
-        return Artigo.objects.filter(Q(id_compra=self.id))
+        return Artigo.objects.filter(Q(id_purchase=self.id))
 
     #Função que retorna uma string com o nome do status, ao inves do número do status
     def status_str(self):
-        return self.escolhas_status[self.status][1]
+        return self.status_codes[self.status][1]
 
     #Função que retorna uma string apropriada com o horário do pedido 
     def get_time(self):
-        raw_timestamp = str(self.horario.astimezone().time())
+        raw_timestamp = str(self.time.astimezone().time())
         raw_timestamp = raw_timestamp.split(":")
         hours = raw_timestamp[0]
         minutes = raw_timestamp[1]
@@ -116,7 +116,7 @@ class Compra(models.Model):
 
     #Função que retorna uma string apropriada com a data do pedido
     def get_date(self):
-        raw_date = str(self.horario.date())
+        raw_date = str(self.time.date())
         raw_date = raw_date.split("-")
         year = raw_date[0]
         month = raw_date[1]
@@ -125,32 +125,34 @@ class Compra(models.Model):
         return str(day + "/" + month + "/" + year)
 
     def __str__(self):
-        return f"{self.id} - {self.horario.astimezone().date()} | {self.horario.astimezone().ctime()} - {self.status}"
+        return f"{self.id} - {self.time.astimezone().date()} | {self.time.astimezone().ctime()} - {self.status}"
 
 
-class Estoque(models.Model):
+class Stock(models.Model):
     id = models.BigAutoField(primary_key=True)
-    validade = models.DateTimeField(null=False)
-    quantidade = models.SmallIntegerField(null=False)
-    id_produto = models.ForeignKey("Produto", on_delete=models.PROTECT)
-    numero_lote = models.BigIntegerField(null=True)
-    vencido = models.BooleanField(null=False)
-    id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT)
+    validity = models.DateTimeField(null=False)
+    amount = models.SmallIntegerField(null=False)
+    id_product = models.ForeignKey("Product", on_delete=models.PROTECT)
+    lot_number = models.BigIntegerField(null=True)
+    due = models.BooleanField(null=False)
+    id_supplier = models.ForeignKey("Supplier", on_delete=models.PROTECT)
 
     # Queryset customizado do Estoque
-    objects = EstoqueQuerySet().as_manager()
+    objects = StockQuerySet().as_manager()
 
     def __str__(self):
-        return f"{self.id} - {self.validade}"
+        return f"{self.id} - {self.validity}"
 
     # Função que é executada quando um estoque de produtos está vencido
-    def due(self):
-        self.vencido = True
-        self.id_produto.quantidade_total -= self.quantidade
+    def is_due(self):
+        self.due = True
 
         self.save()
 
-class Fornecedor(models.Model):
+        self.id_product.sync_amount()
+
+
+class Supplier(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=300, null=False)
     cpf = models.CharField(max_length=11, null=False)
@@ -162,17 +164,17 @@ class Fornecedor(models.Model):
 
 class Emails(models.Model):
     id = models.BigAutoField(primary_key=True)
-    id_usuario = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
-    id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT, null=True)
-    email_primario = models.EmailField(null=False)
-    email_secundario = models.EmailField(null=True)
+    id_user = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
+    id_supplier = models.ForeignKey("Supplier", on_delete=models.PROTECT, null=True)
+    primary_email = models.EmailField(null=False)
+    secondary_email = models.EmailField(null=True)
 
     def __str__(self):
-        return f"{self.id_usuario} - {self.email_primario}"
+        return f"{self.id_user} - {self.primary_email}"
 
 
-class Endereço(models.Model):
-    estados = [
+class Adress(models.Model):
+    states = [
         ("AC", "Acre"),
         ("AL", "Alagoas"),
         ("AP", "Amapá"),
@@ -203,26 +205,26 @@ class Endereço(models.Model):
     ]
 
     id = models.BigAutoField(primary_key=True)
-    id_usuario = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
-    id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT, null=True)
+    id_user = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
+    id_supplier = models.ForeignKey("Supplier", on_delete=models.PROTECT, null=True)
     cep = models.CharField(max_length=8, null=False)
-    estado = models.CharField(max_length=2, choices=estados, null=False)
-    cidade = models.CharField(max_length=300, null=False)
-    bairro = models.CharField(max_length=300, null=False)
-    logradouro = models.CharField(max_length=200, null=False)
-    complemento = models.CharField(max_length=300, null=False)
+    state = models.CharField(max_length=2, choices=states, null=False)
+    town = models.CharField(max_length=300, null=False)
+    neighborhood = models.CharField(max_length=300, null=False)
+    public_place = models.CharField(max_length=200, null=False)
+    complement = models.CharField(max_length=500, null=False)
 
     def __str__(self):
-        return f"{self.estado} - {self.cidade}, {self.bairro}"
+        return f"{self.state} - {self.town}, {self.neighborhood}"
 
 
-class Telefone(models.Model):
+class Phone(models.Model):
 
     id = models.BigAutoField(primary_key=True)
-    id_usuario = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
-    id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT, null=True)
-    numero_primario = models.CharField(max_length=11, null=False)
-    numero_secundario = models.CharField(max_length=11, null=True)
+    id_user = models.ForeignKey("auth.User", on_delete=models.PROTECT, null=True)
+    id_supplier = models.ForeignKey("Supplier", on_delete=models.PROTECT, null=True)
+    primary_phone = models.CharField(max_length=11, null=False)
+    secondary_phone = models.CharField(max_length=11, null=True)
 
     def __str__(self):
-        return f"{self.id_usuario}"
+        return f"{self.id_user}"
