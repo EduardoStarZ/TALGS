@@ -16,16 +16,13 @@ import datetime
 
 class EstoqueQuerySet(models.QuerySet):
 
+    # Queryset method that checks if the due date is the same as today
     def due_today(self):
         try:
             today = datetime.datetime.now()
-            picked_date = datetime.date(today.year, today.month, today.day)
         except (TypeError, ValueError):
             return self.none()
 
-        objects = self.filter(validade=picked_date)
-
-        for object in objects:
-            object.due()
+        objects = self.filter(validade__date__lte=today)
 
         return objects

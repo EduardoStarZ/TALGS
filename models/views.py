@@ -22,9 +22,8 @@ def sale_client(request):
     template = 'sale/client.html'
 
     user = request.user
-    sale_query = Compra.objects.filter(Q(usuario=user.id))
     context = {
-        'compras': sale_query,
+        'compras': Compra.objects.filter(Q(usuario=user.id)),
     }
 
     return render(request, template, context)
@@ -35,13 +34,18 @@ def create_sale(request):
 
     product_sync()
 
+    stocks = Estoque.objects.due_today()
+
+    for stock in stocks:
+        stock.due()
+
     template = "sale/create.html"
 
     user = request.user
 
     context = {
         "user": user,
-        "products": Produto.objects.filter(~Q(quantidade_total=0)),
+        "products": Produto.objects.filter(~Q(quantidade_total=0) & Q(disponivel=True)),
         "categorias": Categoria.objects.all()
     }
 

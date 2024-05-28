@@ -36,11 +36,12 @@ class Produto(models.Model):
     preço = models.FloatField(null=False)
     unidade_escolhida = models.CharField(choices=unidades_medida, default="mg", max_length=3, null=False)
     medida = models.IntegerField(null=False)
+    disponivel = models.BooleanField(null=False, default=True)
     quantidade_total = models.PositiveIntegerField(null=False)
     categoria = models.ForeignKey("Categoria", on_delete=models.PROTECT)
 
     def sync_amount(self):
-        stocks = Estoque.objects.filter(id_produto=self)
+        stocks = Estoque.objects.filter(id_produto=self).filter(vencido=False)
 
         total = 0
         for stock in stocks:
@@ -134,7 +135,6 @@ class Estoque(models.Model):
     id_produto = models.ForeignKey("Produto", on_delete=models.PROTECT)
     numero_lote = models.BigIntegerField(null=True)
     vencido = models.BooleanField(null=False)
-    disponivel = models.BooleanField(null=False)
     id_fornecedor = models.ForeignKey("Fornecedor", on_delete=models.PROTECT)
 
     # Queryset customizado do Estoque
@@ -148,6 +148,7 @@ class Estoque(models.Model):
         self.vencido = True
         self.id_produto.quantidade_total -= self.quantidade
 
+        self.save()
 
 class Fornecedor(models.Model):
     id = models.BigAutoField(primary_key=True)
