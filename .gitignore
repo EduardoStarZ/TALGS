@@ -18,3 +18,4 @@ linux/
 cache/
 color/target/
 database/target/
+db.sqlite3
