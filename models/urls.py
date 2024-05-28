@@ -15,5 +15,6 @@ from . import views
 
 urlpatterns = [
     path('sale/client', views.sale_client),
-    path('sale/create', views.create_sale)
+    path('sale/create', views.create_sale),
+    path('product_form', views.product_form)
 ]

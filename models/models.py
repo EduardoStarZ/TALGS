@@ -66,6 +66,10 @@ class Product(models.Model):
     def available_card(self):
         return f"available-card-{self.id}"
 
+    # Função que retorna um trecho de url para requisições
+    def form_input_get_url(self):
+        return f"/api/product_form?id={self.id}"
+
     def __str__(self):
         return f"{self.name} - {self.measure}{self.choosen_measure}"
 

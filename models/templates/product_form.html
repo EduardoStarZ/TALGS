@@ -1,0 +1,18 @@
+{% comment %}
+
+#
+#
+# product_form.html
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
+{% endcomment %}
+
+
+<input type="number" id="product-id-{{ product.id }}" value="{{ product.id }}" disabled hidden /> <input type="number" id="product-amount-{{ product.id }}" min="1" max="{{ product.total_amount }} " value="1" disabled hidden />

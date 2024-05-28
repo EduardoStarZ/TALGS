@@ -11,16 +11,16 @@
 #
 
 from django.contrib import admin
-from . import models
+from .models import Category, Product, Purchase, Article, Emails, Stock, Adress, Phone, Supplier
 
 # Register your models here.
 
-admin.site.register(models.Category)
-admin.site.register(models.Product)
-admin.site.register(models.Purchase)
-admin.site.register(models.Article)
-admin.site.register(models.Emails)
-admin.site.register(models.Stock)
-admin.site.register(models.Adress)
-admin.site.register(models.Phone)
-admin.site.register(models.Supplier)
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(Purchase)
+admin.site.register(Article)
+admin.site.register(Emails)
+admin.site.register(Stock)
+admin.site.register(Adress)
+admin.site.register(Phone)
+admin.site.register(Supplier)

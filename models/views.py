@@ -50,3 +50,19 @@ def create_sale(request):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def product_form(request):
+
+    template = "product_form.html"
+
+    if request.method == 'GET':
+        attributes = dict(request.GET)
+        product = Product.objects.get(id=int(attributes.get('id')[0]))
+
+    context = {
+        'product': product
+            }
+
+    return render(request, template, context)
