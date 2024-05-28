@@ -17,19 +17,19 @@
 
 {% load static %}
 
-<div class="columns is-mobile">
+<div class="columns mb-6">
 		<div class="column">
 				<h1 class="subtitle is-3 is-normal-light ml-6 mb-3" >Produtos Selecionados:</h1>
 		</div>
 
 		<div class="column">
 
-				{% include 'assets/input.html' with type="submit" text="Finalizar" color="dark" size="medium" float="right" other_classes="mr-6 ml-3" %}
-				{% include 'assets/input.html' with type="reset" text="Cancelar" color="gray" size="medium" float="right" %}
+				{% include 'assets/input.html' with type="submit" value="Finalizar" color="dark" size="medium" float="right" other_classes="mr-6 ml-3 mb-6" %}
+				{% include 'assets/input.html' with type="reset" value="Cancelar" color="gray" size="medium" float="right" %}
 		</div>
 </div>
 
-{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile"  %}
+{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile mt-6"  %}
 <div class="grid">
 		{% for product in Products %}
 		{% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell hidden"  %}
@@ -57,13 +57,13 @@
 
 
 
-<div class="columns is-mobile mt-6">
+<div class="columns mt-6 mb-6">
 		<div class="column">
 				<h2 class="subtitle is-3 is-normal-light ml-6" >Produtos Disponíveis:</h1>
 		</div>
 
 		<div class="column">
-				<select name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left has-icons-left">
+				<select name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left ml-6 mb-6 has-icons-left">
 
 						<option>Todos os Produtos</option>
 						{% for category in Categories %}
@@ -115,6 +115,14 @@
 	.hidden {
 			display: none !important;
 	}
+
+		@media screen and (min-width: 768px) {
+
+				select.is-pulled-left {
+						margin-left: auto !important;
+						margin-right: auto !important;
+				}
+		}
 
 
 </style>
