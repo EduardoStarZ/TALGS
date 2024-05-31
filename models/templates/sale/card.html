@@ -1,0 +1,36 @@
+{% comment %}
+
+#
+#
+# card.html
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
+{% endcomment %}
+
+{% load static %}
+
+{% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target"  %}
+		<img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" />
+		<div class="center mx-3">
+				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}  <a class="button dark is-disabled">{{ product.measure}}{{ product.choosen_measure }}</a></h3>
+		</div>
+
+		<p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.category }}</p> 
+		<p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.price }}</p>
+
+		<div class="columns is-mobile mx-1">
+				<div class="column is-half">
+						{% include 'assets/input.html' with id=product.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences" %}
+				</div>
+				<div class="column is-half">
+						<input type="number" class="input button dark w-100 my-2" value="1" min="1" max="{{ product.total_amount }}" step="1" />
+				</div>
+		</div>
+{% include 'assets/close_frame.html' %}

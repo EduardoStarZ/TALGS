@@ -34,10 +34,14 @@ def create_sale(request):
 
     product_sync()
 
-    stocks = Stock.objects.due_today()
+    due_stocks = Stock.objects.due_today()
+    normal_stocks = Stock.objects.not_due_today()
 
-    for stock in stocks:
-        stock.due()
+    for stock in due_stocks:
+        stock.is_due()
+
+    for stock in normal_stocks:
+        stock.is_not_due()
 
     template = "sale/create.html"
 
@@ -55,7 +59,7 @@ def create_sale(request):
 @login_required
 def product_form(request):
 
-    template = "product_form.html"
+    template = "sale/card.html"
 
     if request.method == 'GET':
         attributes = dict(request.GET)

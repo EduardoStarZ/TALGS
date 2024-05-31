@@ -67,7 +67,7 @@ class Product(models.Model):
         return f"available-card-{self.id}"
 
     # Função que retorna um trecho de url para requisições
-    def form_input_get_url(self):
+    def create__input_get_url(self):
         return f"/api/product_form?id={self.id}"
 
     def __str__(self):
@@ -150,6 +150,14 @@ class Stock(models.Model):
     # Função que é executada quando um estoque de produtos está vencido
     def is_due(self):
         self.due = True
+
+        self.save()
+
+        self.id_product.sync_amount()
+
+    # Função que é executadaq quando um estoque deixa de estar vencido
+    def is_not_due(self):
+        self.due = False
 
         self.save()
 
