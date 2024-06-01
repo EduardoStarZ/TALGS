@@ -70,6 +70,15 @@ class Product(models.Model):
     def create__input_get_url(self):
         return f"/api/product_form?id={self.id}"
 
+    def create__card_get_url(self):
+        return f"/api/sale/card?id={self.id}"
+
+    def create__get_card_id_name(self):
+        return f"id-{self.id}"
+
+    def create__get_card_amount_name(self):
+        return f"amount-{self.id}"
+
     def __str__(self):
         return f"{self.name} - {self.measure}{self.choosen_measure}"
 

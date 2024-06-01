@@ -53,17 +53,63 @@ def create_sale(request):
         "Categories": Category.objects.all()
     }
 
+    if request.method == 'POST':
+        form = dict(request.POST)
+
+        print(form)
+
+        return render(request, template, context)
+
+
+
     return render(request, template, context)
 
 
 @login_required
 def product_form(request):
 
-    template = "sale/card.html"
+    template = "product_form.html"
 
     if request.method == 'GET':
         attributes = dict(request.GET)
         product = Product.objects.get(id=int(attributes.get('id')[0]))
+
+    context = {
+        'product': product
+            }
+
+    return render(request, template, context)
+
+
+@login_required
+def product_selected_card(request):
+
+    template = "sale/selected_card.html"
+
+    if request.method == 'GET':
+        attributes = dict(request.GET)
+        product = Product.objects.get(id=int(attributes.get('id')[0]))
+
+    context = {
+        'product': product
+            }
+
+    return render(request, template, context)
+
+
+@login_required
+def product_available_card(request):
+
+    template = "sale/available_card.html"
+
+    if request.method == 'GET':
+        attributes = dict(request.GET)
+        key = attributes.get('filtro')[0]
+
+        if key == "none":
+            product = Product.objects.all()
+        else:
+            product = Product.objects.filter(Q(category=key) & Q(available=True) & ~Q(total_amount=0))
 
     context = {
         'product': product

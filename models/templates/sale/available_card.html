@@ -1,0 +1,33 @@
+{% comment %}
+
+#
+#
+# available_card.html
+#
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
+{% endcomment %}
+
+{% load static %}
+
+{% for product in Products %}
+		{% include 'assets/frame.html' with id=product.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  %}
+		<img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" />
+
+		<div class="center mx-3">
+				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}  <a class="button dark is-disabled">{{ product.measure}}{{ product.choosen_measure }}</a></p>
+		</div>
+
+		<p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.category }}</p> 
+		<p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.price }}</p>
+
+		{% include 'assets/input.html' with id=product.available_input type="button" color="dark" width="100" my="2" value="Selecionar" other_classes="has-consequences" hx_get=product.create__card_get_url hx_target="#htmx-target" hx_swap="beforeend" hx_trigger="click" %}
+
+		{% include 'assets/close_frame.html' %}
+{% endfor %}
