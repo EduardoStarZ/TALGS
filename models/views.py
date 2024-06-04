@@ -10,8 +10,8 @@
 #
 #
 
-from django.shortcuts import render
-from .models import Purchase, Stock, Category, Product
+from django.shortcuts import render, redirect
+from .models import Purchase, Stock, Category, Product, Article
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .behaviour import product_sync
@@ -61,7 +61,35 @@ def create_sale(request):
 
         print(len(form))
 
-        return render(request, template, context)
+        keys = []
+
+        for key in form.keys():
+            keys.insert(len(keys), key.replace('amount-', '').replace('id-', ''))
+
+        temp_dict = dict.fromkeys(keys)
+
+        keys = list(temp_dict)
+
+        sale = Purchase(user=user)
+
+        sale.save()
+
+        print(keys)
+        print(len(keys))
+
+        for value in keys:
+            prod_id = form.get('id-'+str(value))[0]
+            amount = form.get('amount-'+str(value))[0]
+
+            selected_stock = Stock.objects.not_due_today().filter(id_product=prod_id).order_by('validity__date')
+
+            stock_instance = Stock.objects.get(id=selected_stock[0].id)
+
+            new_article = Article(id_purchase=sale, id_stock=stock_instance, amount=amount)
+
+            new_article.save()
+
+        return redirect('/')
 
 
 
