@@ -55,8 +55,11 @@ def create_sale(request):
 
     if request.method == 'POST':
         form = dict(request.POST)
+        form.pop('csrfmiddlewaretoken')
 
         print(form)
+
+        print(len(form))
 
         return render(request, template, context)
 
@@ -104,15 +107,22 @@ def product_available_card(request):
 
     if request.method == 'GET':
         attributes = dict(request.GET)
-        key = attributes.get('filtro')[0]
 
-        if key == "none":
-            product = Product.objects.all()
-        else:
-            product = Product.objects.filter(Q(category=key) & Q(available=True) & ~Q(total_amount=0))
+        id = attributes.get('filtro')
+
+        excludents = attributes.get('exclude')
+
+        product = Product.objects.all()
+
+        if id[0] != 'none':
+            product = Product.objects.is_from(id[0])
+
+        if 'exclude' in attributes.keys():
+            for value in excludents:
+                product = product.exclude(id=value)
 
     context = {
-        'product': product
+        'Products': product
             }
 
     return render(request, template, context)

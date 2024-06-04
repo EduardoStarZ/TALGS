@@ -12,7 +12,7 @@
 
 from django.db import models
 from django.db.models import Q
-from .queryset import StockQuerySet
+from .queryset import StockQuerySet, ProductQuerySet
 
 class Category(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -39,6 +39,7 @@ class Product(models.Model):
     available = models.BooleanField(null=False, default=True)
     total_amount = models.PositiveIntegerField(null=False)
     category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    objects = ProductQuerySet().as_manager()
 
     def sync_amount(self):
         stocks = Stock.objects.filter(id_product=self).filter(due=False)
@@ -71,7 +72,7 @@ class Product(models.Model):
         return f"/api/product_form?id={self.id}"
 
     def create__card_get_url(self):
-        return f"/api/sale/card?id={self.id}"
+        return f"/api/sale/selected_card?id={self.id}"
 
     def create__get_card_id_name(self):
         return f"id-{self.id}"

@@ -16,7 +16,7 @@ htmx.onLoad(function(content) {
 		// Creates an event listener to allow for click listening
 		$(".has-consequences").click(function(e){
 				let element_id = $(this).attr('id');
-				let splitter = element_id.split('-')
+				let splitter = element_id.split('-');
 				let buffer = splitter[0];
 
 				switch(buffer) {
@@ -30,6 +30,7 @@ htmx.onLoad(function(content) {
 								$(`#selected-card-${splitter[2]}`).remove();
 								$(`#product-id-${splitter[2]}`).remove();
 								$(`#product-amount-${splitter[2]}`).remove();
+								check_for_frame_changes();
 						}
 								break;
 				}
@@ -37,7 +38,35 @@ htmx.onLoad(function(content) {
 
 })
 
+
+// Clears the whole selected frame
 $("#cancel").click(function() {
+
 		$("#htmx-target").empty();
-		$(".has-consequences").removeClass('hidden');
+		$("htmx-available").empty();
+
+		let id = $('#filtro').children("option:selected").val();
+
+		htmx.ajax('GET', '/api/sale/available_card?filtro='+id, '#htmx-available');
 })
+
+
+// Refreshes the elements supposed to appear on the available frame on the create page, only showing the elements that aren't on the
+// selected frame
+function check_for_frame_changes() {
+
+		elements = document.querySelectorAll("#htmx-target .frame");
+		
+		id = $(event.target).children("option:selected").val();
+
+		let target = `/api/sale/available_card?filtro=${id}`;
+
+		elements.forEach((value) => {
+				target += '&exclude=' + value.id.replace('selected-card-', '')
+		})
+
+		htmx.ajax('GET', target, '#htmx-available');
+}
+
+// event listener for the select element
+htmx.on('#filtro', 'change', check_for_frame_changes);

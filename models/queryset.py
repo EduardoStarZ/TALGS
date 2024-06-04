@@ -13,7 +13,6 @@
 from django.db import models
 import datetime
 
-
 class StockQuerySet(models.QuerySet):
 
     # Queryset method that checks if the due date is the same as today
@@ -37,3 +36,9 @@ class StockQuerySet(models.QuerySet):
         objects = self.filter(validity__date__gte=today)
 
         return objects
+
+
+class ProductQuerySet(models.QuerySet):
+    def is_from(self, category_id):
+
+        return self.filter(category__id=category_id)
