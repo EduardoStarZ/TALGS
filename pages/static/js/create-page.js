@@ -1,6 +1,6 @@
 /*
  *
- * craete-page.js
+ * create-page.js
  *
  * Copyright (c) 2023-2024 (authors)
  *

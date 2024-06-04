@@ -14,4 +14,4 @@
 
 {% endcomment %}
 
-<div hx-get="/api/sale/create" hx-trigger="load"></div>
+<div id="master-frame" hx-get="/api/sale/client" hx-trigger="load" hx-target="this" hx-swap="innerHTML"></div>

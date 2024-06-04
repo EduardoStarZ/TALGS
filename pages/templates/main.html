@@ -1,5 +1,6 @@
 {% extends 'master.html' %}
 
+{% load static %}
 
 
 {% comment %}
@@ -23,6 +24,7 @@
 {% block title %}Principal{% endblock %}
 
 {% block left_buttons %}
+		{% include 'assets/input.html' with value="&#10229;" id="go-back" type="button" mx="2" my="2" color="light" size="medium" other_classes="hidden" %}
 <form method="post" target="_self" action="/auth/logout/">
     {% csrf_token %}
     {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="medium" %}
@@ -59,4 +61,12 @@
         
         {% endif %}
 
+
+		<style>
+				.hidden {
+						display: none;
+				}
+		</style>
+
+		<script src="{% static 'js/main-page.js' %}"></script>
 {% endblock %}

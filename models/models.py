@@ -113,7 +113,7 @@ class Purchase(models.Model):
 
     # Função que retorna os artigos provênientes da instância do produto
     def get_arts(self):
-        return Artigo.objects.filter(Q(id_purchase=self.id))
+        return Article.objects.filter(Q(id_purchase=self.id))
 
     #Função que retorna uma string com o nome do status, ao inves do número do status
     def status_str(self):

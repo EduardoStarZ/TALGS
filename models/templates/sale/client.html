@@ -23,7 +23,7 @@
         </div>
 
         <div class="column is-one-quarter">
-            {% include 'assets/link.html' with text="Novo Pedido" color="light" properties="id='new-request' " float="right" size="medium" %}
+            {% include 'assets/link.html' with text="Novo Pedido" color="light" id="new-request" float="right" size="medium" hx_get="/api/sale/create" hx_target="#master-frame" hx_swap="innerHTML" hx_trigger="click" %}
         </div>
     </div>
 
