@@ -42,7 +42,7 @@
                 <div class="limiter">
 			<p class="is-dark">
 			{% for article in purchase.get_arts %}
-				{{ article.get_art_name }},
+			{{ article.get_art_name }} - {{ article.amount}} {% if article.amount is 1 %}unidade{% else%}unidades{% endif %},
 			{% endfor %}
 			</p>
                 </div>

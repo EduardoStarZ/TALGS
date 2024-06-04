@@ -16,7 +16,6 @@ from . import views
 urlpatterns = [
     path('sale/client', views.sale_client),
     path('sale/create', views.create_sale),
-    path('product_form', views.product_form),
     path('sale/selected_card', views.product_selected_card),
     path('sale/available_card', views.product_available_card)
 ]

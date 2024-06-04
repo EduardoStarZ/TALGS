@@ -87,27 +87,15 @@ def create_sale(request):
 
             new_article = Article(id_purchase=sale, id_stock=stock_instance, amount=amount)
 
+            stock_instance.amount -= int(amount)
+
+            stock_instance.save()
+
             new_article.save()
 
         return redirect('/')
 
 
-
-    return render(request, template, context)
-
-
-@login_required
-def product_form(request):
-
-    template = "product_form.html"
-
-    if request.method == 'GET':
-        attributes = dict(request.GET)
-        product = Product.objects.get(id=int(attributes.get('id')[0]))
-
-    context = {
-        'product': product
-            }
 
     return render(request, template, context)
 
@@ -140,7 +128,7 @@ def product_available_card(request):
 
         excludents = attributes.get('exclude')
 
-        product = Product.objects.all()
+        product = Product.objects.all().filter(~Q(total_amount=0) & Q(available=False))
 
         if id[0] != 'none':
             product = Product.objects.is_from(id[0])
