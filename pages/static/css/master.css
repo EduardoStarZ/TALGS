@@ -39,6 +39,7 @@
 
 html {
     background-color: #725B75 !important;
+		scroll-behavior: smooth !important;
 }
 
 .navbar, .navbar-brand {

@@ -1,0 +1,14 @@
+#
+#
+# create_admin.sh
+# 
+# Copyright (c) 2023-2024 (authors)
+#
+# All rights reserved
+#
+# TALGS is distributed under the () license, see LICENSE for details
+#
+#
+
+./rust-color "Opening admin creation prompt" -blue -bold
+linux/bin/python manage.py createsuperuser
