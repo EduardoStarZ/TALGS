@@ -17,7 +17,7 @@
 {% load static %}
 
 {% for product in Products %}
-		{% include 'assets/frame.html' with id=product.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  %}
+		{% include 'assets/frame.html' with id=product.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  hx_swap="none" %}
 		<img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" />
 
 		<div class="center mx-3">

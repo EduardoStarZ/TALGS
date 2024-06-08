@@ -16,7 +16,7 @@
 
 {% load static %}
 
-{% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target" %}
+{% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target" hx_swap="none" %}
 		<img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" /> 
 		<div class="center mx-3">
 				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}  <a class="button dark is-disabled">{{ product.measure}}{{ product.choosen_measure }}</a></h3>

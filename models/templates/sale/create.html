@@ -17,7 +17,7 @@
 
 {% load static %}
 
-<form method="post" action="/api/sale/create" target="_self">
+<form method="post" action="/api/sale/create" target="_self" hx-swap="none">
 		<div class="columns mb-6">
 				<div class="column">
 						<h1 class="subtitle is-3 is-normal-light ml-6 mb-3" >Produtos Selecionados:</h1>
@@ -37,7 +37,7 @@
 
 </form>
 
-<div class="columns mt-6 mb-6">
+<div class="columns mt-6 mb-6" hx-swap="none">
 		<div class="column">
 				<h2 class="subtitle is-3 is-normal-light ml-6" >Produtos Disponíveis:</h1>
 		</div>
@@ -54,7 +54,7 @@
 </div>
 
 
-{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile" %}
+{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile" hx_swap="none" %}
 
 <div class="grid" id="htmx-available"></div>
 

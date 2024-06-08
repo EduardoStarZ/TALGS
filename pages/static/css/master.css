@@ -178,3 +178,48 @@ div.spacing {
 a.button, input.button, .is-rounded {
     border-radius: 10px !important;
 }
+
+
+
+
+
+
+
+
+*[hx-swap] {
+		animation: animate-in 1s ease-in-out;
+}
+
+@keyframes animate-in {
+		0% {
+				opacity: 0;
+				transform: translateY(10px);
+		}
+
+		100%{
+				opacity: 1;
+				transform: translateY(0);
+		}
+}
+
+#go-back {
+		animation: animate-in-to-left 1s ease-in-out;
+}
+
+#go-back:active {
+		animation: animate-out-to-right 1s ease-in-out;
+}
+
+@keyframes animate-in-to-left {
+		0% {
+				opacity: 0;
+				transform: translateX(-10px);
+				width: 0%;
+		}
+
+		100% {
+				opacity: 1;
+				transform: translateX(0);
+				width: 100%;
+		}
+}

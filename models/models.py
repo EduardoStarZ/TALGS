@@ -81,7 +81,7 @@ class Product(models.Model):
         return f"amount-{self.id}"
 
     def __str__(self):
-        return f"{self.name} - {self.measure}{self.choosen_measure}"
+        return f"{self.id}- {self.name} - {self.measure}{self.choosen_measure}"
 
 
 class Article(models.Model):
@@ -145,7 +145,7 @@ class Purchase(models.Model):
 class Stock(models.Model):
     id = models.BigAutoField(primary_key=True)
     validity = models.DateTimeField(null=False)
-    amount = models.SmallIntegerField(null=False)
+    amount = models.PositiveIntegerField(null=False)
     id_product = models.ForeignKey("Product", on_delete=models.PROTECT)
     lot_number = models.BigIntegerField(null=True)
     due = models.BooleanField(null=False)
