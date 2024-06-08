@@ -62,7 +62,7 @@ def create_sale(request):
         result = purchase_handler(form, user)
 
         if result:
-            return redirect('/')
+            return redirect()
 
     return render(request, template, context)
 

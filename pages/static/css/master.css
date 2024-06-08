@@ -187,7 +187,7 @@ a.button, input.button, .is-rounded {
 
 
 *[hx-swap] {
-		animation: animate-in 1s ease-in-out;
+		animation: animate-in 1200ms ease-in-out;
 }
 
 @keyframes animate-in {
@@ -203,11 +203,7 @@ a.button, input.button, .is-rounded {
 }
 
 #go-back {
-		animation: animate-in-to-left 1s ease-in-out;
-}
-
-#go-back:active {
-		animation: animate-out-to-right 1s ease-in-out;
+		animation: animate-in-to-left 400ms ease-in-out;
 }
 
 @keyframes animate-in-to-left {

@@ -24,10 +24,10 @@
 {% block title %}Principal{% endblock %}
 
 {% block left_buttons %}
-		{% include 'assets/input.html' with value="&#10229;" id="go-back" type="button" mx="2" my="2" color="light" size="medium" other_classes="hidden" %}
+		{% include 'assets/input.html' with value="&#10229;" id="go-back" type="button" mx="2" my="2" color="light" size="medium" other_classes="hidden ml-4" %}
 <form method="post" target="_self" action="/auth/logout/">
     {% csrf_token %}
-    {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="medium" %}
+    {% include 'assets/input.html' with value="Log-Out" mx="2" my="2" color="light" type="submit" size="medium" other_classes="ml-4" %}
 </form>
 {% endblock %}
 
