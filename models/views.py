@@ -70,12 +70,15 @@ def create_sale(request):
 
         keys = list(temp_dict)
 
+        if keys.__len__() == 0:
+            return redirect('/')
+
         sale = Purchase(user=user)
 
         sale.save()
 
         print(keys)
-        print(len(keys))
+        print(keys.__len__())
 
         for value in keys:
             prod_id = form.get('id-'+str(value))[0]
