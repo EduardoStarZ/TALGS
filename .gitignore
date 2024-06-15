@@ -10,12 +10,6 @@
 #
 #
 
-*.pyc
-.vscode
-__pycache__/*
-windows/
-linux/
-cache/
 color/target/
 database/target/
-db.sqlite3
+/target

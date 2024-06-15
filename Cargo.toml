@@ -1,0 +1,11 @@
+[package]
+name = "TALGS"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+askama = "0.12.1"
+diesel = { version = "2.2.1", features = ["sqlite"] }
+ntex = "2.0.1"
+serde = {version = "1.0.203", features = ["derive"]}
+serde_json = "1.0.117"
