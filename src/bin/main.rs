@@ -1,5 +1,7 @@
-use TALGS::index;
-use ntex::web;
+use TALGS::{index, form};
+use TALGS::controller::{login_handler, get_info_handler};
+use ntex::web::{self, middleware::Logger};
+use ntex_session::CookieSession;
 
 #[ntex::main]
 async fn main() -> std::io::Result<()> {
@@ -8,7 +10,12 @@ async fn main() -> std::io::Result<()> {
 
     web::HttpServer::new(|| {
         web::App::new()
+            .wrap(Logger::default())
+            .wrap(CookieSession::signed(&[0; 32]).secure(false))
             .service(index)
+            .service(login_handler)
+            .service(get_info_handler)
+            .service(form)
     })
     .bind((adress, port))?
     .run()
