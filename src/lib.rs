@@ -1,5 +1,6 @@
 pub mod model;
 pub mod controller;
+pub mod encryption;
 
 use ntex::web;
 use askama::Template;
