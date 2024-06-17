@@ -1,10 +1,10 @@
 pub mod model;
 pub mod controller;
 pub mod encryption;
+pub mod parser;
 
 use ntex::web;
 use askama::Template;
-use serde::{Serialize, Deserialize};
 
 #[derive(Template)]
 #[template(path="form.html")]
