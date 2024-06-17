@@ -14,3 +14,6 @@ chrono = "0.4.38"
 ntex-session = "2.0.0"
 rsa = "0.9.6"
 rand = "0.8.5"
+
+[profile.dev.package.num-bigint-dig]
+opt-level = 3
