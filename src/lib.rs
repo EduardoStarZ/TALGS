@@ -1,7 +1,8 @@
-pub mod model;
-pub mod controller;
-pub mod encryption;
-pub mod parser;
+pub mod auth;
+pub mod session;
+pub mod database;
+
+
 
 use ntex::web;
 use askama::Template;

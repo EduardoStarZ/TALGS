@@ -1,5 +1,5 @@
 use TALGS::{index, form};
-use TALGS::controller::{login_handler, get_info_handler};
+use TALGS::session::controller::{login_handler, get_info_handler};
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
 
