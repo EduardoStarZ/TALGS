@@ -2,7 +2,7 @@ use rand::rngs::ThreadRng;
 use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 
 pub struct KeyPair {
-    pub org_rng : ThreadRng,
+    pub rng : ThreadRng,
     pub public_key : RsaPublicKey,
     pub private_key : RsaPrivateKey
 }
@@ -19,7 +19,7 @@ pub fn create_keys(bits : usize) -> Option<KeyPair> {
 
     let pub_key : RsaPublicKey = RsaPublicKey::from(&priv_key);
 
-    return Some(KeyPair { org_rng: rng, public_key: pub_key, private_key: priv_key})
+    return Some(KeyPair { rng, public_key: pub_key, private_key: priv_key})                            
 }
 
 pub fn encrypt(data : &String, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -> Option<Vec<u8>> {
