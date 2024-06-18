@@ -16,4 +16,4 @@ with_docs = true
 filter = { only_tables = ["keys"] }
 
 [migrations_directory]
-dir = "/home/EduardoStarZ/apps/rust/TALGS/migrations"
+dir = "migrations/"
