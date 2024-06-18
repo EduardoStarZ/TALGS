@@ -1,7 +1,7 @@
 pub mod auth;
 pub mod session;
 pub mod database;
-
+pub mod schema;
 
 
 use ntex::web;

@@ -1,6 +1,6 @@
 use jsonwebtoken::{encode, DecodingKey, EncodingKey, Header, Validation, decode};
 use ntex::web;
-use crate::model::{Claims, LoginInfo, LoginResponse};
+use crate::session::model::{Claims, LoginInfo, LoginResponse};
 use ntex_session::Session;
 
 #[web::post("/login")]
