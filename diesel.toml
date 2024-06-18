@@ -10,5 +10,10 @@ file = "src/schema/auth.rs"
 with_docs = true
 filter = { only_tables = ["users", "groups"] }
 
+[print_schema.key]
+file = "src/schema/key.rs"
+with_docs = true
+filter = { only_tables = ["keys"] }
+
 [migrations_directory]
 dir = "/home/EduardoStarZ/apps/rust/TALGS/migrations"
