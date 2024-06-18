@@ -1,4 +1,4 @@
-use serde:{Serialize, Deserialize};
+use serde::{Serialize, Deserialize};
 
 #[derive(Deserialize)]
 pub struct LoginInfo {
