@@ -3,6 +3,8 @@ use crate::schema::auth::users;
 use super::models::Crud;
 use super::models::ResultCode;
 
+
+///A struct defined for CRUD implementations of the users table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = users)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -13,6 +15,8 @@ pub struct User {
     pub group : i32,
     pub cpf : String
 }
+
+
 
 impl Crud for User {
     fn create(&self, connection : &mut SqliteConnection) -> Option<ResultCode> { 

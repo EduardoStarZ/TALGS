@@ -3,6 +3,8 @@ use crate::schema::key::key;
 use super::models::Crud;
 use super::models::ResultCode;
 
+
+///A struct defined to allow for CRUD implementations of the keys table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = key)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
