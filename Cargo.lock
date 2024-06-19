@@ -3,24 +3,6 @@
 version = 3
 
 [[package]]
-name = "TALGS"
-version = "0.1.0"
-dependencies = [
- "askama",
- "chrono",
- "diesel",
- "dotenvy",
- "jsonwebtoken",
- "ntex",
- "ntex-session",
- "r2d2",
- "rand",
- "rsa",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "aead"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2109,6 +2091,24 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "talgs"
+version = "0.1.0"
+dependencies = [
+ "askama",
+ "chrono",
+ "diesel",
+ "dotenvy",
+ "jsonwebtoken",
+ "ntex",
+ "ntex-session",
+ "r2d2",
+ "rand",
+ "rsa",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
