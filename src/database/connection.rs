@@ -1,7 +1,10 @@
 use diesel::{Connection, SqliteConnection};
 use std::env;
+use dotenvy::dotenv;
 
 pub fn create_connection_to_auth() -> SqliteConnection {
+    dotenv().ok();
+
     let database_url = match env::var("AUTH_URL") {
         Ok(value) => value,
         Err(err) => {
