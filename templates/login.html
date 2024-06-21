@@ -1,4 +1,4 @@
-{% extends 'master.html' %}
+{% extends "master.html" %}
 
 {% comment %}
 
@@ -16,8 +16,6 @@
 
 {% endcomment %}
 
-
-{% load widget_tweaks %}
 
 {% block title %}Login{% endblock %}
 
@@ -37,9 +35,9 @@
             
             {% include 'assets/frame.html' with color="dark" width="80" height="auto" shadow="no" my="5" %}
                 <label for="nome">Nome de Usuário</label>
-                {% render_field form.username name="nome" id="nome" class="input is-normal normal w-100 h-auto center my-4" placeholder="Insira seu nome de usuário" autocomplete="off"  %}
+                {% include "assets/input.html" with name="email" id="email" type="email" size="normal" my="4" width="100" height="auto" placeholder="Insira seu email" autocomplete="off"  %}
                 <label for="password">Senha</label>
-                {% render_field form.password name="password" id="password" class="input is-normal normal w-100 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off"  %}
+                {% include "assets/input.html" with name="password" id="password" type="password" size="normal" my="4" width="100" height="auto" placeholder="Insira sua senha" autocomplete="off"  %}
             {% include 'assets/close_frame.html'%}
             
             <div class="joiner">

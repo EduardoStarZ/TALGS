@@ -14,6 +14,7 @@ pub mod auth;
 pub mod session;
 pub mod database;
 pub mod schema;
+pub mod views;
 
 
 use ntex::web;

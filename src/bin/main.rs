@@ -33,7 +33,7 @@ async fn main() -> std::io::Result<()> {
             .state(app_pool.clone())
             .state(auth_pool.clone())
             .wrap(Logger::default())
-            .wrap(CookieSession::signed(&[0; 32]).secure(false))
+            .wrap(CookieSession::signed(&[0; 32]).secure(true))
             .service(index)
             .service(login_handler)
             .service(get_info_handler)
