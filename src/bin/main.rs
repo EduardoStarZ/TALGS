@@ -15,7 +15,7 @@ use talgs::session::controller::{login_handler, get_info_handler};
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
-
+use ntex_files as fs;
 
 ///This is the main function of the cargo project
 #[ntex::main]
@@ -38,6 +38,11 @@ async fn main() -> std::io::Result<()> {
             .service(login_handler)
             .service(get_info_handler)
             .service(form)
+            .service(fs::Files::new("/static", "static/").show_files_listing())
+            .service( 
+                web::scope("/auth")
+                .service(talgs::views::auth::login)
+                ) 
     })
     .bind((adress, port))?
     .run()

@@ -18,19 +18,24 @@ a.button {
     font-weight: 700 !important;
 }
 
-a.light {
+input.color-normal {
+    background-color: #C1A2A0 !important;
+    color: #322030 !important;
+}
+
+a.color-light {
     color: #322030 !important;
     background-color: #E3CEBD !important;
     height: fit-content !important;
 }
 
-a.dark {
+a.color-dark {
     color: #FCFDEB !important;
     background-color: #322030 !important;
 	height: fit-content !important;
 }
 
-a.gray {
+a.color-gray {
     color: #FCFDEB !important;
     background-color: #6A6179 !important;
     height: fit-content !important;

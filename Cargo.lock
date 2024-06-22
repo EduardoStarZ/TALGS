@@ -1089,6 +1089,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "language-tags"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d4345964bb142484797b161f473a503a434de77149dd8c7427788c6e13379388"
+
+[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1277,6 +1283,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69a7e111d946bb915d712df496728ca2a120b1b5643f66c580f13023bce46fda"
 dependencies = [
  "ntex-bytes",
+]
+
+[[package]]
+name = "ntex-files"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c37d129e1b93c30c12fe7f7ce3e1770ce7a9d11c5a7dcf1264a8ade8e254db41"
+dependencies = [
+ "bitflags 2.5.0",
+ "derive_more",
+ "futures",
+ "http",
+ "httpdate",
+ "language-tags",
+ "log",
+ "mime",
+ "mime_guess",
+ "ntex",
+ "ntex-http",
+ "percent-encoding",
+ "unicase",
+ "v_htmlescape",
 ]
 
 [[package]]
@@ -2103,6 +2131,7 @@ dependencies = [
  "dotenvy",
  "jsonwebtoken",
  "ntex",
+ "ntex-files",
  "ntex-session",
  "r2d2",
  "rand",
@@ -2214,6 +2243,12 @@ name = "untrusted"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
+
+[[package]]
+name = "v_htmlescape"
+version = "0.15.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4e8257fbc510f0a46eb602c10215901938b5c2a7d5e70fc11483b1d3c9b5b18c"
 
 [[package]]
 name = "value-bag"

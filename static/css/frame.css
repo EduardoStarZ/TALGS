@@ -24,19 +24,19 @@
     box-shadow: none;
 }
  
-.normal {
+.bg-normal {
     background-color: #C1A2A0;
 }
 
-.light {
+.bg-light {
     background-color: #E3CEBD;
 }
 
-.dark {
+.bg-dark {
     background-color: #322030;
 }
 
-.gray{
+.bg-gray{
     background-color: #6A6179;
 }
 

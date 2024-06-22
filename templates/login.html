@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
-{% comment %}
-
+{#
+#
 #
 #
 # login.html
@@ -13,53 +13,52 @@
 # TALGS is distributed under the GNU General Public license v2, see LICENSE for details
 #
 #
-
-{% endcomment %}
+#
+#}
 
 
 {% block title %}Login{% endblock %}
 
 {% block left_buttons %}
-    {% include 'assets/link.html' with color="light" mx="2" size="normal" text="Registrar-se" href="/auth/register" %}
+<a class="button color-light is-normal mx-2 is-responsive" href="/auth/register">Registrar-se</a>
 {% endblock %}
 
 {% block nav_burger %}
-    {% include 'navbar-burger.html' %}
+{% include "navbar-burger.html" %}
 {% endblock %}
 
 {% block body %}
-    {% include 'assets/frame.html' with color="dark" width="90" height="80" %}
-        <form method="post">
-            {% csrf_token %}
-            <p class="title is-3 center">Login</p>    
-            
-            {% include 'assets/frame.html' with color="dark" width="80" height="auto" shadow="no" my="5" %}
-                <label for="nome">Nome de Usuário</label>
-                {% include "assets/input.html" with name="email" id="email" type="email" size="normal" my="4" width="100" height="auto" placeholder="Insira seu email" autocomplete="off"  %}
-                <label for="password">Senha</label>
-                {% include "assets/input.html" with name="password" id="password" type="password" size="normal" my="4" width="100" height="auto" placeholder="Insira sua senha" autocomplete="off"  %}
-            {% include 'assets/close_frame.html'%}
-            
-            <div class="joiner">
-                {% include 'assets/input.html' with color="gray" value="Limpar campos" mx="1" other_classes="fit-space" type="reset" %}
-                {% include 'assets/input.html' with color="light" value="Login" mx="1"  other_classes="fit-space" type="submit" %}
-            </div>
-        </form>
+<div class="frame bg-dark w-90 h-100">
+		<form method="post">
+				<h1 class="title is-1 center">Login</h1>    
+				<div class="my-6"></div>
+						<center><label class="subtitle is-5 " for="nome">E-mail</label></center>
+						<input name="email" id="email" type="email" class="input is-medium color-normal my-4 w-80 h-auto is-responsive mx-4 center" placeholder="Insira seu email" autocomplete="off" /> <br/>
 
-        <style>
-            input.button {
-                width: 45% !important;
-                margin: 0 auto;
-            }
+						<center><label class="subtitle is-5 " for="password">Senha</label></center>
+						<input name="password" id="password" type="password" class="input is-medium mx-4 color-normal my-4 w-80 h-auto is-responsive center" placeholder="Insira sua senha" autocomplete="off" />
+				<div class="my-6"></div>
+				<div class="joiner">
+						<input class="button is-medium color-gray fit-space mx-1" value="Limpar" type="reset" />
+						<input value="Entrar" class="button is-medium mx-1 fit-space color-light" type="submit" />
+				</div>
+		</form>
 
-            .joiner {
-                width: 80%;
-                height: fit-content;
-                margin: 0 auto;
-                text-align: center;
-            }
-        </style>
+		<style>
+				input.button {
+						width: 45% !important;
+						margin: 0 auto;
+				}
 
-    {%include 'assets/close_frame.html'%}
-    
+				.joiner {
+						width: 80%;
+						height: fit-content;
+						margin: 0 auto;
+						text-align: center;
+				}
+
+		</style>
+
+</div>
+
 {% endblock %}

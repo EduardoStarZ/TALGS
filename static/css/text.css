@@ -19,27 +19,27 @@
     font-family: JetBrainsMono !important;
 }
 
-.is-dark {
+.text-dark {
     color: #322030 !important;
 }
 
-.is-light {
+.text-light {
     color: #FCFDEB !important;
 }
 
-.is-normal {
+.text-normal {
     color: #C1A2A0 !important;
 }
 
-.is-normal-light {
+.text-normal-light {
     color: #E3CEBD !important;
 }
 
-.is-light-gray {
+.text-light-gray {
     color: #ACA8B3 !important;
 }
 
-.is-gray {
+.text-gray {
     color: #6A6179 !important;
 }
 
@@ -48,14 +48,13 @@
     margin-right: auto !important;
 }
 
-is-lighter {
+.text-lighter {
     font-weight: lighter;
 }
-
-is-bold {
+.text-bold {
     font-weight: bold;
 }
 
-is-bolder {
+.text-bolder {
     font-weight: bolder;
 }

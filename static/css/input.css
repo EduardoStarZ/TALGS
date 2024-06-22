@@ -35,22 +35,22 @@ input.center {
     margin-right: auto !important;
 }
 
-input.normal {
+input.color-normal {
     background-color: #C1A2A0 !important;
     color: #322030 !important;
 }
 
-input.light {
+input.color-light {
     background-color: #E3CEBD !important;
     color: #322030 !important;
 }
 
-input.dark {
+input.color-dark {
     background-color: #322030 !important;
     color: #EEEEEE !important;
 }
 
-input.gray {
+input.color-gray {
     background-color: #6A6179 !important;
     color: #EEEEEE !important;
 }
