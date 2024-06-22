@@ -17,49 +17,45 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    {% include "head-meta.html" %}
-    <title>T.A.L.G.S - {% block title %}{% endblock %}</title>
-</head>
+		<head>
+				{% include "head-meta.html" %}
+				<title>T.A.L.G.S - {% block title %}{% endblock %}</title>
+		</head>
 
-<body>
-    
-    <nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
-        
-        <div class="navbar-brand">
-            <div class="navbar-center-mobile">
-                <p class="title is-light-gray is-5">T.A.L.G.S</p>
-            </div>
-            {% block nav_burger %}{% endblock %}
-        </div>
-        
-        <div class="navbar-menu">
-            <div id="left-buttons" class="navbar-start">
-                {% block left_buttons %}
-                {% endblock %}
-            </div>
-        </div>
-        
-        <div class="navbar-center my-4 center">
-            <p class="title is-light-gray is-5">T.A.L.G.S</p>
-        </div>
+		<body>
 
-        <div class="navbar-menu">
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div id="right-buttons" class="buttons">
-                        {% block right_buttons %}
-                        {% endblock %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+				<nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
 
-    <div class="spacing"></div>
+						<div class="navbar-menu">
+								<div class="navbar-start">
+										<div class="navbar-item">
+												<div id="left-buttons" class="buttons">
+														{% block left_buttons %}
+														{% endblock %}
+												</div>
+										</div>
+								</div>
+						</div>
 
-    {% block body %}
-    {% endblock %}
-</body>
+						<p class="title is-light-gray is-4 my-4 mx-4">T.A.L.G.S</p>
+
+						<div class="navbar-menu">
+								<div class="navbar-end">
+										<div class="navbar-item">
+												<div id="right-buttons" class="buttons">
+														{% block right_buttons %}
+														{% endblock %}
+												</div>
+										</div>
+								</div>
+						</div>
+						{% block nav_burger %}{% endblock %}
+				</nav>
+
+				<div class="spacing"></div>
+
+				{% block body %}
+				{% endblock %}
+		</body>
 
 </html>
