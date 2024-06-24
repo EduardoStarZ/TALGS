@@ -1,0 +1,67 @@
+{% extends "master.html" %}
+
+
+{#
+#
+#
+#
+# create_account.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+{% block title %}Criar uma conta{% endblock %}
+
+{% block left_buttons %}
+<a class="button is-normal color-light mx-2" href="/auth/login">Login</a>
+{% endblock %}
+
+{% block body %}
+<div class="frame w-80 bg-dark h-auto">
+        <form id="register" method="post">
+            <h1 class="title is-1 center">Registrar-se</h1>    
+           
+		<div class="my-6"></div>
+
+			<center><label class="subtitle is-5" for="old_pass">Email:</label></center>
+				<input name="email" id="email" class="input is-medium color-normal my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira seu email" autocomplete="off" />
+                
+				<center><label class="subtitle is-5" for="new_password1">Senha:</label></center>
+				<input name="password1" id="password_declare" class="input is-medium color-normal mx-4 is-responsive w-80 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off" />
+
+				<center><label class="subtitle is-5" for="new_password2">Confirme a senha:</label></center>
+				<input name="password2" id="password_confirmation" class="input is-medium mx-4 color-normal w-80 h-auto is-responsive center my-4" placeholder="Insira sua senha" autocomplete="off" />
+            
+		<div class="my-6"></div>
+            <div class="joiner">
+					<input type="reset" value="Limpar" class="button is-medium color-gray mx-1 fit-space" />
+					<input type="submit" value="Criar conta" class="button is-medium mx-1 color-light fit-space" />
+            </div>
+        </form>
+
+</div>
+        
+        <style>
+            input.button {
+                width: 45% !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .joiner {
+                width: 80%;
+                height: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+        </style>
+
+{% endblock %}

@@ -11,7 +11,7 @@
  * */
 
 use talgs::{index, form};
-use talgs::session::controller::{login_handler, get_info_handler};
+use talgs::session::controller::get_info_handler;
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
@@ -19,13 +19,13 @@ use ntex_files as fs;
 
 ///This is the main function of the cargo project
 #[ntex::main]
-async fn main() -> std::io::Result<()> {
+pub async fn main() -> std::io::Result<()> {
     let adress : &str = "127.0.0.1";
     let port : u16 = 8080;
 
-    let key_pool = KeyPool {create_pool(create_connection("key.sqlite3"))};
-    let app_pool = AppPool {create_pool(create_connection("app.sqlite3"))};
-    let auth_pool = AuthPool {create_pool(create_connection("auth.sqlite3"))};
+    let key_pool = KeyPool {pool: create_pool(create_connection("key.sqlite3"))};
+    let app_pool = AppPool {pool: create_pool(create_connection("app.sqlite3"))};
+    let auth_pool = AuthPool {pool: create_pool(create_connection("auth.sqlite3"))};
 
     web::HttpServer::new(move || {
         web::App::new()
@@ -35,14 +35,15 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(true))
             .service(index)
-            .service(login_handler)
             .service(get_info_handler)
             .service(form)
             .service(fs::Files::new("/static", "static/").show_files_listing())
             .service( 
                 web::scope("/auth")
                 .service(talgs::views::auth::login)
-                ) 
+                .service(talgs::views::auth::login_form)
+                .service(talgs::views::auth::register)
+            )
     })
     .bind((adress, port))?
     .run()

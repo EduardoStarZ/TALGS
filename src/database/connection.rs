@@ -16,14 +16,17 @@ use r2d2::Pool;
 
 pub type DbPool = r2d2::Pool<r2d2::ConnectionManager<SqliteConnection>>;
 
+#[derive(Clone)]
 pub struct KeyPool {
     pub pool : DbPool
 }
 
+#[derive(Clone)]
 pub struct AuthPool {
     pub pool : DbPool
 }
 
+#[derive(Clone)]
 pub struct AppPool {
     pub pool : DbPool
 }
