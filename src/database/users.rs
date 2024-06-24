@@ -11,8 +11,8 @@
  * */
 
 use diesel::prelude::*;
+use diesel::query_dsl::methods::FilterDsl;
 use crate::schema::auth::users;
-use super::models::Crud;
 use super::models::ResultCode;
 
 
@@ -25,74 +25,71 @@ pub struct User {
     pub name : String,
     pub password : String,
     pub group : i32,
-    pub cpf : String
+    pub email : String
+}
+
+pub fn create(user : &User, connection : &mut SqliteConnection) -> Option<ResultCode> { 
+    match exists(&user.email, connection) {
+        Some(value) => return Some(value),
+        None => (),
+    }
+
+    match diesel::insert_into(users::table)
+        .values(user)
+        .execute(connection) {
+            Ok(_) => None,
+            Err(err) => {
+    eprintln!("Error with the database: {err}");
+                return Some(ResultCode::ConnectionError);
+            }
+        }
+}
+
+pub fn exists(email: &String, connection : &mut SqliteConnection) -> Option<ResultCode> {
+    let q_users : Vec<User> = match users::table
+        .filter(users::email.eq(email))
+        .select(User::as_select())
+        .load(connection) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Error with the database: {err}");
+                return Some(ResultCode::ConnectionError);
+            }
+        };
+
+    return match q_users.is_empty() {
+        true => None,
+        false => Some(ResultCode::Exists)
+    }
+
+}
+
+pub fn update(user : &User, connection : &mut SqliteConnection) -> Option<ResultCode> {
+    match exists(&user.email, connection) {
+        Some(value) => {
+            match value {
+                ResultCode::Exists => (),
+                _ => return Some(value)
+            }
+        },
+        None => return Some(ResultCode::ValueError)
+    }
+
+    match diesel::update(users::table)
+        .filter(users::id.eq(user.id))
+        .set(user)
+        .execute(connection) {
+            Ok(_) => None,
+            Err(err) => {
+                eprintln!("Error with the database: {err}");
+                Some(ResultCode::ConnectionError)
+            }
+        }
 }
 
 
-
-impl Crud for User {
-    fn create(&self, connection : &mut SqliteConnection) -> Option<ResultCode> { 
-        match self.exists(connection) {
-            Some(value) => return Some(value),
-            None => (),
-        }
-        
-        match diesel::insert_into(users::table)
-            .values(self)
-            .execute(connection) {
-                Ok(_) => None,
-                Err(err) => {
-                    eprintln!("Error with the database: {err}");
-                    return Some(ResultCode::ConnectionError);
-                }
-            }
-    }
-
-    fn exists(&self, connection : &mut SqliteConnection) -> Option<ResultCode> {
-        let q_users : Vec<User> = match users::table
-            .filter(users::id.eq(self.id))
-            .select(User::as_select())
-            .load(connection) {
-                Ok(value) => value,
-                Err(err) => {
-                    eprintln!("Error with the database: {err}");
-                    return Some(ResultCode::ConnectionError);
-                }
-            };
-
-        return match q_users.is_empty() {
-            true => None,
-            false => Some(ResultCode::Exists)
-        }
-
-    }
-
-    fn update(&self, connection : &mut SqliteConnection) -> Option<ResultCode> {
-        match self.exists(connection) {
-            Some(value) => {
-                match value {
-                    ResultCode::Exists => (),
-                    _ => return Some(value)
-                }
-            },
-            None => return Some(ResultCode::ValueError)
-        }
-
-        match diesel::update(users::table)
-            .filter(users::id.eq(self.id))
-            .set(self)
-            .execute(connection) {
-                Ok(_) => None,
-                Err(err) => {
-                    eprintln!("Error with the database: {err}");
-                    Some(ResultCode::ConnectionError)
-                }
-            }
-    }
-
-
-fn delete(&self, connection : &mut SqliteConnection) -> Option<ResultCode> {
-    match self.exists(connection) {
+pub fn delete(user : &User, connection : &mut SqliteConnection) -> Option<ResultCode> {
+    match exists(&user.email, connection) {
         Some(value) => {
             match value {
                 ResultCode::Exists => (),
@@ -102,14 +99,36 @@ fn delete(&self, connection : &mut SqliteConnection) -> Option<ResultCode> {
         None => return Some(ResultCode::ValueError)
     }
 
-    match diesel::delete((users::table).filter(users::id.eq(self.id)))
+    match diesel::delete((users::table).filter(users::id.eq(&user.id)))
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
                 eprintln!("Error with the database : {err}");
                 Some(ResultCode::ConnectionError)
             } 
-    }
+        }
 }
 
+pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> {
+    match exists(&email, connection) {
+        Some(value) => {
+            match value {
+                ResultCode::Exists => (),
+                    _ => return None
+            }
+        },
+        None => return None
+    }
+
+    let users : Vec<User> = match users::table
+        .filter(users::email.eq(email))
+        .select(User::as_select())
+        .load(connection) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Error with the database: {err}");
+            }
+        };
+
+    return Some(users[0]);
 }

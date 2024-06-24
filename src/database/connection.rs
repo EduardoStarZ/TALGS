@@ -14,6 +14,7 @@ use diesel::SqliteConnection;
 use diesel::r2d2::{self, ConnectionManager};
 use r2d2::Pool;
 
+pub type DbPool = r2d2::Pool<r2d2::ConnectionManager<SqliteConnection>>;
 
 ///Function that takes up a static string reference as a path to a sqlite file and creates a
 ///connection manager
