@@ -17,7 +17,7 @@ use crate::{auth::{encryption, parser}, database::{keys::{self, Keys}, models::R
 use ntex_session::Session;
 use super::model::LoginResponse;
 
-pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection: &mut SqliteConnection, key_connection : &mut SqliteConnection) -> LoginResponse {
+pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection: &mut SqliteConnection, key_connection : &mut SqliteConnection) -> Result<LoginResponse, diesel::result::Error> {
 
     let email : &String = &login_info.email;
 
@@ -30,13 +30,13 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
             Ok(token) => token,
             Err(e) => { 
                 eprintln!("Error generating token: {e}");
-                return LoginResponse { token: None, result: Some(ResultCode::ValueError)};
+                return Ok(LoginResponse { token: None, result: Some(ResultCode::ValueError)});
             }
         };
 
-        return LoginResponse{token: Some(token), result: None};
+        return Ok(LoginResponse{token: Some(token), result: None});
     };
-    return LoginResponse {token: None, result: Some(ResultCode::UnauthorizedError)};
+    return Ok(LoginResponse {token: None, result: Some(ResultCode::UnauthorizedError)});
 }
 
 #[web::get("/info")]
