@@ -11,7 +11,6 @@
  * */
 
 use diesel::prelude::*;
-use diesel::query_dsl::methods::FilterDsl;
 use crate::schema::auth::users;
 use super::models::ResultCode;
 
@@ -120,15 +119,18 @@ pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> 
         None => return None
     }
 
-    let users : Vec<User> = match users::table
+    let mut users : Vec<User> = match users::table
         .filter(users::email.eq(email))
         .select(User::as_select())
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
                 eprintln!("Error with the database: {err}");
+                return None;
             }
         };
 
-    return Some(users[0]);
+    users.reverse();
+
+    return users.pop();
 }

@@ -107,18 +107,8 @@ pub fn exists(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode
 }
 
 pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
-    match exists(id, connection) {
-        Some(value) => {
-            match value {
-                ResultCode::Exists => (),
-                _ => return None
-            }
-        },
-        None => return None
-    }
-
-    let keys : Vec<Keys> = match key::table
-        .filter(key::id.eq(id))
+    let mut keys : Vec<Keys> = match key::table
+        .filter(key::user_id.eq(id))
         .select(Keys::as_select())
         .load(connection) {
             Ok(value) => value,
@@ -128,5 +118,7 @@ pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
             }
         };
 
-    return Some(keys[0]);
+    keys.reverse();
+
+    return keys.pop();
 }

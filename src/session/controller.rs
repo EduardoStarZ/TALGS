@@ -10,36 +10,33 @@
  * 
  * */
 
+use diesel::SqliteConnection;
 use jsonwebtoken::{encode, DecodingKey, EncodingKey, Header, Validation, decode};
 use ntex::web;
-use crate::session::model::{Claims, LoginInfo, LoginResponse};
+use crate::{auth::{encryption, parser}, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, session::model::{Claims, LoginInfo}};
 use ntex_session::Session;
+use super::model::LoginResponse;
 
-#[web::post("/login")]
-pub async fn login_handler(session : Session, login_info : web::types::Form<LoginInfo>, request : web::HttpRequest) -> web::HttpResponse {
+pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection: &mut SqliteConnection, key_connection : &mut SqliteConnection) -> LoginResponse {
 
-    println!("{request:?}");
-
-    let username : &String = &login_info.username;
+    let email : &String = &login_info.email;
 
     let password : &String = &login_info.password;
 
-    if is_valid(username, password) {
-        let claims : Claims = Claims { sub : username.clone(), exp: (chrono::Utc::now() + chrono::Duration::hours(1)).timestamp() as usize};
+    if is_valid(email, password, auth_connection, key_connection) {
+        let claims : Claims = Claims { sub : email.clone(), exp: (chrono::Utc::now() + chrono::Duration::hours(1)).timestamp() as usize};
         let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())) {                               
             
             Ok(token) => token,
             Err(e) => { 
                 eprintln!("Error generating token: {e}");
-                return web::HttpResponse::InternalServerError().finish();
+                return LoginResponse { token: None, result: Some(ResultCode::ValueError)};
             }
         };
 
-        session.set("Auth-Token", &token).unwrap();
-
-        return web::HttpResponse::Ok().body(LoginResponse{token}.token);
+        return LoginResponse{token: Some(token), result: None};
     };
-    return web::HttpResponse::Unauthorized().finish();
+    return LoginResponse {token: None, result: Some(ResultCode::UnauthorizedError)};
 }
 
 #[web::get("/info")]
@@ -67,6 +64,19 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
     return web::HttpResponse::Unauthorized().finish();
 }
 
-fn is_valid(username : &str, password : &str) -> bool {
-    username != "" && password != ""
+fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_conn : &mut SqliteConnection) -> bool {
+    let user : User = match users::get(&email.to_string(), auth_conn) {
+        Some(value) => value,
+        None => return false
+    };
+
+    let keys : Keys = match keys::get(&user.id, key_conn) {
+        Some(value) => value,
+        None => return false
+    };
+
+    let encoded_priv_key = encryption::str_to_private_key(&keys.private_key).unwrap();
+    
+    let dec_password : String = encryption::decrypt(&parser::unspaced_hex_str_to_u8_vec(&user.password), &encoded_priv_key).unwrap();       
+    dec_password == password
 }

@@ -11,16 +11,18 @@
  * */
 
 use serde::{Serialize, Deserialize};
+use crate::database::models::ResultCode;
 
 #[derive(Deserialize)]
 pub struct LoginInfo {
-    pub username : String,
+    pub email : String,
     pub password : String
 }
 
 #[derive(Serialize)]
 pub struct LoginResponse {
-    pub token : String
+    pub token : Option<String>,
+    pub result: Option<ResultCode>
 }
 
 #[derive(Serialize, Deserialize)]
