@@ -16,6 +16,18 @@ use r2d2::Pool;
 
 pub type DbPool = r2d2::Pool<r2d2::ConnectionManager<SqliteConnection>>;
 
+pub struct KeyPool {
+    pub pool : DbPool
+}
+
+pub struct AuthPool {
+    pub pool : DbPool
+}
+
+pub struct AppPool {
+    pub pool : DbPool
+}
+
 ///Function that takes up a static string reference as a path to a sqlite file and creates a
 ///connection manager
 pub fn create_connection(db_url : &str) -> ConnectionManager<SqliteConnection> {

@@ -23,9 +23,9 @@ async fn main() -> std::io::Result<()> {
     let adress : &str = "127.0.0.1";
     let port : u16 = 8080;
 
-    let key_pool = create_pool(create_connection("key.sqlite3"));
-    let app_pool = create_pool(create_connection("app.sqlite3"));
-    let auth_pool = create_pool(create_connection("auth.sqlite3"));
+    let key_pool = KeyPool {create_pool(create_connection("key.sqlite3"))};
+    let app_pool = AppPool {create_pool(create_connection("app.sqlite3"))};
+    let auth_pool = AuthPool {create_pool(create_connection("auth.sqlite3"))};
 
     web::HttpServer::new(move || {
         web::App::new()
