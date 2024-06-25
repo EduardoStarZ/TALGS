@@ -17,6 +17,7 @@ rand = "0.8.5"
 dotenvy = "0.15.7"
 r2d2 = "0.8.10"
 ntex-files = "2.0.0"
+colored = "2.1.0"
 
 [profile.dev.package.num-bigint-dig]
 opt-level = 3

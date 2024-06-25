@@ -15,7 +15,7 @@ pub mod session;
 pub mod database;
 pub mod schema;
 pub mod views;
-
+pub mod colors;
 
 use ntex::web;
 use askama::Template;
