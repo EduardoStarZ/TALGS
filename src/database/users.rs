@@ -11,6 +11,7 @@
  * */
 
 use diesel::prelude::*;
+use rand::{thread_rng, Rng};
 use crate::schema::auth::users;
 use super::models::ResultCode;
 
@@ -133,4 +134,25 @@ pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> 
     users.reverse();
 
     return users.pop();
+}
+
+pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
+    let new : i32 = thread_rng().gen::<i32>();
+
+     let users : Vec<User> = match users::table
+        .filter(users::id.eq(new))
+        .select(User::as_select())
+        .load(auth_conn) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Error with the database: {err}");
+                return new_id(auth_conn);
+            }
+        };
+
+     if !users.is_empty() {
+        return new_id(auth_conn);
+     }
+
+     return new;
 }

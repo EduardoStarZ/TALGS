@@ -13,7 +13,7 @@
 use diesel::prelude::*;
 use crate::schema::key::key;
 use super::models::ResultCode;
-
+use rand::{thread_rng, Rng};
 
 ///A struct defined to allow for CRUD implementations of the keys table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
@@ -121,4 +121,25 @@ pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
     keys.reverse();
 
     return keys.pop();
+}
+
+pub fn new_id(key_conn : &mut SqliteConnection) -> i32 {
+    let new : i32 = thread_rng().gen::<i32>();
+
+     let keys : Vec<Keys> = match key::table
+        .filter(key::id.eq(new))
+        .select(Keys::as_select())
+        .load(key_conn) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Error with the database: {err}");
+                return new_id(key_conn);
+            }
+        };
+
+     if !keys.is_empty() {
+        return new_id(key_conn);
+     }
+
+     return new;
 }

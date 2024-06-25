@@ -30,3 +30,11 @@ pub struct Claims {
     pub sub : String,
     pub exp : usize
 }
+
+#[derive(Deserialize, CLone, Copy)]
+pub struct RegisterForm {
+    pub username: String,
+    pub email: String,
+    pub password1: String,
+    pub password2: String
+}
