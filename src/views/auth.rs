@@ -13,7 +13,9 @@ struct LoginTemplate{}
 struct RegisterTemplate{}
 
 #[web::post("/login")]
-pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPool>, key_pool : web::types::State<KeyPool>, form : web::types::Form<LoginInfo>) -> web::HttpResponse {
+pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPool>, key_pool : web::types::State<KeyPool>, form : web::types::Form<LoginInfo>, request: web::HttpRequest) -> web::HttpResponse {
+    println!("{request:?}");
+
     let mut auth_connection = match auth_pool.pool.get() {
         Ok(value) => value,
         Err(err) => {
@@ -53,17 +55,21 @@ pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPoo
 }
 
 #[web::get("/login")]
-pub async fn login() -> web::HttpResponse {
+pub async fn login(request: web::HttpRequest) -> web::HttpResponse {
+   println!("{request:?}");
     return web::HttpResponse::Ok().body(LoginTemplate{}.render().unwrap());
 }
 
 #[web::get("/register")]
-pub async fn register() -> web::HttpResponse {
+pub async fn register(request: web::HttpRequest) -> web::HttpResponse {
+    println!("{request:?}");
     return web::HttpResponse::Ok().body(RegisterTemplate{}.render().unwrap());
 }
 
 #[web::post("/register")]
-pub async fn register_form(form : web::types::Form<RegisterForm>, auth_pool : web::types::State<AuthPool>,key_pool : web::types::State<KeyPool>) -> web::HttpResponse {
+pub async fn register_form(form : web::types::Form<RegisterForm>, auth_pool : web::types::State<AuthPool>,key_pool : web::types::State<KeyPool>, request: web::HttpRequest) -> web::HttpResponse {
+    println!("{request:?}");
+
     if form.password1 != form.password2 {
         return web::HttpResponse::Unauthorized().body(RegisterTemplate{}.render().unwrap())
     }

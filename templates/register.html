@@ -23,6 +23,10 @@
 <a class="button is-normal color-light mx-2" href="/auth/login">Login</a>
 {% endblock %}
 
+{% block nav_burger %}
+{% include "navbar-burger.html" %}
+{% endblock %}
+
 {% block body %}
 <div class="frame w-80 bg-dark h-auto">
         <form id="register" method="post">
@@ -30,14 +34,18 @@
            
 		<div class="my-6"></div>
 
-			<center><label class="subtitle is-5" for="old_pass">Email:</label></center>
-				<input name="email" id="email" class="input is-medium color-normal my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira seu email" autocomplete="off" />
-                
-				<center><label class="subtitle is-5" for="new_password1">Senha:</label></center>
-				<input name="password1" id="password_declare" class="input is-medium color-normal mx-4 is-responsive w-80 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off" />
 
-				<center><label class="subtitle is-5" for="new_password2">Confirme a senha:</label></center>
-				<input name="password2" id="password_confirmation" class="input is-medium mx-4 color-normal w-80 h-auto is-responsive center my-4" placeholder="Insira sua senha" autocomplete="off" />
+					<center><label class="subtitle is-5" for="old_pass">Nome de usuário:</label></center>
+				<input type="text" name="username" id="username" class="input is-medium color-normal my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira um nome de usuário" autocomplete="off" required/>
+
+				<center><label class="subtitle is-5" for="old_pass">Email:</label></center>
+				<input type="email" name="email" id="email" class="input is-medium color-normal my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira seu email" autocomplete="off" required/>
+                
+				<center><label class="subtitle is-5" for="password1">Senha:</label></center>
+				<input type="password" name="password1" id="password1" class="input is-medium color-normal mx-4 is-responsive w-80 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off" required/>
+
+				<center><label class="subtitle is-5" for="password2">Confirme a senha:</label></center>
+				<input type="password" name="password2" id="password2" class="input is-medium mx-4 color-normal w-80 h-auto is-responsive center my-4" placeholder="Insira sua senha" autocomplete="off" required/>
             
 		<div class="my-6"></div>
             <div class="joiner">

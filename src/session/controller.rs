@@ -92,7 +92,7 @@ pub fn register_handler(form: web::types::Form<RegisterForm>, auth_conn: &mut Sq
     let user : User = User {id: users::new_id(auth_conn), name: (&form.username).deref().to_string(), email: (&form.email).deref().to_string(), password: parser::unspaced_u8_vec_to_hex_str(&hashed_password), group: 1};
 
     match users::create(&user, auth_conn) {
-        Some(_) => return Ok(false),
+        Some(_) => (),
         None => (),
     };
 

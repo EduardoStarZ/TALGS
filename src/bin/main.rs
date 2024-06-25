@@ -43,7 +43,8 @@ pub async fn main() -> std::io::Result<()> {
                 .service(talgs::views::auth::login)
                 .service(talgs::views::auth::login_form)
                 .service(talgs::views::auth::register)
-            )
+                .service(talgs::views::auth::register_form)
+                )
     })
     .bind((adress, port))?
     .run()

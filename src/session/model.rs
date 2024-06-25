@@ -31,7 +31,7 @@ pub struct Claims {
     pub exp : usize
 }
 
-#[derive(Deserialize, CLone, Copy)]
+#[derive(Deserialize)]
 pub struct RegisterForm {
     pub username: String,
     pub email: String,

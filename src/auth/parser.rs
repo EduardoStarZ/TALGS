@@ -53,7 +53,7 @@ pub fn u8_vec_to_hex_str(vector : &Vec<u8>) -> String {
 }
 
 
-//This function takes up a reference to a bit vector and returns a String with glued up hex values
+///This function takes up a reference to a bit vector and returns a String with glued up hex values
 pub fn unspaced_u8_vec_to_hex_str(vector : &Vec<u8>) -> String {
     vector.iter().map(|x| format!("{x:0>2x}")).collect::<String>()
 }
