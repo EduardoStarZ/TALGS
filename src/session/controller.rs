@@ -53,8 +53,8 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
                let token : String = auth_header.trim_start_matches("Bearer ").to_string(); 
                 
                match decode::<Claims>(&token, &DecodingKey::from_secret("secret".as_ref()), &Validation::default()) {
-                    Ok(_) => {
-                        let info : String = String::from("You are valid, here is the information");
+                    Ok(value) => {
+                        let info : String = format!("You are valid, here is the information:\n email: {}\n TTL: {}", value.claims.sub, value.claims.exp);
                         return web::HttpResponse::Ok().body(info);
                     },
                     Err(e) => {
@@ -105,8 +105,8 @@ pub fn register_handler(form: web::types::Form<RegisterForm>, auth_conn: &mut Sq
     let user : User = User {id: users::new_id(auth_conn), name: (&form.username).deref().to_string(), email: (&form.email).deref().to_string(), password: parser::unspaced_u8_vec_to_hex_str(&hashed_password), group: 1};
 
     match users::create(&user, auth_conn) {
-        Some(_) => (),
-        None => return Ok(false),
+        Some(_) => return Ok(false),
+        None => (),
     };
 
     let keypair : Keys = Keys {id: keys::new_id(key_conn), user_id: user.id, public_key: encryption::public_key_to_str(&keys.public_key).unwrap(), private_key: encryption::private_key_to_str(&keys.private_key).unwrap() };
