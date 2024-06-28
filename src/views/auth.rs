@@ -1,6 +1,6 @@
 use ntex::web;
 use ntex_session::Session;
-use crate::{database::{connection::{AuthPool, KeyPool}, models::ResultCode}, session::controller};
+use crate::{colors::color::Color, database::{connection::{AuthPool, KeyPool}, models::ResultCode}, session::controller};
 use askama::Template;
 use crate::session::model::{LoginInfo, RegisterForm};
 
@@ -19,7 +19,7 @@ pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPoo
     let mut auth_connection = match auth_pool.pool.get() {
         Ok(value) => value,
         Err(err) => {
-            eprintln!("Failed to receive a connection to the database: {err}");
+            println!("Failed to receive a connection to the database: {}", err.to_string().warning());
             return web::HttpResponse::InternalServerError().body("");
         }
     };
@@ -27,7 +27,7 @@ pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPoo
     let mut key_connection = match key_pool.pool.get() {
         Ok(value) => value,
         Err(err) => {
-            eprintln!("Failed to receive a connection to the database: {err}");
+            println!("Failed to receive a connection to the database: {}", err.to_string().warning());
             return web::HttpResponse::InternalServerError().body("")
         }
     };
@@ -77,7 +77,7 @@ pub async fn register_form(form : web::types::Form<RegisterForm>, auth_pool : we
     let mut auth_connection = match auth_pool.pool.get() {
         Ok(value) => value,
         Err(err) => {
-            eprintln!("Failed to receive a connection to the database: {err}");
+            println!("Failed to receive a connection to the database: {}", err.to_string().warning());
             return web::HttpResponse::InternalServerError().body("yuck");
         }
     };
@@ -85,7 +85,7 @@ pub async fn register_form(form : web::types::Form<RegisterForm>, auth_pool : we
     let mut key_connection = match key_pool.pool.get() {
         Ok(value) => value,
         Err(err) => {
-            eprintln!("Failed to receive a connection to the database: {err}");
+            println!("Failed to receive a connection to the database: {}", err.to_string().warning());
             return web::HttpResponse::InternalServerError().body("yuck")
         }
     };

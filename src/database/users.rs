@@ -12,7 +12,7 @@
 
 use diesel::prelude::*;
 use rand::{thread_rng, Rng};
-use crate::schema::auth::users;
+use crate::{colors::color::Color, schema::auth::users};
 use super::models::ResultCode;
 
 
@@ -39,7 +39,7 @@ pub fn create(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-    eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         }
@@ -52,7 +52,7 @@ pub fn exists(email: &String, connection : &mut SqliteConnection) -> Option<Resu
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                eprintln!("Error with the database: {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         };
@@ -81,7 +81,7 @@ pub fn update(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             }
         }
@@ -103,7 +103,7 @@ pub fn delete(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                eprintln!("Error with the database : {err}");
+                println!("Error with the database : {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             } 
         }
@@ -126,7 +126,7 @@ pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> 
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return None;
             }
         };
@@ -145,7 +145,7 @@ pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
         .load(auth_conn) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return new_id(auth_conn);
             }
         };

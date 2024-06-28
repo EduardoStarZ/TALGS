@@ -16,7 +16,7 @@ use diesel::SqliteConnection;
 use jsonwebtoken::{encode, DecodingKey, EncodingKey, Header, Validation, decode};
 use ntex::web;
 use rand::thread_rng;
-use crate::{auth::{encryption::{self, KeyPair}, parser}, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, session::model::{Claims, LoginInfo, RegisterForm}};
+use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, session::model::{Claims, LoginInfo, RegisterForm}};
 use ntex_session::Session;
 use super::model::LoginResponse;
 
@@ -31,8 +31,8 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
         let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())) {                               
             
             Ok(token) => token,
-            Err(e) => { 
-                eprintln!("Error generating token: {e}");
+            Err(err) => { 
+                println!("Error generating token: {}", err.to_string().warning());
                 return Ok(LoginResponse { token: None, result: Some(ResultCode::ValueError)});
             }
         };
@@ -57,8 +57,8 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
                         let info : String = format!("You are valid, here is the information:\n email: {}\n TTL: {}", value.claims.sub, value.claims.exp);
                         return web::HttpResponse::Ok().body(info);
                     },
-                    Err(e) => {
-                        eprintln!("Error generating token: {e}");
+                    Err(err) => {
+                        println!("Error generating token: {}", err.to_string().warning());
                         return web::HttpResponse::Unauthorized().finish();
                     }
                }

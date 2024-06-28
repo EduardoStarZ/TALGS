@@ -10,6 +10,8 @@
  * 
  * */
 
+use crate::colors::color::Color;
+
 
 ///This function takes up a reference to a String with spaces between the hex values and returns a
 ///bit vector
@@ -17,7 +19,7 @@ pub fn hex_str_spaced_to_u8_vec(str : &String) -> Vec<u8> {
     str.trim_start_matches(" ").trim_end_matches(" ").split(" ").map(|x| match u8::from_str_radix(x, 16) {
         Ok(value) => value,
         Err(err) => {
-            eprintln!("Error while parsing a hexadecimal value to a unsigned integer of 8 bits! Returning a u8::MIN value and displaying backtrace: {err}"); 
+            println!("Error while parsing a hexadecimal value to a unsigned integer of 8 bits! Returning a u8::MIN value and displaying backtrace: {}", err.to_string().warning()); 
             u8::MIN                                        
             }
     }
@@ -37,7 +39,7 @@ pub fn unspaced_hex_str_to_u8_vec(str : &String) -> Vec<u8> {
         let value : u8 = match u8::from_str_radix(sub_str.as_str(), 16) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error while parsing a hexadecimal value to a unsigned integer of 8 bits! Returning a u8::MIN value and displaying backtrace: {err}"); 
+                println!("Error while parsing a hexadecimal value to a unsigned integer of 8 bits! Returning a u8::MIN value and displaying backtrace: {}", err.to_string().warning()); 
                 u8::MIN 
             }
         };

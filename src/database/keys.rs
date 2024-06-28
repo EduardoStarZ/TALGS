@@ -14,6 +14,8 @@ use diesel::prelude::*;
 use crate::schema::key::key;
 use super::models::ResultCode;
 use rand::{thread_rng, Rng};
+use crate::colors::color::Color;
+
 
 ///A struct defined to allow for CRUD implementations of the keys table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
@@ -37,7 +39,7 @@ pub fn create(keys : &Keys , connection : &mut SqliteConnection) -> Option<Resul
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             }
         }
@@ -60,7 +62,7 @@ pub fn update(keys : &Keys , connection : &mut SqliteConnection) -> Option<Resul
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             }
         }
@@ -82,7 +84,7 @@ pub fn delete(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             }
         }
@@ -95,7 +97,7 @@ pub fn exists(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         };
@@ -113,7 +115,7 @@ pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return None;
             }
         };
@@ -132,7 +134,7 @@ pub fn new_id(key_conn : &mut SqliteConnection) -> i32 {
         .load(key_conn) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {err}");
+                println!("Error with the database: {}", err.to_string().warning());
                 return new_id(key_conn);
             }
         };

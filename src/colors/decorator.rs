@@ -19,3 +19,17 @@ impl Decore for String {
         return self.bold();
     }
 }
+
+impl Decore for str {
+    fn to_italic(&self) -> ColoredString {
+        return self.italic();
+    }
+
+    fn to_underline(&self) -> ColoredString {
+        return self.underline();
+    }
+
+    fn to_strong(&self) -> ColoredString {
+        return self.bold();
+    }
+}

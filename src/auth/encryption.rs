@@ -17,6 +17,8 @@ use rsa::{pkcs1::
         pkcs8::LineEnding, Pkcs1v15Encrypt,
         RsaPrivateKey, RsaPublicKey};
 
+use crate::colors::color::Color;
+
 
 ///A struct that encapsulates a set of an RSA public and private keys
 pub struct KeyPair {
@@ -55,7 +57,7 @@ pub fn encrypt(data : &String, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -> Op
     let enc_data : Option<Vec<u8>> = match pub_key.encrypt(rng, Pkcs1v15Encrypt, byte_str) {             
         Ok(value) => Some(value),
         Err(err) => {
-            eprintln!("Error while encrypting data: {err}");
+            println!("Error while encrypting data: {}", err.to_string().warning());
             None
         }
     };
@@ -74,7 +76,7 @@ pub fn decrypt(enc_data : &Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>
     let decoded_data : Option<Vec<u8>> = match priv_key.decrypt(Pkcs1v15Encrypt, &byte_data) {
         Ok(value) => Some(value),
         Err(err) => {
-            eprintln!("Error while decrypting data: {err}");
+            println!("Error while decrypting data: {}", err.to_string().warning());
             return None;
         }
     };
@@ -82,7 +84,7 @@ pub fn decrypt(enc_data : &Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>
     return  match std::str::from_utf8(&decoded_data.unwrap()[..]) {
         Ok(value) => Some(value.to_string()),
         Err(err) => {
-            eprintln!("Error while parsing byte sequence to a utf-8 string: {err}");
+            println!("Error while parsing byte sequence to a utf-8 string: {}", err.to_string().warning());
             None
         }
     }
@@ -97,7 +99,7 @@ pub fn public_key_to_str(public_key : &RsaPublicKey) -> Option<String> {
     match public_key.to_pkcs1_pem(LineEnding::default()) {
        Ok(value) => Some(value),
        Err(err) => {
-            eprintln!("Error while serializing public key to PEM encoding: {err}");
+            println!("Error while serializing public key to PEM encoding: {}", err.to_string().warning());
             None
        }
     }
@@ -112,7 +114,7 @@ pub fn str_to_public_key(public_key : &String) -> Option<RsaPublicKey> {
     match RsaPublicKey::from_pkcs1_pem(public_key.as_str()) {
         Ok(value) => Some(value),
         Err(err) => {
-            eprintln!("Error while deserializing public key from PEM encoding: {err}");
+            println!("Error while deserializing public key from PEM encoding: {}", err.to_string().warning());
             None
         }
     }
@@ -127,7 +129,7 @@ pub fn private_key_to_str(private_key: &RsaPrivateKey) -> Option<String> {
     match private_key.to_pkcs1_pem(LineEnding::default()) {
         Ok(value) => Some(value.to_string()),
         Err(err) => {
-            eprintln!("Error while serializing private key to PEM encoding: {err}");
+            println!("Error while serializing private key to PEM encoding: {}", err.to_string().warning());
             None
         }
     }
@@ -142,7 +144,7 @@ pub fn str_to_private_key(private_key: &String) -> Option<RsaPrivateKey> {
     match RsaPrivateKey::from_pkcs1_pem(private_key.as_str()) {
         Ok(value) => Some(value),
         Err(err) => {
-            eprintln!("Error while deserializing private key from PEM encoding: {err}");
+            println!("Error while deserializing private key from PEM encoding: {}", err.to_string().warning());
             None
         }
     }
