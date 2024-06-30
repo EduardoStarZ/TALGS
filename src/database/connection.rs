@@ -10,7 +10,7 @@
  * 
  * */
 
-use diesel::SqliteConnection;
+use diesel::{Connection, SqliteConnection};
 use diesel::r2d2::{self, ConnectionManager};
 use r2d2::Pool;
 
@@ -29,6 +29,10 @@ pub struct AuthPool {
 #[derive(Clone)]
 pub struct AppPool {
     pub pool : DbPool
+}
+
+pub fn create_pure_connection(db_url : &str) -> SqliteConnection {
+    SqliteConnection::establish(db_url).unwrap_or_else(|_| panic!("Issues setting up database, shutting down"))
 }
 
 ///Function that takes up a static string reference as a path to a sqlite file and creates a

@@ -10,16 +10,34 @@
  * 
  * */
 
+use talgs::colors::color::Color;
 use talgs::{index, form};
 use talgs::session::controller::get_info_handler;
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
 use ntex_files as fs;
+use std::env::args;
+use talgs::database::users;
 
 ///This is the main function of the cargo project
 #[ntex::main]
 pub async fn main() -> std::io::Result<()> {
+
+    if args().len() > 1 {
+        match args().collect::<Vec<String>>()[1].as_str() {
+            "db_print" => {
+                for x in users::get_all(&mut create_pure_connection("auth.sqlite3")) {
+                    let data : String = format!("||\n|| ID: {}\n|| Name: {}\n|| Email: {}\n||", x.id, x.name, x.email);        
+                    println!("{}", data.database_values());
+                }
+
+                panic!("");
+            },
+            _ => ()
+        }
+    }
+
     let adress : &str = "127.0.0.1";
     let port : u16 = 8080;
 

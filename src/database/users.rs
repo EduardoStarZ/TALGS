@@ -156,3 +156,15 @@ pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
 
      return new;
 }
+
+pub fn get_all(key_conn : &mut SqliteConnection) -> Vec<User> {
+    match users::table
+        .select(User::as_select())
+        .load(key_conn) {
+            Ok(value) => value,
+            Err(err) => {
+                println!("Error with the database: {}", err.to_string().warning());
+                return vec![];
+            }
+        }
+}
