@@ -11,6 +11,7 @@
  * */
 
 use talgs::colors::color::Color;
+use talgs::hasher::{self, env};
 use talgs::{index, form};
 use talgs::session::controller::get_info_handler;
 use talgs::database::connection::*;
@@ -38,10 +39,13 @@ pub async fn main() -> std::io::Result<()> {
         }
     }
 
-    
-
     let adress : &str = "127.0.0.1";
     let port : u16 = 8080;
+
+    let _ : () = match env::get_hash() {
+        Some(_) => (),
+        None => env::set_hash(hasher::hash::create_hash())
+    };
 
     let key_pool = KeyPool {pool: create_pool(create_connection("key.sqlite3"))};
     let app_pool = AppPool {pool: create_pool(create_connection("app.sqlite3"))};
