@@ -1,6 +1,8 @@
 use std::fs;
 use crate::colors::color::Color;
 
+
+///This function sets the hash for sessions in the .env file
 pub fn set_hash(value: String) {
     let mut contents : String = String::from_utf8(fs::read(".env").unwrap()).unwrap();
     contents.insert_str(0, format!("SESSION_SECRET={value}\n").as_str());
@@ -11,6 +13,7 @@ pub fn set_hash(value: String) {
     } 
 }
 
+///This function gets the secret for sessions in the .env file
 pub fn get_hash() -> Option<String> {
     match fs::metadata(".env") {
         Ok(_) => (),

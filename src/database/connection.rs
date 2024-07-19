@@ -31,6 +31,7 @@ pub struct AppPool {
     pub pool : DbPool
 }
 
+///Function that creates a raw, single threaded connection to the database with a given URL
 pub fn create_pure_connection(db_url : &str) -> SqliteConnection {
     SqliteConnection::establish(db_url).unwrap_or_else(|_| panic!("Issues setting up database, shutting down"))
 }

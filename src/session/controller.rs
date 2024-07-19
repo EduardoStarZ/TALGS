@@ -20,6 +20,9 @@ use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, d
 use ntex_session::Session;
 use super::model::LoginResponse;
 
+///This is a handler that for any GET request to "/auth/login" that validates the information
+///provided by an user and uses it to create a valid JWT from the secret in the .env file in case
+///the information is fine, and can either return a LoginResponse Struct or a diesel Error
 pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection: &mut SqliteConnection, key_connection : &mut SqliteConnection) -> Result<LoginResponse, diesel::result::Error> {
 
     let email : &String = &login_info.email;
@@ -67,6 +70,9 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
     return web::HttpResponse::Unauthorized().finish();
 }
 
+
+///This one function is used by the above to validate the information
+///the user provided, returns a simple boolean according to the success
 fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_conn : &mut SqliteConnection) -> bool {
     let user : User = match users::get(&email.to_string(), auth_conn) {
         Some(value) => value,
@@ -91,6 +97,11 @@ fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_
     dec_password == password
 }
 
+
+///This function is a handler function for any GET request to "/auth/register" that determines if
+///the given email is not already present in the database, and can return a bool that indicates if
+///the system was able to create the RSA keys or a diesel error if there is an account with the
+///presented email
 pub fn register_handler(form: web::types::Form<RegisterForm>, auth_conn: &mut SqliteConnection, key_conn : &mut SqliteConnection) -> Result<bool, diesel::result::Error> {
     let keys : KeyPair = match encryption::create_keys(1024) {
         Some(value) => value,
