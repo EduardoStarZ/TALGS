@@ -12,6 +12,13 @@ pub fn set_hash(value: String) {
 }
 
 pub fn get_hash() -> Option<String> {
+    match fs::metadata(".env") {
+        Ok(_) => (),
+        Err(_) => {
+            let _ = fs::write(".env", "");
+        }
+    }
+    
     let contents : Vec<String> = String::from_utf8(fs::read(".env").unwrap()).unwrap().split('\n').map(|x| x.to_string()).collect::<Vec<String>>();
     
     for line in contents {
