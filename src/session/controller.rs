@@ -16,7 +16,7 @@ use diesel::SqliteConnection;
 use jsonwebtoken::{encode, DecodingKey, EncodingKey, Header, Validation, decode};
 use ntex::web;
 use rand::thread_rng;
-use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, session::model::{Claims, LoginInfo, RegisterForm}};
+use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, hasher, session::model::{Claims, LoginInfo, RegisterForm}};
 use ntex_session::Session;
 use super::model::LoginResponse;
 
@@ -27,8 +27,8 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
     let password : &String = &login_info.password;
 
     if is_valid(email, password, auth_connection, key_connection) {
-        let claims : Claims = Claims { sub : email.clone(), exp: (chrono::Utc::now() + chrono::Duration::hours(1)).timestamp() as usize};
-        let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())) {                               
+        let claims : Claims = Claims { sub : email.clone(), exp: (chrono::Utc::now() + chrono::Duration::hours(3)).timestamp() as usize};
+        let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref())) {                               
             
             Ok(token) => token,
             Err(err) => { 
@@ -52,7 +52,7 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
             if auth_header.starts_with("Bearer ") {
                let token : String = auth_header.trim_start_matches("Bearer ").to_string(); 
                 
-               match decode::<Claims>(&token, &DecodingKey::from_secret("secret".as_ref()), &Validation::default()) {
+               match decode::<Claims>(&token, &DecodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref()), &Validation::default()) {
                     Ok(value) => {
                         let info : String = format!("You are valid, here is the information:\n email: {}\n TTL: {}", value.claims.sub, value.claims.exp);
                         return web::HttpResponse::Ok().body(info);

@@ -1,11 +1,11 @@
-use rand::{thread_rng, Rng};
+use rand::{Rng, distributions::Alphanumeric};
 
 pub fn create_hash() -> String {
-    let mut bytes : Vec<u8> = 0;
-    
-    for _ in 0..256 {
-        bytes.push(thread_rng().gen::<u8>());
-    }
+    let s: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(64)
+        .map(char::from)
+        .collect();
 
-    String::from_utf8(bytes).unwrap()
+    return s;
 }
