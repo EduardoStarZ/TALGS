@@ -1,6 +1,6 @@
 /*
  *
- * session.rs
+ * lib.rs
  *
  * Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
  *
