@@ -150,7 +150,7 @@ pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
             }
         };
 
-     if !users.is_empty() {
+     if !users.is_empty() && new != 0 {
         return new_id(auth_conn);
      }
 
