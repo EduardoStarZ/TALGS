@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="38cm" height="26cm" viewBox="27 -135 756 505" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="244.299" y="158.592" width="172.3" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="244.299" y="158.592" width="172.3" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="330.449" y="172.592">Chaves RSA</text>
+    <rect style="fill: #ffffff" x="244.299" y="176.592" width="172.3" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="244.299" y="176.592" width="172.3" height="68"/>
+    <polygon style="fill: #000000" points="247.299,186.592 249.299,189.592 251.299,186.592 249.299,183.592 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="253.299" y="192.592">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.399" y="192.592">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="253.299" y1="194.192" x2="386.499" y2="194.192"/>
+    <ellipse style="fill: #000000" cx="249.299" cy="202.592" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="253.299" y="208.592">ID_Usuário</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.399" y="208.592">I32</text>
+    <ellipse style="fill: #000000" cx="249.299" cy="218.592" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="253.299" y="224.592">Chave Privada</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.399" y="224.592">String</text>
+    <ellipse style="fill: #000000" cx="249.299" cy="234.592" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="253.299" y="240.592">Chave Pública</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.399" y="240.592">String</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="455" y="154.811" width="110.7" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="455" y="154.811" width="110.7" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="510.35" y="168.811">Usuário</text>
+    <rect style="fill: #ffffff" x="455" y="172.811" width="110.7" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="455" y="172.811" width="110.7" height="84"/>
+    <polygon style="fill: #000000" points="458,182.811 460,185.811 462,182.811 460,179.811 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="464" y="188.811">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="512.5" y="188.811">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="464" y1="190.411" x2="535.6" y2="190.411"/>
+    <ellipse style="fill: #000000" cx="460" cy="198.811" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="464" y="204.811">Nome</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="512.5" y="204.811">String</text>
+    <ellipse style="fill: #000000" cx="460" cy="214.811" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="464" y="220.811">Email</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="512.5" y="220.811">String</text>
+    <ellipse style="fill: #000000" cx="460" cy="230.811" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="464" y="236.811">Senha</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="512.5" y="236.811">String</text>
+    <ellipse style="fill: #000000" cx="460" cy="246.811" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="464" y="252.811">Grupo</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="512.5" y="252.811">U8</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="618.868" y="170.065" width="149.2" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="618.868" y="170.065" width="149.2" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="693.468" y="184.065">Compra</text>
+    <rect style="fill: #ffffff" x="618.868" y="188.065" width="149.2" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="618.868" y="188.065" width="149.2" height="68"/>
+    <polygon style="fill: #000000" points="621.868,198.065 623.868,201.065 625.868,198.065 623.868,195.065 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="627.868" y="204.065">ID</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="627.868" y1="205.665" x2="714.868" y2="205.665"/>
+    <ellipse style="fill: #000000" cx="623.868" cy="214.065" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="627.868" y="220.065">ID_Usuário</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="714.868" y="220.065">I32</text>
+    <ellipse style="fill: #000000" cx="623.868" cy="230.065" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="627.868" y="236.065">Horário</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="714.868" y="236.065">String</text>
+    <ellipse style="fill: #000000" cx="623.868" cy="246.065" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="627.868" y="252.065">Status</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="714.868" y="252.065">U8</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="453,203 434.8,203 434.8,202.592 416.599,202.592 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="426.599" y1="202.592" x2="416.599" y2="197.592"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="426.599" y1="202.592" x2="416.599" y2="207.592"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="565.7,214.811 592.284,214.811 592.284,214.065 618.868,214.065 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="608.868" y1="214.065" x2="618.868" y2="219.065"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="608.868" y1="214.065" x2="618.868" y2="209.065"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="630.242" y="283.951" width="126.1" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="630.242" y="283.951" width="126.1" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="693.292" y="297.951">Artigo</text>
+    <rect style="fill: #ffffff" x="630.242" y="301.951" width="126.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="630.242" y="301.951" width="126.1" height="68"/>
+    <polygon style="fill: #000000" points="633.242,311.951 635.242,314.951 637.242,311.951 635.242,308.951 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="639.242" y="317.951">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="726.242" y="317.951">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="639.242" y1="319.551" x2="749.342" y2="319.551"/>
+    <ellipse style="fill: #000000" cx="635.242" cy="327.951" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="639.242" y="333.951">ID_Estoque</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="726.242" y="333.951">I32</text>
+    <ellipse style="fill: #000000" cx="635.242" cy="343.951" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="639.242" y="349.951">ID_Compra</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="726.242" y="349.951">I32</text>
+    <ellipse style="fill: #000000" cx="635.242" cy="359.951" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="639.242" y="365.951">Quantidade</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="726.242" y="365.951">U32</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="693.468,256.065 693.468,270.008 693.292,270.008 693.292,283.951 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="693.292" y1="273.951" x2="688.292" y2="283.951"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="693.292" y1="273.951" x2="698.292" y2="283.951"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="603.722" y="-22.1738" width="180" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="603.722" y="-22.1738" width="180" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="693.722" y="-8.17376">Estoque</text>
+    <rect style="fill: #ffffff" x="603.722" y="-4.17376" width="180" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="603.722" y="-4.17376" width="180" height="132"/>
+    <polygon style="fill: #000000" points="606.722,5.82624 608.722,8.82624 610.722,5.82624 608.722,2.82624 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="11.8262">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="11.8262">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="612.722" y1="13.4262" x2="753.622" y2="13.4262"/>
+    <ellipse style="fill: #000000" cx="608.722" cy="21.8262" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="27.8262">ID_Produto</text>
+    <ellipse style="fill: #000000" cx="608.722" cy="37.8262" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="43.8262">Venceu?</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="43.8262">Bool</text>
+    <ellipse style="fill: #000000" cx="608.722" cy="53.8262" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="59.8262">Validade</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="59.8262">String</text>
+    <ellipse style="fill: #000000" cx="608.722" cy="69.8262" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="75.8262">Disponível?</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="75.8262">Bool</text>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" cx="608.722" cy="85.8262" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="91.8262">Número de Lote</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="91.8262">I32</text>
+    <ellipse style="fill: #000000" cx="608.722" cy="101.826" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="107.826">Quantidade</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="730.522" y="107.826">U32</text>
+    <ellipse style="fill: #000000" cx="608.722" cy="117.826" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="612.722" y="123.826">ID_Fornecedor</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="693.468,170.065 693.468,148.946 693.722,148.946 693.722,127.826 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="693.722" y1="137.826" x2="698.722" y2="127.826"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="693.722" y1="137.826" x2="688.722" y2="127.826"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="378.737" y="-5.8835" width="195.4" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="378.737" y="-5.8835" width="195.4" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="476.437" y="8.1165">Produto</text>
+    <rect style="fill: #ffffff" x="378.737" y="12.1165" width="195.4" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="378.737" y="12.1165" width="195.4" height="84"/>
+    <polygon style="fill: #000000" points="381.737,22.1165 383.737,25.1165 385.737,22.1165 383.737,19.1165 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="387.737" y="28.1165">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="520.937" y="28.1165">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="387.737" y1="29.7165" x2="544.037" y2="29.7165"/>
+    <ellipse style="fill: #000000" cx="383.737" cy="38.1165" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="387.737" y="44.1165">Nome</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="520.937" y="44.1165">String</text>
+    <ellipse style="fill: #000000" cx="383.737" cy="54.1165" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="387.737" y="60.1165">Preço</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="520.937" y="60.1165">F32</text>
+    <ellipse style="fill: #000000" cx="383.737" cy="70.1165" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="387.737" y="76.1165">ID_Categoria</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="520.937" y="76.1165">I32</text>
+    <ellipse style="fill: #000000" cx="383.737" cy="86.1165" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="387.737" y="92.1165">Quantidade Total</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="520.937" y="92.1165">U32</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="574.137,54.1165 588.93,54.1165 588.93,53.8262 603.722,53.8262 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="593.722" y1="53.8262" x2="603.722" y2="58.8262"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="593.722" y1="53.8262" x2="603.722" y2="48.8262"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="247.925" y="25.8767" width="103" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="247.925" y="25.8767" width="103" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="299.425" y="39.8767">Categoria</text>
+    <rect style="fill: #ffffff" x="247.925" y="43.8767" width="103" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="247.925" y="43.8767" width="103" height="36"/>
+    <polygon style="fill: #000000" points="250.925,53.8767 252.925,56.8767 254.925,53.8767 252.925,50.8767 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="256.925" y="59.8767">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="297.725" y="59.8767">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="256.925" y1="61.4767" x2="320.825" y2="61.4767"/>
+    <ellipse style="fill: #000000" cx="252.925" cy="69.8767" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="256.925" y="75.8767">Nome</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="297.725" y="75.8767">String</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="378.737,54.1165 364.831,54.1165 364.831,53.8767 350.925,53.8767 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="360.925" y1="53.8767" x2="350.925" y2="48.8767"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="360.925" y1="53.8767" x2="350.925" y2="58.8767"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="421.2" y="-134.317" width="110.7" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="421.2" y="-134.317" width="110.7" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="476.55" y="-120.317">Fornecedor</text>
+    <rect style="fill: #ffffff" x="421.2" y="-116.317" width="110.7" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="421.2" y="-116.317" width="110.7" height="84"/>
+    <polygon style="fill: #000000" points="424.2,-106.317 426.2,-103.317 428.2,-106.317 426.2,-109.317 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="430.2" y="-100.317">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="478.7" y="-100.317">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="430.2" y1="-98.7174" x2="501.8" y2="-98.7174"/>
+    <ellipse style="fill: #000000" cx="426.2" cy="-90.3174" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="430.2" y="-84.3174">Nome</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="478.7" y="-84.3174">String</text>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" cx="426.2" cy="-74.3174" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="430.2" y="-68.3174">CNPJ</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="478.7" y="-68.3174">String</text>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" cx="426.2" cy="-58.3174" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="430.2" y="-52.3174">CPF</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="478.7" y="-52.3174">String</text>
+    <ellipse style="fill: #000000" cx="426.2" cy="-42.3174" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="430.2" y="-36.3174">Email</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="478.7" y="-36.3174">String</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="476.55,-32.3174 476.55,-19.1004 476.437,-19.1004 476.437,-5.8835 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="476.437" y1="-15.8835" x2="471.437" y2="-5.8835"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="476.437" y1="-15.8835" x2="481.437" y2="-5.8835"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="27.9225" y="-37.992" width="172.3" height="18"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="27.9225" y="-37.992" width="172.3" height="18"/>
+    <text font-size="11.2" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="114.073" y="-23.992">Endereço</text>
+    <rect style="fill: #ffffff" x="27.9225" y="-19.992" width="172.3" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="27.9225" y="-19.992" width="172.3" height="132"/>
+    <polygon style="fill: #000000" points="30.9225,-9.99197 32.9225,-6.99197 34.9225,-9.99197 32.9225,-12.992 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="-3.99197">ID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="-3.99197">I32</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="36.9225" y1="-2.39197" x2="170.123" y2="-2.39197"/>
+    <ellipse style="fill: #000000" cx="32.9225" cy="6.00803" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="12.008">ID_Fornecedor</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="12.008">I32</text>
+    <ellipse style="fill: #000000" cx="32.9225" cy="22.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="28.008">CEP</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="28.008">I32</text>
+    <ellipse style="fill: #000000" cx="32.9225" cy="38.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="44.008">Cidade</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="44.008">String</text>
+    <ellipse style="fill: #000000" cx="32.9225" cy="54.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="60.008">Bairro</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="60.008">String</text>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" cx="32.9225" cy="70.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="76.008">Quadra</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="76.008">String</text>
+    <ellipse style="fill: #000000" cx="32.9225" cy="86.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="92.008">Lote</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="92.008">String</text>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.2; stroke: #000000" cx="32.9225" cy="102.008" rx="2" ry="2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="36.9225" y="108.008">Complemento</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="147.023" y="108.008">String</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="247.925,53.8767 224.074,53.8767 224.074,54.008 200.223,54.008 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="210.223" y1="54.008" x2="200.223" y2="49.008"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="210.223" y1="54.008" x2="200.223" y2="59.008"/>
+  </g>
+</svg>
