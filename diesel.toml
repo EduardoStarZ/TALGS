@@ -7,13 +7,18 @@ custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [print_schema.auth]
 file = "src/schema/auth.rs"
-with_docs = true
+with_docs = false
 filter = { only_tables = ["users", "groups"] }
 
 [print_schema.key]
 file = "src/schema/key.rs"
-with_docs = true
+with_docs = false
 filter = { only_tables = ["keys"] }
+
+[print_schema.app]
+file = "src/schema/app.rs"
+with_docs = false
+filter = { only_tables = ["product", "article", "stock", "purchase", "adress", "supplier", "category"] }
 
 [migrations_directory]
 dir = "migrations/"
