@@ -31,7 +31,7 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
 
     if is_valid(email, password, auth_connection, key_connection) {
         let claims : Claims = Claims { sub : email.clone(), exp: (chrono::Utc::now() + chrono::Duration::hours(3)).timestamp() as usize};
-        let token = match encode(&Header::default(), &claims, &EncodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref())) {                               
+        let mut token : String = match encode(&Header::default(), &claims, &EncodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref())) {                               
             
             Ok(token) => token,
             Err(err) => { 
@@ -39,6 +39,8 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
                 return Ok(LoginResponse { token: None, result: Some(ResultCode::ValueError)});
             }
         };
+
+        token.insert_str(0, "Bearer ");
 
         return Ok(LoginResponse{token: Some(token), result: None});
     };
@@ -49,8 +51,12 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
 pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> web::HttpResponse {
     println!("{request:?}");
 
-    let mut auth_header : String = session.get::<String>("Auth-Token").unwrap().unwrap();
-    auth_header.insert_str(0, "Bearer ");
+    let auth_header : String = match session.get::<String>("Auth-Token").unwrap() {
+        Some(value) => value,
+        None => {
+            return web::HttpResponse::Unauthorized().body("You are not authorized to see this page.") 
+        }
+    };
 
             if auth_header.starts_with("Bearer ") {
                let token : String = auth_header.trim_start_matches("Bearer ").to_string(); 
