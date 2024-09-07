@@ -1,0 +1,18 @@
+{% comment %}
+
+#
+#
+# limiter.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+
+{% endcomment %}
+
+
+<input class="input button dark{% if width %} w-{{ width }}{% endif %}{% if height %} h-{{ height }}{% endif %}{% if my %} my-{{ my }}{% endif %}{% if mx%} mx-{{ mx }}{% endif %}" {% if value %}value="{{ value }}"{% endif %} type="number" {% if min %}min="{{ min }}"{% endif %} {% if max %}max="{{ max }}"{% endif %} {% if step %}step="{{ step }}"{% endif %} />

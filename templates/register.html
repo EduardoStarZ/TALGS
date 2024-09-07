@@ -1,0 +1,75 @@
+{% extends "master.html" %}
+
+
+{#
+#
+#
+#
+# create_account.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+{% block title %}Criar uma conta{% endblock %}
+
+{% block left_buttons %}
+<a class="button is-normal orange mx-2" href="/auth/login">Login</a>
+{% endblock %}
+
+{% block nav_burger %}
+{% include "navbar-burger.html" %}
+{% endblock %}
+
+{% block body %}
+<div class="frame w-80 bg-dark h-auto">
+        <form id="register" method="post">
+            <h1 class="title is-1 center">Registrar-se</h1>    
+           
+		<div class="my-6"></div>
+
+
+					<center><label class="subtitle is-5" for="old_pass">Nome de usuário:</label></center>
+				<input type="text" name="username" id="username" class="input is-medium my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira um nome de usuário" autocomplete="off" required/>
+
+				<center><label class="subtitle is-5" for="old_pass">Email:</label></center>
+				<input type="email" name="email" id="email" class="input is-medium my-4 w-80 h-auto is-responsive mx-4 center my-4" placeholder="Insira seu email" autocomplete="off" required/>
+                
+				<center><label class="subtitle is-5" for="password1">Senha:</label></center>
+				<input type="password" name="password1" id="password1" class="input is-medium mx-4 is-responsive w-80 h-auto center my-4" placeholder="Insira sua senha" autocomplete="off" required/>
+
+				<center><label class="subtitle is-5" for="password2">Confirme a senha:</label></center>
+				<input type="password" name="password2" id="password2" class="input is-medium mx-4 w-80 h-auto is-responsive center my-4" placeholder="Insira sua senha" autocomplete="off" required/>
+            
+		<div class="my-6"></div>
+            <div class="joiner">
+					<input type="reset" value="Limpar" class="button is-medium orange mx-1 fit-space" />
+					<input type="submit" value="Criar conta" class="button is-medium mx-1 blue fit-space" />
+            </div>
+        </form>
+
+</div>
+        
+        <style>
+            input.button {
+                width: 45% !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .joiner {
+                width: 80%;
+                height: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+        </style>
+
+{% endblock %}

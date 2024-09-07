@@ -1,0 +1,46 @@
+/*
+ *
+ * link.css
+ *
+ * Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+ * 
+ * */
+
+a {
+    font-family: Nunito !important
+}
+
+a.button {
+    font-weight: 700 !important;
+}
+
+input.color-normal {
+    background-color: #C1A2A0 !important;
+    color: #322030 !important;
+}
+
+a.blue {
+    color: var(--primary-white) !important;
+    background-color: var(--primary-blue) !important;
+    height: fit-content !important;
+}
+
+a.orange {
+    color: var(--primary-white) !important;
+    background-color: var(--primary-orange) !important;
+	height: fit-content !important;
+}
+
+a.fit-space {
+    width: 100%
+}
+
+a.center {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

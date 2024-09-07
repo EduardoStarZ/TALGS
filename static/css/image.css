@@ -1,0 +1,23 @@
+/*
+ *
+ * image.css
+ *
+ * Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+ * 
+ * */
+
+img.image {
+    object-fit: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    border-radius: 16px !important;
+    width: 80% !important;
+    height: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

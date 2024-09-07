@@ -10,9 +10,7 @@ Observar o sistema de páginas criado:
 
 - A página 'Assets' guarda todos os elementos criados como componentes.
 
-- A página 'Pages' guarda todas as páginas já desenvolvidas com instâncias desses componentes em dois formatos para computador:
-     820x540 e 1920x1080, um para a criação das páginas, a outra para visualização em escala real.
-     A orientação a ser seguida na visualização das telas é: horizontalmente se encontram variações de estado e formato da mesma página, e verticalmente se encontram páginas diferentes.
+- A orientação a ser seguida na visualização das telas é: horizontalmente se encontram variações de estado e formato da mesma página, e verticalmente se encontram páginas diferentes.
 
 - A página 'CS & Fonts' detém uma amostra da paleta de cores e seleção de fontes do sistema.
 

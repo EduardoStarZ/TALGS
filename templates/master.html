@@ -1,0 +1,61 @@
+{#
+#
+#
+#
+# master.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+<!DOCTYPE html>
+<html>
+
+		<head>
+				{% include "head-meta.html" %}
+				<title>T.A.L.G.S - {% block title %}{% endblock %}</title>
+		</head>
+
+		<body>
+
+				<nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
+
+						<div class="navbar-menu">
+								<div class="navbar-start">
+										<div class="navbar-item">
+												<div id="left-buttons" class="buttons">
+														{% block left_buttons %}
+														{% endblock %}
+												</div>
+										</div>
+								</div>
+						</div>
+
+						<p class="title is-light-gray is-4 my-4 mx-4">T.A.L.G.S</p>
+
+						<div class="navbar-menu">
+								<div class="navbar-end">
+										<div class="navbar-item">
+												<div id="right-buttons" class="buttons">
+														{% block right_buttons %}
+														{% endblock %}
+												</div>
+										</div>
+								</div>
+						</div>
+						{% block nav_burger %}{% endblock %}
+				</nav>
+
+				<div class="spacing"></div>
+
+				{% block body %}
+				{% endblock %}
+		</body>
+
+</html>

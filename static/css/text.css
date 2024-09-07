@@ -1,0 +1,60 @@
+/*
+ *
+ * text.css
+ *
+ * Copyright (c) 2023-2024 (authors)
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the () license, see LICENSE for details
+ * 
+ * */
+
+
+.title {
+    font-family: Montserrat !important;
+}
+
+.subtitle {
+    font-family: Nunito !important;
+}
+
+.text-dark {
+    color: #322030 !important;
+}
+
+.text-light {
+    color: #FCFDEB !important;
+}
+
+.text-normal {
+    color: #C1A2A0 !important;
+}
+
+.text-normal-light {
+    color: #E3CEBD !important;
+}
+
+.text-light-gray {
+    color: #ACA8B3 !important;
+}
+
+.text-gray {
+    color: #6A6179 !important;
+}
+
+.center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.text-lighter {
+    font-weight: lighter;
+}
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bolder {
+    font-weight: bolder;
+}

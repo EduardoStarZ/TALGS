@@ -1,0 +1,30 @@
+/*
+ *
+ * frame.css
+ *
+ * Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+ *
+ * All rights reserved
+ *
+ * TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+ * 
+ * */
+.cell {
+    display: grid !important;
+}
+
+.frame {
+    padding: 2% !important;
+    border-radius: 1.5rem;
+    margin: 0 auto;
+    box-shadow: .15dvw -.15dvh 4px #444444, -.15dvw 0 4px #444444, 0 .8dvh 4px #444444;
+    background-color: var(--secondary-black) !important;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+ 
+.no-center {
+    margin: 0 !important;
+}

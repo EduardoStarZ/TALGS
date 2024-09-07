@@ -1,0 +1,64 @@
+{% extends "master.html" %}
+
+{#
+#
+#
+#
+# login.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+
+{% block title %}Login{% endblock %}
+
+{% block left_buttons %}
+<a class="button orange is-normal mx-2" href="/auth/register">Registrar-se</a>
+{% endblock %}
+
+{% block nav_burger %}
+{% include "navbar-burger.html" %}
+{% endblock %}
+
+{% block body %}
+<div class="frame bg-dark w-80 h-100">
+		<form method="post">
+				<h1 class="title is-1 center">Login</h1>    
+				<div class="my-6"></div>
+						<center><label class="subtitle is-5 " for="nome">E-mail</label></center>
+						<input name="email" id="email" type="email" class="input is-medium my-4 w-80 h-auto is-responsive mx-4 center" placeholder="Insira seu email" autocomplete="off" /> <br/>
+
+						<center><label class="subtitle is-5 " for="password">Senha</label></center>
+						<input name="password" id="password" type="password" class="input is-medium mx-4 my-4 w-80 h-auto is-responsive center" placeholder="Insira sua senha" autocomplete="off" />
+				<div class="my-6"></div>
+				<div class="joiner">
+						<input class="button is-medium orange fit-space mx-1" value="Limpar" type="reset" />
+						<input value="Entrar" class="button is-medium mx-1 fit-space blue" type="submit" />
+				</div>
+		</form>
+
+		<style>
+				input.button {
+						width: 45% !important;
+						margin: 0 auto;
+				}
+
+				.joiner {
+						width: 80%;
+						height: fit-content;
+						margin: 0 auto;
+						text-align: center;
+				}
+
+		</style>
+
+</div>
+
+{% endblock %}
