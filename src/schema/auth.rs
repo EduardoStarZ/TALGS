@@ -2,10 +2,10 @@
 
 diesel::table! {
     users (id) {
-        id -> SmallInt,
+        id -> Integer,
         name -> Text,
         password -> Text,
-        group -> Integer,
+        group -> SmallInt,
         email -> Text,
     }
 }

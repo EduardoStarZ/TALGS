@@ -29,6 +29,70 @@
 
 {% block body %}
 
+				{% if auth_level == 1 %}
+				<div class="frame w-80 h-auto">
+				<div class="columns is-mobile mt-4 mb-6">
+
+								<div class="column auto">
+												<h2 id="header" class="subtitle is-2 is-light is-bolder mx-4">Meus Pedidos</h2>
+								</div>
+
+								<div class="column is-one-quarter">
+												<a id="new-request" class="button blue is-medium mx-2 float-right" hx-get="/api/sale/create" hx-target="#master-frame" hx-swap="innerHTML" hx-trigger="click">Novo Pedido</a>
+								</div>
+				</div>
+
+				{% for purchase in purchases %}
+				
+								<div class="frame w-100 h-20 my-5 color-light">
+												
+												<div class="columns">
+
+																<div class="column is-one-quarter info h-20 mx-3">
+																				<p class="subtitle is-5 is-dark">Horário: {{ purchase.time }}</p>
+																				<p class="subtitle is-5 is-dark">Status: {{ purchase.status }}</p>
+																				<a class="button is-medium blue fit my-1" href="#">Expandir</a>
+																</div>
+            
+																<div class="column auto description h-20 mx-3">
+																				<div class="limiter">
+																								<p class="is-dark">
+																								{% for article in articles %}
+																								{% endfor %}
+																								</p>
+																				</div>
+																</div>
+
+												</div>
+
+
+								</div>	
+								
+				{% endfor %}
+
+				<div class="columns">
+
+								<div class="column is-one-quarter info h-20 mx-3">
+												<p class="subtitle is-5 is-dark">Data: </p>
+												<p class="subtitle is-5 is-dark">Horário: </p>
+												<p class="subtitle is-5 is-dark">Status: </p>
+								</div>
+
+								<div class="column auto description h-20 mx-3">
+												<div class="limiter">
+																<p class="is-dark">
+																</p>
+												</div>
+								</div>
+
+				</div>							
+
+				{% endif %}
+
+				{% if auth_level == 0 %}
+								<div hx-get="/home/client" hx-swap="outerHtml"></div>
+				{% endif %}
+
 		<p>Your auth level is of {{ auth_level }}</p>
 
 {% endblock %}

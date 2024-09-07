@@ -24,7 +24,7 @@ pub struct User {
     pub id : i32,
     pub name : String,
     pub password : String,
-    pub group : i32,
+    pub group : i16,
     pub email : String
 }
 

@@ -15,7 +15,7 @@ CREATE TABLE `product`(
 CREATE TABLE `purchase`(
 	`id` INT4 NOT NULL PRIMARY KEY,
 	`id_user` INT4 NOT NULL,
-	`time` TIME NOT NULL,
+	`time` TIMESTAMP NOT NULL,
 	`status` INT2 NOT NULL
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE `stock`(
 	`id_product` INT4 NOT NULL,
 	`id_supplier` INT4 NOT NULL,
 	`expired` BOOL NOT NULL,
-	`expire_date` TIME NOT NULL,
+	`expire_date` TIMESTAMP NOT NULL,
 	`available` BOOL NOT NULL,
 	`batch` INT8,
 	`amount` INT4 NOT NULL

@@ -20,6 +20,7 @@ input {
     font-family: Nunito !important;
     font-weight: 500 !important;
     background-color: var(--secondary-white) !important;
+		color: var(--primary-black) !important;
 }
 
 input.button {

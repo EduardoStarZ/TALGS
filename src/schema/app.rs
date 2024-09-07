@@ -43,7 +43,7 @@ diesel::table! {
     purchase (id) {
         id -> Integer,
         id_user -> Integer,
-        time -> Time,
+        time -> Timestamp,
         status -> SmallInt,
     }
 }
@@ -54,7 +54,7 @@ diesel::table! {
         id_product -> Integer,
         id_supplier -> Integer,
         expired -> Bool,
-        expire_date -> Time,
+        expire_date -> Timestamp,
         available -> Bool,
         batch -> Nullable<BigInt>,
         amount -> Integer,
