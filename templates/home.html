@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+
+{#
+#
+#
+#
+# home.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+
+{% block title %}Home{% endblock %}
+
+{% block right_buttons %}
+<a class="button orange is-normal mx-2" href="/">Fornecedores</a>
+{% endblock %}
+
+{% block nav_burger %}
+{% include "navbar-burger.html" %}
+{% endblock %}
+
+{% block body %}
+
+		<p>Your auth level is of {{ auth_level }}</p>
+
+{% endblock %}

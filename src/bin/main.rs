@@ -12,7 +12,6 @@
 
 use talgs::colors::color::Color;
 use talgs::hasher::{self, env};
-use talgs::{index, form};
 use talgs::session::controller::get_info_handler;
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
@@ -58,9 +57,8 @@ pub async fn main() -> std::io::Result<()> {
             .state(auth_pool.clone())
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(true))
-            .service(index)
+            .service(talgs::views::app::home)
             .service(get_info_handler)
-            .service(form)
             .service(fs::Files::new("/static", "static/").show_files_listing())
             .service( 
                 web::scope("/auth")

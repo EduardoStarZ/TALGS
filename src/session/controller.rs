@@ -18,7 +18,7 @@ use ntex::web;
 use rand::thread_rng;
 use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, hasher, session::model::{Claims, LoginInfo, RegisterForm}};
 use ntex_session::Session;
-use super::model::LoginResponse;
+use super::model::{LoginResponse, ClaimChecker};
 
 ///This is a handler that for any GET request to "/auth/login" that validates the information
 ///provided by an user and uses it to create a valid JWT from the secret in the .env file in case
@@ -45,6 +45,29 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
         return Ok(LoginResponse{token: Some(token), result: None});
     };
     return Ok(LoginResponse {token: None, result: Some(ResultCode::UnauthorizedError)});
+}
+
+pub fn check_token(session: Session) -> (bool, Option<String>) {
+    let auth_header : String = match session.get::<String>("Auth-Token").unwrap() {
+        Some(value) => value,
+        None => {
+            return (false, None); 
+        }
+    };
+
+    if auth_header.starts_with("Bearer ") {
+        let token : String = auth_header.trim_start_matches("Bearer ").to_string(); 
+
+        return match decode::<Claims>(&token, &DecodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref()), &Validation::default()) {
+            Ok(values) => (values.claims.check_exp(), Some(values.claims.sub)),
+            Err(error) => {
+                println!("{}", error.to_string().warning());
+                return (false, None);
+            }
+        }
+
+    }
+    return (false, None);
 }
 
 #[web::get("/info")]

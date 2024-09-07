@@ -38,3 +38,16 @@ pub struct RegisterForm {
     pub password1: String,
     pub password2: String
 }
+
+pub trait ClaimChecker {
+    fn check_exp(&self) -> bool;
+}
+
+impl ClaimChecker for Claims {
+    fn check_exp(&self) -> bool {
+        if self.exp - (chrono::Utc::now().timestamp() as usize) == 0 {
+            return false; 
+        }
+        return true;
+    }
+}
