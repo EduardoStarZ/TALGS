@@ -10,8 +10,8 @@
  * 
  * */
 
-a{
-    font-family: JetBrainsMono !important
+a {
+    font-family: Nunito !important
 }
 
 a.button {
@@ -23,22 +23,16 @@ input.color-normal {
     color: #322030 !important;
 }
 
-a.color-light {
-    color: #322030 !important;
-    background-color: #E3CEBD !important;
+a.blue {
+    color: var(--primary-white) !important;
+    background-color: var(--primary-blue) !important;
     height: fit-content !important;
 }
 
-a.color-dark {
-    color: #FCFDEB !important;
-    background-color: #322030 !important;
+a.orange {
+    color: var(--primary-white) !important;
+    background-color: var(--primary-orange) !important;
 	height: fit-content !important;
-}
-
-a.color-gray {
-    color: #FCFDEB !important;
-    background-color: #6A6179 !important;
-    height: fit-content !important;
 }
 
 a.fit-space {

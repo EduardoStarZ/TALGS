@@ -16,9 +16,10 @@ input {
     --bulma-input-border-l-delta: none !important;
     border: none !important;
     box-shadow: none !important;
-    caret-color: #6A6179;
-    font-family: JetBrainsMono !important;
+    caret-color: var(--primary-black);
+    font-family: Nunito !important;
     font-weight: 500 !important;
+    background-color: var(--secondary-white) !important;
 }
 
 input.button {
@@ -26,7 +27,7 @@ input.button {
 }
 
 input::placeholder {
-    color: #6A6179 !important;
+    color: var(--primary-black) !important;
 }
 
 input.center {
@@ -35,24 +36,14 @@ input.center {
     margin-right: auto !important;
 }
 
-input.color-normal {
-    background-color: #C1A2A0 !important;
-    color: #322030 !important;
+input.blue {
+		background-color: var(--primary-blue) !important;
+		color: var(--primary-white) !important;
 }
 
-input.color-light {
-    background-color: #E3CEBD !important;
-    color: #322030 !important;
-}
-
-input.color-dark {
-    background-color: #322030 !important;
-    color: #EEEEEE !important;
-}
-
-input.color-gray {
-    background-color: #6A6179 !important;
-    color: #EEEEEE !important;
+input.orange {
+		background-color: var(--primary-orange) !important;
+		color: var(--primary-white) !important;
 }
 
 input[type="number"] {
