@@ -39,7 +39,7 @@ pub fn create(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                println!("Error with the database: {}", err.to_string().warning());
+                println!("Error with the database: 1 {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         }
@@ -52,7 +52,7 @@ pub fn exists(email: &String, connection : &mut SqliteConnection) -> Option<Resu
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: {}", err.to_string().warning());
+                eprintln!("Error with the database: 2 {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         };
@@ -81,7 +81,7 @@ pub fn update(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                println!("Error with the database: {}", err.to_string().warning());
+                println!("Error with the database: 3 {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             }
         }
@@ -103,37 +103,19 @@ pub fn delete(user : &User, connection : &mut SqliteConnection) -> Option<Result
         .execute(connection) {
             Ok(_) => None,
             Err(err) => {
-                println!("Error with the database : {}", err.to_string().warning());
+                println!("Error with the database: 4 {}", err.to_string().warning());
                 Some(ResultCode::ConnectionError)
             } 
         }
 }
 
 pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> {
-    match exists(&email, connection) {
-        Some(value) => {
-            match value {
-                ResultCode::Exists => (),
-                    _ => return None
-            }
-        },
-        None => return None
-    }
-
-    let mut users : Vec<User> = match users::table
-        .filter(users::email.eq(email))
-        .select(User::as_select())
-        .load(connection) {
-            Ok(value) => value,
-            Err(err) => {
-                println!("Error with the database: {}", err.to_string().warning());
-                return None;
-            }
-        };
-
-    users.reverse();
-
-    return users.pop();
+    return users::table
+            .filter(users::email.eq(email))
+            .select(User::as_select())
+            .first(connection)
+            .optional()
+            .unwrap();
 }
 
 pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
@@ -145,7 +127,7 @@ pub fn new_id(auth_conn : &mut SqliteConnection) -> i32 {
         .load(auth_conn) {
             Ok(value) => value,
             Err(err) => {
-                println!("Error with the database: {}", err.to_string().warning());
+                println!("Error with the database: 5 {}", err.to_string().warning());
                 return new_id(auth_conn);
             }
         };
@@ -163,7 +145,7 @@ pub fn get_all(key_conn : &mut SqliteConnection) -> Vec<User> {
         .load(key_conn) {
             Ok(value) => value,
             Err(err) => {
-                println!("Error with the database: {}", err.to_string().warning());
+                println!("Error with the database: 6 {}", err.to_string().warning());
                 return vec![];
             }
         }

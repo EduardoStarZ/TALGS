@@ -14,11 +14,13 @@
 use ntex::web;
 use ntex_session::Session;
 use askama::Template;
-use crate::database::{app::Purchase, connection::AuthPool, users::{get, User}};
+use crate::database::connection::{AppPool, AuthPool};
+use crate::database::{app::{Purchase, Article}, users::{get, User}};
 use super::reqwestify;
 use crate::session::controller::check_token;
 use crate::colors::color::Color;
-use crate::database::app::Article;
+use diesel::prelude::*;
+use crate::schema::app::*;
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -29,7 +31,7 @@ struct HomeTemplate{
 }
 
 #[web::get("/")]
-pub async fn home(session: Session, request : web::HttpRequest, auth_pool: web::types::State<AuthPool>) -> web::HttpResponse {
+pub async fn home(session: Session, request : web::HttpRequest, app_pool: web::types::State<AppPool>, auth_pool: web::types::State<AuthPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let session_info : (bool, Option<String>) = check_token(session);
@@ -46,8 +48,26 @@ pub async fn home(session: Session, request : web::HttpRequest, auth_pool: web::
         let user : Option<User> = get(&session_info.1.unwrap(), &mut connection);
         
         match user {
-            Some(value) => {
-                return web::HttpResponse::Ok().body(HomeTemplate{auth_level: value.group, articles: Vec::new(), purchases: Vec::new()}.render().unwrap());
+            Some(user) => {
+                let cors_purchases : Vec<Purchase> = purchase::table
+                    .filter(purchase::id_user.eq(user.id as i32))
+                    .select(Purchase::as_select())
+                    .load(&mut app_pool.pool.get().unwrap())
+                    .unwrap();
+
+                let mut cors_articles : Vec<Article> = Vec::new();
+
+                for purchase in &cors_purchases {
+                    let mut articles : Vec<Article> = article::table
+                        .filter(article::id_purchase.eq(purchase.id))
+                        .select(Article::as_select())
+                        .load(&mut app_pool.pool.get().unwrap())
+                        .unwrap();
+
+                    cors_articles.append(&mut articles);
+                }
+
+                return web::HttpResponse::Ok().body(HomeTemplate{auth_level: user.group, articles: cors_articles, purchases: cors_purchases}.render().unwrap());
             },
             None => {
                 return web::HttpResponse::Unauthorized().body("You are not authorized to see this page")
