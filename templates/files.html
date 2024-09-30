@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block title %}File transfer test{% endblock %}
+
+{% block body %}
+		<p>Send a file</p>
+		
+		<input type="file" id="file"/>
+
+		<form action="/files" method="post">
+				<input type="text" name="path" id="path" disabled />
+				<input type="submit" value="Send file"/>
+		</form>
+
+		<script src="/static/js/files.js" type="text/javascript"></script>
+{% endblock %}

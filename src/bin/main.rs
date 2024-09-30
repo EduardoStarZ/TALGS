@@ -13,6 +13,7 @@
 use talgs::colors::color::Color;
 use talgs::hasher::{self, env};
 use talgs::session::controller::get_info_handler;
+use talgs::views::{file_receiver, file_sender};
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
@@ -58,6 +59,8 @@ pub async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(true))
             .service(talgs::views::app::home)
+            .service(file_sender)
+            .service(file_receiver)
             .service(get_info_handler)
             .service(fs::Files::new("/static", "static/").show_files_listing())
             .service( 
