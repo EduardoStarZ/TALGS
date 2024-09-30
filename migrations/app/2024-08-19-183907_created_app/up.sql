@@ -7,7 +7,8 @@ CREATE TABLE `category`(
 CREATE TABLE `product`(
 	`id` INT4 NOT NULL PRIMARY KEY,
 	`name` TEXT NOT NULL,
-	`price` FLOAT NOT NULL,
+    `image_path` TEXT, 
+    `price` FLOAT NOT NULL,
 	`id_category` INT2 NOT NULL,
 	`total_amount` INT4 NOT NULL
 );
