@@ -2140,6 +2140,7 @@ dependencies = [
  "chrono",
  "colored",
  "diesel",
+ "futures",
  "jsonwebtoken",
  "libsqlite3-sys",
  "ntex",

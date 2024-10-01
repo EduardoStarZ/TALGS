@@ -19,6 +19,7 @@ ntex-files = "2.0.0"
 colored = "2.1.0"
 libsqlite3-sys = { version = "0.29", features = ["bundled"] }
 peak_alloc = "0.2.0"
+futures = "0.3.30"
 
 [profile.dev.package.num-bigint-dig]
 opt-level = 3
