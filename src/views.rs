@@ -12,7 +12,6 @@
 
 use ntex::web;
 use ntex::util::BytesMut;
-use futures::StreamExt;
 use crate::colors::color::Color;
 use peak_alloc::PeakAlloc;
 use askama::Template;
@@ -22,7 +21,6 @@ pub mod auth;
 pub mod app;
 
 static PEAK : PeakAlloc = PeakAlloc;
-const MAX_FILE_SIZE : usize = 5_000_000;
 
 pub fn reqwestify(request: web::HttpRequest) {
     let headers : String = request.headers().iter().map(|x| format!("\t{:?} : {:?}\n", x.0, x.1)).collect::<String>();
@@ -52,30 +50,20 @@ struct FileForm {
     path: String,
 }
 
+const MAX_SIZE : usize = 5_00_000;
+
 #[web::post("/files")]
-pub async fn file_receiver(request : web::HttpRequest, mut payload : web::types::Payload) -> web::HttpResponse {
+pub async fn file_receiver(request : web::HttpRequest, mut payload : web::types::Payload) -> web::HttpResponse{
     reqwestify(request);
 
-    let mut body = BytesMut::new();
-    
-    while let Some(chunk) = payload.next().await {
-        let chunk = chunk.unwrap();
-
-        if (body.len() + chunk.len()) > MAX_FILE_SIZE {
-            return web::HttpResponse::BadRequest().body("File size too big.");
-        }
-
-        body.extend_from_slice(&chunk);
+    let mut bytes = BytesMut::new();
+        while let Some(item) = ntex::util::stream_recv(&mut payload).await {
+        bytes.extend_from_slice(&item.unwrap());
     }
 
-    let content : FileForm = serde_json::from_slice(&body).unwrap();
+    let path : String = String::from_utf8(bytes.iter().collect::<Vec<&u8>>()).unwrap();
 
-    //let content : String = body.iter().map(|x| format!("{x:x}")).collect::<String>();
-
-    println!("{}", content.path);
+    println!("{:?}", bytes);
 
     return web::HttpResponse::Ok().finish();
 }
-
-//706174683d643732363166613738
-//706174683d303030303030
