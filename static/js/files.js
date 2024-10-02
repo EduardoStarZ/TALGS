@@ -13,7 +13,7 @@ document.getElementById('file').addEventListener('change', function() {
 						return ('0' + (byte & 0xFF).toString(16)).slice(-2);
 				}).join('');
 
-				document.getElementById("path").value = hexString;
+				document.getElementById("path").value = "{ path : "+ hexString + " }";
 		}
 		reader.readAsArrayBuffer(this.files[0]);
 

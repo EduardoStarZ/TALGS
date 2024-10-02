@@ -68,7 +68,14 @@ pub async fn file_receiver(request : web::HttpRequest, mut payload : web::types:
         body.extend_from_slice(&chunk);
     }
 
-    let _ : FileForm = serde_json::from_slice::<FileForm>(&body).unwrap();
+    let content : FileForm = serde_json::from_slice(&body).unwrap();
+
+    //let content : String = body.iter().map(|x| format!("{x:x}")).collect::<String>();
+
+    println!("{}", content.path);
 
     return web::HttpResponse::Ok().finish();
 }
+
+//706174683d643732363166613738
+//706174683d303030303030
