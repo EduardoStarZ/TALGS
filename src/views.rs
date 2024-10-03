@@ -10,17 +10,17 @@
  * 
  * */
 
+use std::{fs::File, io::Write};
+
 use ntex::web;
 use ntex::util::BytesMut;
 use crate::colors::color::Color;
-use peak_alloc::PeakAlloc;
 use askama::Template;
 use serde::{Deserialize, Serialize};
 
 pub mod auth;
 pub mod app;
 
-static PEAK : PeakAlloc = PeakAlloc;
 
 pub fn reqwestify(request: web::HttpRequest) {
     let headers : String = request.headers().iter().map(|x| format!("\t{:?} : {:?}\n", x.0, x.1)).collect::<String>();
@@ -28,9 +28,6 @@ pub fn reqwestify(request: web::HttpRequest) {
     let reqwestified : String = format!("Request Type: {:?} | URI: {:?}\n Request Headers: \n{headers}\n", request.method(), request.uri());
 
     println!("{}", reqwestified.request());
-    let usage : (String, String) = (format!("Current Memory Usage: {}", PEAK.current_usage_as_kb()), format!("Maximum Memory Usage: {}", PEAK.peak_usage_as_kb()));
-
-    println!("{} | {}", usage.0.warning(), usage.1.warning());
 }
 
 #[derive(Template)]
@@ -50,8 +47,6 @@ struct FileForm {
     path: String,
 }
 
-const MAX_SIZE : usize = 5_00_000;
-
 #[web::post("/files")]
 pub async fn file_receiver(request : web::HttpRequest, mut payload : web::types::Payload) -> web::HttpResponse{
     reqwestify(request);
@@ -61,9 +56,13 @@ pub async fn file_receiver(request : web::HttpRequest, mut payload : web::types:
         bytes.extend_from_slice(&item.unwrap());
     }
 
-    let path : String = String::from_utf8(bytes.iter().collect::<Vec<&u8>>()).unwrap();
+    let path : String = String::from_utf8(bytes.into_iter().collect::<Vec<u8>>()).unwrap().split_once("path=").unwrap().1.to_string();
 
-    println!("{:?}", bytes);
+    let pure_bytes : Vec<u8> = crate::auth::parser::unspaced_hex_str_to_u8_vec(&path);
+
+    println!("{}", path);
+    let mut file : File = File::create("aarch.png").unwrap();
+    file.write(&(*pure_bytes)).unwrap();
 
     return web::HttpResponse::Ok().finish();
 }
