@@ -46,7 +46,7 @@ pub fn detect_file_extension(file : Image) -> Option<FileExt> {
     }
 }
 
-pub fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
+fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
     if fs::exists(&filename).unwrap() {
         return false;
     }
@@ -59,4 +59,39 @@ pub fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
         }
     };
 
-} 
+}
+
+pub fn create_file(filename : String) -> bool {
+    if fs::exists(&filename).unwrap() {
+        return false;
+    }
+
+    return match fs::File::create(format!("/img/{filename}").as_str()) {
+        Ok(_) => true,
+        Err(err) => {
+            println!("{}", err.to_string().warning());
+            false
+        }
+    };
+}
+
+fn check_dir_existance() -> bool {
+    let path = fs::read_dir("/static/app/img/");
+    
+    return match path {
+        Ok(_) => true,
+        Err(err) => {
+            println!("{}", err.to_string().warning());
+            false
+        }
+    }
+}
+
+fn create_dir() {
+    match fs::create_dir_all("/static/app/img/") {
+        Ok(_) => return,
+        Err(err) => {
+            println!("{}", err.to_string().warning());
+        }
+    };
+}
