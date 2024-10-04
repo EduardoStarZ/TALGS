@@ -18,25 +18,15 @@ use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
 use ntex_files as fs;
-use std::env::args;
-use talgs::database::users;
+use talgs::files::fs as filesystem;
 
 ///This is the main function of the cargo project
 #[ntex::main]
 pub async fn main() -> std::io::Result<()> {
 
-    if args().len() > 1 {
-        match args().collect::<Vec<String>>()[1].as_str() {
-            "db_print" => {
-                for x in users::get_all(&mut create_pure_connection("auth.sqlite3")) {
-                    let data : String = format!("||\n|| ID: {}\n|| Name: {}\n|| Email: {}\n||", x.id, x.name, x.email);        
-                    println!("{}", data.database_values());
-                }
-
-                panic!("");
-            },
-            _ => ()
-        }
+    if !filesystem::check_dir_existance() {
+        filesystem::create_dir();
+        println!("{}", "Directory for images was not found during start up of the system, therefore a new one was created".to_string().warning());
     }
 
     let adress : &str = "127.0.0.1";
@@ -59,6 +49,11 @@ pub async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(true))
             .service(talgs::views::app::home)
+            .service(
+                web::scope("/api")
+                .service(talgs::views::app::create_product_route)
+                .service(talgs::views::app::create_product_receiver)
+                )
             .service(file_sender)
             .service(file_receiver)
             .service(get_info_handler)

@@ -29,6 +29,10 @@ pub fn reqwestify(request: web::HttpRequest) {
     println!("{}", reqwestified.request());
 }
 
+pub fn transform_payload(body : String) -> Vec<String> {
+    return body.split("&").map(|x| x.to_string()).collect::<Vec<String>>();
+}
+
 #[derive(Template)]
 #[template(path="files.html")]
 struct FileFormTemplate {

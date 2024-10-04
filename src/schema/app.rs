@@ -33,6 +33,7 @@ diesel::table! {
     product (id) {
         id -> Integer,
         name -> Text,
+        image -> Text,
         price -> Float,
         id_category -> SmallInt,
         total_amount -> Integer,

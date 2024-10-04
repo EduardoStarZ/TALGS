@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+
+{#
+#
+#
+#
+# login.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+{% block title %}Criar novo produto{% endblock %}
+
+{% block nav_burger %}
+		{% include "navbar-burger.html" %}
+{% endblock %}
+
+{% block body %}
+				<input type="file" id="file">
+		<form action="/api/product/create" method="post">
+				<p>Nome:</p> <input type="text" id="name" name="name" />
+				<p>Preço</p> <input type="number" id="price" name="price" />
+				<input type="text" id="bytes" name="bytes" />
+				<p>Categoria</p> <input type="number" name="category" id="category"/>
+				<input type="submit" value="Enviar" />
+		</form>
+
+		<script src="/static/js/files.js"></script>
+{% endblock %}

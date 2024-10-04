@@ -75,7 +75,7 @@ pub fn create_file(filename : String) -> bool {
     };
 }
 
-fn check_dir_existance() -> bool {
+pub fn check_dir_existance() -> bool {
     let path = fs::read_dir("/static/app/img/");
     
     return match path {
@@ -87,7 +87,7 @@ fn check_dir_existance() -> bool {
     }
 }
 
-fn create_dir() {
+pub fn create_dir() {
     match fs::create_dir_all("/static/app/img/") {
         Ok(_) => return,
         Err(err) => {

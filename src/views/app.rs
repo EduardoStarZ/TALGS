@@ -21,6 +21,7 @@ use crate::session::controller::check_token;
 use crate::colors::color::Color;
 use diesel::prelude::*;
 use crate::schema::app::*;
+use crate::files::receiver::read_payload_to_string;
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -78,4 +79,27 @@ pub async fn home(session: Session, request : web::HttpRequest, app_pool: web::t
     return web::HttpResponse::Unauthorized().body("You are not authorized to see this page");
 }
 
- 
+#[derive(Template)]
+#[template(path="new_product.html")]
+struct NewProductpage {}
+
+#[web::get("/product/create")]
+pub async fn create_product_route(request : web::HttpRequest) -> web::HttpResponse {
+    reqwestify(request);
+
+    return web::HttpResponse::Ok().body(NewProductpage{}.render().unwrap());
+}
+
+#[web::post("/product/create")]
+pub async fn create_product_receiver(request : web::HttpRequest, payload : web::types::Payload) -> web::HttpResponse {
+    reqwestify(request);
+
+    let payload : String = match read_payload_to_string(payload).await {
+        Some(value) => value,
+        None => return web::HttpResponse::BadRequest().finish()
+    };
+
+    println!("{payload}");
+
+    return web::HttpResponse::Ok().finish(); 
+}
