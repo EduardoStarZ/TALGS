@@ -46,8 +46,8 @@ pub fn detect_file_extension(file : Image) -> Option<FileExt> {
     }
 }
 
-fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
-    if fs::exists(&filename).unwrap() {
+pub fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
+    if exists(&filename) {
         return false;
     }
 
@@ -61,8 +61,18 @@ fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
 
 }
 
+fn exists(path : & String) -> bool {
+    return match fs::read(path) {
+        Ok(_) => true,
+        Err(err) => {
+            println!("{}", err.to_string().warning());
+            return false;
+        }
+    }
+}
+
 pub fn create_file(filename : String) -> bool {
-    if fs::exists(&filename).unwrap() {
+    if exists(&filename) {
         return false;
     }
 
