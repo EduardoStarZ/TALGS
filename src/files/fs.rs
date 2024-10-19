@@ -11,7 +11,7 @@
  * */
 
 use std::fs;
-
+use rand::{Rng, distributions::Alphanumeric};
 use crate::colors::color::Color;
 
 pub enum FileExt {
@@ -94,4 +94,15 @@ pub fn create_dir() {
             println!("{}", err.to_string().warning());
         }
     };
+}
+
+pub fn rand_name() -> String {
+     let s: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(20)
+        .map(char::from)
+        .collect::<String>();
+
+    return s;
+   
 }

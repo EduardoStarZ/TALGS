@@ -22,6 +22,7 @@ use crate::colors::color::Color;
 use diesel::prelude::*;
 use crate::schema::app::*;
 use crate::files::receiver::read_payload_to_string;
+use crate::str::filter::{Form, payload_into_values};
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -100,6 +101,12 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
     };
 
     println!("{payload}");
+
+    let values : Vec<Form> = payload_into_values(&payload);
+
+    for x in values {
+        println!("{} - {}",x.name, x.value);
+    }
 
     return web::HttpResponse::Ok().finish(); 
 }

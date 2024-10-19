@@ -23,11 +23,11 @@
 {% endblock %}
 
 {% block body %}
-				<input type="file" id="file">
 		<form action="/api/product/create" method="post">
+				<input type="text" id="bytes" name="bytes" />
+				<input type="file" id="file" name="file">
 				<p>Nome:</p> <input type="text" id="name" name="name" />
 				<p>Preço</p> <input type="number" id="price" name="price" />
-				<input type="text" id="bytes" name="bytes" />
 				<p>Categoria</p> <input type="number" name="category" id="category"/>
 				<input type="submit" value="Enviar" />
 		</form>
