@@ -46,7 +46,7 @@ pub fn detect_file_extension(file : Image) -> Option<FileExt> {
     }
 }
 
-pub fn write_contents(bytes : Vec<u8>, filename : String) -> bool {
+pub fn write_contents(bytes : Vec<u8>, filename : &String) -> bool {
     if exists(&filename) {
         return false;
     }

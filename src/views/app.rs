@@ -24,6 +24,7 @@ use crate::schema::app::*;
 use crate::files::receiver::read_payload_to_string;
 use crate::str::filter::{Form, payload_into_values};
 use crate::files::fs::{self, rand_name};
+use crate::auth::parser::unspaced_hex_str_to_u8_vec;
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -93,7 +94,7 @@ pub async fn create_product_route(request : web::HttpRequest) -> web::HttpRespon
 }
 
 #[web::post("/product/create")]
-pub async fn create_product_receiver(request : web::HttpRequest, payload : web::types::Payload) -> web::HttpResponse {
+pub async fn create_product_receiver(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let payload : String = match read_payload_to_string(payload).await {
@@ -114,10 +115,12 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         total_amount: 0
     };
 
+    let mut filename : String = String::new();
+
     for x in values {
         match x.name {
             "file" => {
-                fs::create_file(format!("{}.{}", rand_name(), x.value
+                filename = format!("{}.{}", rand_name(), x.value
                         .chars()
                         .rev()
                         .collect::<String>()
@@ -127,7 +130,12 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
                         .chars()
                         .rev()
                         .collect::<String>()
-                        ));   
+                        );
+
+                fs::create_file(filename.clone());
+            },
+            "bytes" => {
+                fs::write_contents(unspaced_hex_str_to_u8_vec(&String::from(x.value)), &filename);
             },
             "name" => {
                 product.name = String::from(x.value);
@@ -139,7 +147,12 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
                 product.id_category = x.value.trim().parse::<i16>().unwrap();
             },
             _ => return web::HttpResponse::Forbidden().finish()
-        } ("{} - {}",x.name, x.value);
+        } 
+
+        diesel::insert_into(product::table)
+            .values(product)
+            .execute(&mut pool.pool.get().unwrap())
+            .unwrap();
     }
 
     return web::HttpResponse::Ok().finish(); 
