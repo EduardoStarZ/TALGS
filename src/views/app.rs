@@ -15,7 +15,7 @@ use ntex::web;
 use ntex_session::Session;
 use askama::Template;
 use crate::database::connection::{AppPool, AuthPool};
-use crate::database::{app::{Purchase, Article}, users::{get, User}};
+use crate::database::{app::{Purchase, Article, Product}, users::{get, User}};
 use super::reqwestify;
 use crate::session::controller::check_token;
 use crate::colors::color::Color;
@@ -23,6 +23,7 @@ use diesel::prelude::*;
 use crate::schema::app::*;
 use crate::files::receiver::read_payload_to_string;
 use crate::str::filter::{Form, payload_into_values};
+use crate::files::fs::{self, rand_name};
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -104,8 +105,41 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
 
     let values : Vec<Form> = payload_into_values(&payload);
 
+    let mut product : Product = Product {
+        id: 0,
+        name: String::new(),
+        price: 0.0,
+        id_category: 0,
+        image: String::new(),
+        total_amount: 0
+    };
+
     for x in values {
-        println!("{} - {}",x.name, x.value);
+        match x.name {
+            "file" => {
+                fs::create_file(format!("{}.{}", rand_name(), x.value
+                        .chars()
+                        .rev()
+                        .collect::<String>()
+                        .split_once(".")
+                        .unwrap()
+                        .0
+                        .chars()
+                        .rev()
+                        .collect::<String>()
+                        ));   
+            },
+            "name" => {
+                product.name = String::from(x.value);
+            },
+            "price" => {
+                product.price = x.value.trim().parse::<f32>().unwrap();
+            },
+            "category" => {
+                product.id_category = x.value.trim().parse::<i16>().unwrap();
+            },
+            _ => return web::HttpResponse::Forbidden().finish()
+        } ("{} - {}",x.name, x.value);
     }
 
     return web::HttpResponse::Ok().finish(); 
