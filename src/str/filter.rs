@@ -16,7 +16,7 @@ impl<'a> FromStr<'a> for Form<'a> {
     }
 }
 
-pub fn payload_into_values<'a>(value : &'a String) -> Vec<Form> {
+pub fn payload_into_values<'a>(value : &'a String) -> Vec<Form<'a>> {
     let splitted : Vec<&str> = value.split("&").collect();
 
     let checker : Regex = Regex::new(r".+\=.+").unwrap();
