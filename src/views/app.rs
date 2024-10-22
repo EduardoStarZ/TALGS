@@ -150,7 +150,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         } 
 
         diesel::insert_into(product::table)
-            .values(product)
+            .values(&product)
             .execute(&mut pool.pool.get().unwrap())
             .unwrap();
     }
