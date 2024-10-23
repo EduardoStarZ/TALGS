@@ -107,7 +107,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
     let values : Vec<Form> = payload_into_values(&payload);
 
     let mut product : Product = Product {
-        id: 0,
+        id: 134536,
         name: String::new(),
         price: 0.0,
         id_category: 0,
@@ -148,12 +148,12 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
             },
             _ => return web::HttpResponse::Forbidden().finish()
         } 
-
-        diesel::insert_into(product::table)
-            .values(&product)
-            .execute(&mut pool.pool.get().unwrap())
-            .unwrap();
     }
+
+    diesel::insert_into(product::table)
+        .values(&product)
+        .execute(&mut pool.pool.get().unwrap())
+        .unwrap();
 
     return web::HttpResponse::Ok().finish(); 
 }

@@ -47,32 +47,21 @@ pub fn detect_file_extension(file : Image) -> Option<FileExt> {
 }
 
 pub fn write_contents(bytes : Vec<u8>, filename : &String) -> bool {
-    if exists(&filename) {
+    if fs::exists(&filename).unwrap() {
         return false;
     }
 
-    return match fs::write(format!("/img/{filename}").as_str(), bytes) {
+    return match fs::write(format!("/static/img/{filename}").as_str(), bytes) {
         Ok(_) => true,
         Err(err) => {
-            println!("{}", err.to_string().warning());
-            false
+            panic!("{}", err.to_string().warning());
         }
     };
 
 }
 
-fn exists(path : & String) -> bool {
-    return match fs::read(path) {
-        Ok(_) => true,
-        Err(err) => {
-            println!("{}", err.to_string().warning());
-            return false;
-        }
-    }
-}
-
 pub fn create_file(filename : String) -> bool {
-    if exists(&filename) {
+    if fs::exists(&filename).unwrap() {
         return false;
     }
 
