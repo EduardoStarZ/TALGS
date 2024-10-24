@@ -10,7 +10,6 @@
  * 
  * */
 
-use talgs::colors::color::Color;
 use talgs::hasher::{self, env};
 use talgs::session::controller::get_info_handler;
 use talgs::views::{file_receiver, file_sender};
@@ -24,10 +23,7 @@ use talgs::files::fs as filesystem;
 #[ntex::main]
 pub async fn main() -> std::io::Result<()> {
 
-    if filesystem::check_dir_existance() {
-        filesystem::create_dir();
-        println!("{}", "Directory for images was not found during start up of the system, therefore a new one was created".to_string().warning());
-    }
+    filesystem::check_dir_existance(); 
 
     let adress : &str = "127.0.0.1";
     let port : u16 = 8080;

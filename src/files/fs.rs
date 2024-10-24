@@ -10,9 +10,11 @@
  * 
  * */
 
-use std::fs;
+use std::fs::{self, File};
+use std::path::Path;
 use rand::{Rng, distributions::Alphanumeric};
 use crate::colors::color::Color;
+
 
 pub enum FileExt {
     PNG,
@@ -35,7 +37,7 @@ impl Constructor for Image {
     }
 }
 
-pub fn detect_file_extension(file : Image) -> Option<FileExt> {
+pub fn detect_file_extension(file : &Image) -> Option<FileExt> {
     let ext : Vec<String> = file.name.split(".").map(|x| x.to_string()).collect::<Vec<String>>();
 
     return match ext[ext.len()-1].as_str() {
@@ -46,12 +48,12 @@ pub fn detect_file_extension(file : Image) -> Option<FileExt> {
     }
 }
 
-pub fn write_contents(bytes : Vec<u8>, filename : &String) -> bool {
+pub fn write_contents(bytes : &Vec<u8>, filename : &String) -> bool {
     if fs::exists(&filename).unwrap() {
         return false;
     }
 
-    return match fs::write(format!("/static/img/{filename}").as_str(), bytes) {
+    return match fs::write(format!("static/app/img/{filename}").as_str(), bytes) {
         Ok(_) => true,
         Err(err) => {
             panic!("{}", err.to_string().warning());
@@ -60,39 +62,29 @@ pub fn write_contents(bytes : Vec<u8>, filename : &String) -> bool {
 
 }
 
-pub fn create_file(filename : String) -> bool {
+pub fn create_file(filename : &String) -> bool {
     if fs::exists(&filename).unwrap() {
         return false;
     }
 
-    return match fs::File::create(format!("/img/{filename}").as_str()) {
-        Ok(_) => true,
-        Err(err) => {
-            println!("{}", err.to_string().warning());
-            false
-        }
-    };
+    File::create(format!("static/app/img/{filename}").as_str()).unwrap();
+
+    return true;
 }
 
-pub fn check_dir_existance() -> bool {
-    let path = fs::read_dir("/static/app/img/");
+pub fn check_dir_existance() {
+    let exists : bool = Path::new("static/app/img").exists();
     
-    return match path {
-        Ok(_) => true,
-        Err(err) => {
-            println!("{}", err.to_string().warning());
-            false
-        }
-    }
-}
+    if exists {
+        return;        
+    } 
 
-pub fn create_dir() {
-    match fs::create_dir_all("/static/app/img/") {
+    match fs::create_dir_all("static/app/img") {
         Ok(_) => return,
         Err(err) => {
             println!("{}", err.to_string().warning());
         }
-    };
+    }
 }
 
 pub fn rand_name() -> String {
@@ -103,5 +95,4 @@ pub fn rand_name() -> String {
         .collect::<String>();
 
     return s;
-   
 }

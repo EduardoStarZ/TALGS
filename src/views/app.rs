@@ -132,10 +132,10 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
                         .collect::<String>()
                         );
 
-                fs::create_file(filename.clone());
+                fs::create_file(&filename.clone());
             },
             "bytes" => {
-                fs::write_contents(unspaced_hex_str_to_u8_vec(&String::from(x.value)), &filename);
+                fs::write_contents(&unspaced_hex_str_to_u8_vec(&String::from(x.value)), &filename);
             },
             "name" => {
                 product.name = String::from(x.value);
