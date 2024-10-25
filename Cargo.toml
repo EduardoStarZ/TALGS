@@ -26,3 +26,7 @@ opt-level = 3
 
 [profile.dev.package.askama_derive]
 opt-level = 3
+
+[profile.dev]
+lto=false
+codegen-units = 2
