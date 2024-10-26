@@ -25,6 +25,8 @@ use crate::files::receiver::read_payload_to_string;
 use crate::str::filter::{Form, payload_into_values};
 use crate::files::fs::{self, rand_name};
 use crate::auth::parser::unspaced_hex_str_to_u8_vec;
+use std::borrow::Cow;
+
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -110,10 +112,10 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
 
     let mut product : Product = Product {
         id: 134536,
-        name: String::new(),
+        name: Cow::from(""),
         price: 0.0,
         id_category: 0,
-        image: String::new(),
+        image: Cow::from(""),
         total_amount: 0
     };
 
@@ -140,7 +142,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
                 fs::write_contents(&unspaced_hex_str_to_u8_vec(&String::from(x.value)), &filename);
             },
             "name" => {
-                product.name = String::from(x.value);
+                product.name = Cow::from(x.value);
             },
             "price" => {
                 product.price = x.value.trim().parse::<f32>().unwrap();

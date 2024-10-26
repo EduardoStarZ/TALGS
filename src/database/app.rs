@@ -13,6 +13,7 @@
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use crate::schema::app::*;
+use std::borrow::Cow;
 
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
@@ -28,10 +29,10 @@ pub struct Article {
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = product)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Product {
+pub struct Product<'a> {
     pub id: i32,
-    pub name: String,
-    pub image: String,
+    pub name: Cow<'a, str>,
+    pub image: Cow<'a, str>,
     pub price: f32,
     pub id_category: i16,
     pub total_amount: i32
@@ -50,34 +51,34 @@ pub struct Purchase {
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = supplier)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Supplier {
+pub struct Supplier<'a> {
     pub id: i32,
-    pub name: String,
-    pub cnpj: Option<String>,
-    pub cpf: Option<String>,
-    pub email: String
+    pub name: Cow<'a, str>,
+    pub cnpj: Option<Cow<'a, str>>,
+    pub cpf: Option<Cow<'a, str>>,
+    pub email: Cow<'a, str>
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = adress)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Adress {
+pub struct Adress<'a> {
     pub id: i32,
     pub id_supplier: i32,
     pub cep: i32,
-    pub city: String,
-    pub neighborhood: String,
-    pub block: Option<String>,
-    pub number: String,
-    pub complement: Option<String>
+    pub city: Cow<'a, str>,
+    pub neighborhood: Cow<'a, str>,
+    pub block: Option<Cow<'a, str>>,
+    pub number: Cow<'a, str>,
+    pub complement: Option<Cow<'a, str>>
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = category)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Category {
+pub struct Category<'a> {
     pub id: i16,
-    pub name: String
+    pub name: Cow<'a, str>
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
