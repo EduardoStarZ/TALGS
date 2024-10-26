@@ -72,7 +72,7 @@ pub fn encrypt<'a>(data : &'a str, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -
 //This function may return None if the message was encripted with a key that was not
 //originated by the given private key
 pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>{
-    let byte_data : &[u8] = &enc_data[..];
+    let byte_data : &'a [u8] = &enc_data[..];
     let decoded_data : Option<Vec<u8>> = match priv_key.decrypt(Pkcs1v15Encrypt, &byte_data) {
         Ok(value) => Some(value),
         Err(err) => {
@@ -81,7 +81,7 @@ pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<
         }
     };
 
-    let bytes : &[u8] = &decoded_data.unwrap()[..];
+    let bytes : &[u8] = &*decoded_data.unwrap();
 
     return match std::str::from_utf8(bytes) {
         Ok(value) => Some(value.to_owned()),
