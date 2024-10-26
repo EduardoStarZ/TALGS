@@ -12,7 +12,6 @@
 
 use talgs::hasher::{self, env};
 use talgs::session::controller::get_info_handler;
-use talgs::views::{file_receiver, file_sender};
 use talgs::database::connection::*;
 use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
@@ -50,8 +49,6 @@ pub async fn main() -> std::io::Result<()> {
                 .service(talgs::views::app::create_product_route)
                 .service(talgs::views::app::create_product_receiver)
                 )
-            .service(file_sender)
-            .service(file_receiver)
             .service(get_info_handler)
             .service(fs::Files::new("/static", "static/").show_files_listing())
             .service( 
