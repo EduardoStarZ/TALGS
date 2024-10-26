@@ -23,14 +23,31 @@
 {% endblock %}
 
 {% block body %}
+<div class="frame h-auto w-80">
 		<form action="/api/product/create" method="post">
-				<input type="file" id="file" name="file">
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="file" id="file" name="file">
 				<input type="text" id="bytes" name="bytes" />
-				<p>Nome:</p> <input type="text" id="name" name="name" />
-				<p>Preço</p> <input type="number" id="price" name="price" />
-				<p>Categoria</p> <input type="number" name="category" id="category"/>
-				<input type="submit" value="Enviar" />
+				<center><label class="subtitle is-5 " for="nome">Nome</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center"  type="text" id="name" name="name" />
+
+				<center><label class="subtitle is-5 " for="nome">Preço</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center"  type="number" id="price" name="price" />
+
+				<center><label class="subtitle is-5 " for="nome">Categoria</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center"  type="number" name="category" id="category"/>
+				<input type="submit" class="button blue is-medium center fit-space" value="Criar" />
 		</form>
+</div>
 
 		<script src="/static/js/files.js"></script>
+
+		<style>
+				#bytes {
+						opacity: 0;
+				}
+		</style>
 {% endblock %}

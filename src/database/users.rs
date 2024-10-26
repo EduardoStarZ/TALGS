@@ -52,7 +52,7 @@ pub fn exists(email: &String, connection : &mut SqliteConnection) -> Option<Resu
         .load(connection) {
             Ok(value) => value,
             Err(err) => {
-                eprintln!("Error with the database: 2 {}", err.to_string().warning());
+                println!("Error with the database: {}", err.to_string().warning());
                 return Some(ResultCode::ConnectionError);
             }
         };
