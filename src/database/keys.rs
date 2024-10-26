@@ -15,20 +15,21 @@ use crate::schema::key::key;
 use super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
+use std::borrow::Cow;
 
 
 ///A struct defined to allow for CRUD implementations of the keys table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = key)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Keys {
+pub struct Keys<'a> {
     pub id: i32,
     pub user_id: i32,
-    pub public_key: String,
-    pub private_key: String
+    pub public_key: Cow<'a, str>,
+    pub private_key: Cow<'a, str>
 }
 
-pub fn create(keys : &Keys , connection : &mut SqliteConnection) -> Option<ResultCode> {
+pub fn create<'a, 'b>(keys : &'a Keys , connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     match exists(&keys.id, connection) {
         Some(value) => return Some(value),
         None => ()
@@ -45,7 +46,7 @@ pub fn create(keys : &Keys , connection : &mut SqliteConnection) -> Option<Resul
         }
 }
 
-pub fn update(keys : &Keys , connection : &mut SqliteConnection) -> Option<ResultCode> {
+pub fn update<'a, 'b>(keys : &'a Keys , connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     match exists(&keys.id, connection) {
         Some(value) => {
             match value {
@@ -68,7 +69,7 @@ pub fn update(keys : &Keys , connection : &mut SqliteConnection) -> Option<Resul
         }
 }
 
-pub fn delete(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode> {
+pub fn delete<'a, 'b>(id: &'a i32, connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     match exists(id ,connection) {
         Some(value) => {
             match value {
@@ -90,7 +91,7 @@ pub fn delete(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode
         }
 }
 
-pub fn exists(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode> {
+pub fn exists<'a, 'b>(id: &'a i32, connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     let q_keys : Vec<Keys> = match key::table
         .filter(key::id.eq(id))
         .select(Keys::as_select())
@@ -108,8 +109,8 @@ pub fn exists(id: &i32, connection : &mut SqliteConnection) -> Option<ResultCode
     }
 }
 
-pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
-    let mut keys : Vec<Keys> = match key::table
+pub fn get<'a, 'b>(id: &'a i32, connection: &'b mut SqliteConnection) -> Option<Keys<'a>> {
+    let mut keys : Vec<Keys<'a>> = match key::table
         .filter(key::user_id.eq(id))
         .select(Keys::as_select())
         .load(connection) {
@@ -125,7 +126,7 @@ pub fn get(id: &i32, connection: &mut SqliteConnection) -> Option<Keys> {
     return keys.pop();
 }
 
-pub fn new_id(key_conn : &mut SqliteConnection) -> i32 {
+pub fn new_id<'a>(key_conn : &'a mut SqliteConnection) -> i32 {
     let new : i32 = thread_rng().gen::<i32>();
 
      let keys : Vec<Keys> = match key::table
@@ -146,7 +147,7 @@ pub fn new_id(key_conn : &mut SqliteConnection) -> i32 {
      return new;
 }
 
-pub fn get_all(key_conn : &mut SqliteConnection) -> Vec<Keys> {
+pub fn get_all<'a, 'b>(key_conn : &'b mut SqliteConnection) -> Vec<Keys<'a>> {
     match key::table
         .select(Keys::as_select())
         .load(key_conn) {

@@ -20,6 +20,7 @@ use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, d
 use ntex_session::Session;
 use super::model::{LoginResponse, ClaimChecker};
 
+
 ///This is a handler that for any GET request to "/auth/login" that validates the information
 ///provided by an user and uses it to create a valid JWT from the secret in the .env file in case
 ///the information is fine, and can either return a LoginResponse Struct or a diesel Error
@@ -113,7 +114,7 @@ fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_
         None => return false
     };
 
-    let encoded_priv_key = match encryption::str_to_private_key(&keys.private_key) {
+    let encoded_priv_key = match encryption::str_to_private_key(&keys.private_key.to_string()) {
         Some(value) => value,
         None => return false
     };
@@ -149,7 +150,7 @@ pub fn register_handler(form: web::types::Form<RegisterForm>, auth_conn: &mut Sq
         None => (),
     };
 
-    let keypair : Keys = Keys {id: keys::new_id(key_conn), user_id: user.id, public_key: encryption::public_key_to_str(&keys.public_key).unwrap(), private_key: encryption::private_key_to_str(&keys.private_key).unwrap() };
+    let keypair : Keys = Keys {id: keys::new_id(key_conn), user_id: user.id, public_key: encryption::public_key_to_str(&keys.public_key).unwrap().into(), private_key: encryption::private_key_to_str(&keys.private_key).unwrap().into() };
 
     match keys::create(&keypair, key_conn) {
         Some(_) => Ok(false),

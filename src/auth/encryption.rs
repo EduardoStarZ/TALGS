@@ -50,7 +50,7 @@ pub fn create_keys(bits : usize) -> Option<KeyPair> {
 ///
 ///This function may return None if the given string is long enough to overflow the bits given to
 ///during keys creation
-pub fn encrypt(data : &String, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -> Option<Vec<u8>> {
+pub fn encrypt<'a>(data : &'a str, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -> Option<Vec<u8>> {
     
     let byte_str = data.as_bytes();
 
@@ -71,8 +71,8 @@ pub fn encrypt(data : &String, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -> Op
 //
 //This function may return None if the message was encripted with a key that was not
 //originated by the given private key
-pub fn decrypt(enc_data : &Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String> {
-    let byte_data = &enc_data[..];
+pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>{
+    let byte_data : &[u8] = &enc_data[..];
     let decoded_data : Option<Vec<u8>> = match priv_key.decrypt(Pkcs1v15Encrypt, &byte_data) {
         Ok(value) => Some(value),
         Err(err) => {
@@ -81,8 +81,10 @@ pub fn decrypt(enc_data : &Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>
         }
     };
 
-    return  match std::str::from_utf8(&decoded_data.unwrap()[..]) {
-        Ok(value) => Some(value.to_string()),
+    let bytes : &[u8] = &decoded_data.unwrap()[..];
+
+    return match std::str::from_utf8(bytes) {
+        Ok(value) => Some(value.to_owned()),
         Err(err) => {
             println!("Error while parsing byte sequence to a utf-8 string: {}", err.to_string().warning());
             None
@@ -110,8 +112,8 @@ pub fn public_key_to_str(public_key : &RsaPublicKey) -> Option<String> {
 ///deserialize it back to a proper RSA public key
 ///
 ///May return a None value if the given String is not a proper encoded key
-pub fn str_to_public_key(public_key : &String) -> Option<RsaPublicKey> {
-    match RsaPublicKey::from_pkcs1_pem(public_key.as_str()) {
+pub fn str_to_public_key<'a>(public_key : &'a str) -> Option<RsaPublicKey> {
+    match RsaPublicKey::from_pkcs1_pem(public_key) {
         Ok(value) => Some(value),
         Err(err) => {
             println!("Error while deserializing public key from PEM encoding: {}", err.to_string().warning());
