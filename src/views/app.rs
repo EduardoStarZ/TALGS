@@ -49,7 +49,9 @@ pub async fn home(session: Session, request : web::HttpRequest, app_pool: web::t
             }
         };
 
-        let user : Option<User> = get(&session_info.1.unwrap(), &mut connection);
+        let email : String = session_info.1.unwrap();
+
+        let user : Option<User> = get(email.as_str(), &mut connection);
         
         match user {
             Some(user) => {

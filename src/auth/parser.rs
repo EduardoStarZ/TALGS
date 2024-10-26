@@ -29,9 +29,9 @@ pub fn hex_str_spaced_to_u8_vec(str : &String) -> Vec<u8> {
 
 ///This function takes up a reference to a String without spaces between the hex values and returns
 ///a bit vector
-pub fn unspaced_hex_str_to_u8_vec(str : &String) -> Vec<u8> {
+pub fn unspaced_hex_str_to_u8_vec<'a>(str : &'a str) -> Vec<u8> {
     let mut hexes : Vec<u8> = Vec::new();
-    let mut copied_str = str.clone().chars().rev().collect::<String>();
+    let mut copied_str = str.chars().rev().collect::<String>();
 
     for _ in 0..(str.len() / 2) {
         let sub_str : String = format!("{}{}", copied_str.pop().unwrap(), copied_str.pop().unwrap());

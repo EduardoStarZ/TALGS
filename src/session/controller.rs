@@ -10,8 +10,6 @@
  * 
  * */
 
-use std::ops::Deref;
-
 use diesel::SqliteConnection;
 use jsonwebtoken::{encode, DecodingKey, EncodingKey, Header, Validation, decode};
 use ntex::web;
@@ -19,6 +17,7 @@ use rand::thread_rng;
 use crate::{auth::{encryption::{self, KeyPair}, parser}, colors::color::Color, database::{keys::{self, Keys}, models::ResultCode, users::{self, User}}, hasher, session::model::{Claims, LoginInfo, RegisterForm}};
 use ntex_session::Session;
 use super::model::{LoginResponse, ClaimChecker};
+use std::borrow::Cow;
 
 
 ///This is a handler that for any GET request to "/auth/login" that validates the information
@@ -104,7 +103,7 @@ pub async fn get_info_handler(session : Session, request : web::HttpRequest) -> 
 ///This one function is used by the above to validate the information
 ///the user provided, returns a simple boolean according to the success
 fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_conn : &mut SqliteConnection) -> bool {
-    let user : User = match users::get(&email.to_string(), auth_conn) {
+    let user : User = match users::get(&email, auth_conn) {
         Some(value) => value,
         None => return false
     };
@@ -143,7 +142,7 @@ pub fn register_handler(form: web::types::Form<RegisterForm>, auth_conn: &mut Sq
         None => return Ok(false)
     };
 
-    let user : User = User {id: users::new_id(auth_conn), name: (&form.username).deref().to_string(), email: (&form.email).deref().to_string(), password: parser::unspaced_u8_vec_to_hex_str(&hashed_password), group: 1};
+    let user : User = User {id: users::new_id(auth_conn), name: Cow::from(form.username.as_str()), email: Cow::from(form.email.as_str()), password: parser::unspaced_u8_vec_to_hex_str(&hashed_password).into(), group: 1};
 
     match users::create(&user, auth_conn) {
         Some(_) => return Ok(false),

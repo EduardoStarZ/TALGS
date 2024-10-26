@@ -14,18 +14,19 @@ use diesel::prelude::*;
 use rand::{thread_rng, Rng};
 use crate::{colors::color::Color, schema::auth::users};
 use super::models::ResultCode;
+use std::borrow::Cow;
 
 
 ///A struct defined for CRUD implementations of the users table
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = users)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct User {
+pub struct User<'a> {
     pub id : i32,
-    pub name : String,
-    pub password : String,
+    pub name : Cow<'a, str>,
+    pub password : Cow<'a, str>,
     pub group : i16,
-    pub email : String
+    pub email : Cow<'a, str>
 }
 
 pub fn create(user : &User, connection : &mut SqliteConnection) -> Option<ResultCode> { 
@@ -45,7 +46,7 @@ pub fn create(user : &User, connection : &mut SqliteConnection) -> Option<Result
         }
 }
 
-pub fn exists(email: &String, connection : &mut SqliteConnection) -> Option<ResultCode> {
+pub fn exists<'a, 'b>(email: &'a str, connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     let q_users : Vec<User> = match users::table
         .filter(users::email.eq(email))
         .select(User::as_select())
@@ -109,7 +110,7 @@ pub fn delete(user : &User, connection : &mut SqliteConnection) -> Option<Result
         }
 }
 
-pub fn get(email : &String, connection : &mut SqliteConnection) -> Option<User> {
+pub fn get<'a, 'b>(email : &'a str, connection : &'b mut SqliteConnection) -> Option<User<'a>> {
     return users::table
             .filter(users::email.eq(email))
             .select(User::as_select())
