@@ -18,6 +18,7 @@ use rsa::{pkcs1::
         RsaPrivateKey, RsaPublicKey};
 
 use crate::colors::color::Color;
+use std::borrow::Cow;
 
 
 ///A struct that encapsulates a set of an RSA public and private keys
@@ -71,7 +72,7 @@ pub fn encrypt<'a>(data : &'a str, pub_key: &RsaPublicKey,rng: &mut ThreadRng) -
 //
 //This function may return None if the message was encripted with a key that was not
 //originated by the given private key
-pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<String>{
+pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<Cow<'a, str>>{
     let byte_data : &'a [u8] = &enc_data[..];
     let decoded_data : Option<Vec<u8>> = match priv_key.decrypt(Pkcs1v15Encrypt, &byte_data) {
         Ok(value) => Some(value),
@@ -84,7 +85,7 @@ pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<
     let bytes : &[u8] = &*decoded_data.unwrap();
 
     return match std::str::from_utf8(bytes) {
-        Ok(value) => Some(value.to_owned()),
+        Ok(value) => Some(Cow::from(value.to_owned())),
         Err(err) => {
             println!("Error while parsing byte sequence to a utf-8 string: {}", err.to_string().warning());
             None
@@ -97,9 +98,9 @@ pub fn decrypt<'a>(enc_data : &'a Vec<u8>, priv_key : &RsaPrivateKey) -> Option<
 ///to produce a String
 ///
 ///May return a None value
-pub fn public_key_to_str(public_key : &RsaPublicKey) -> Option<String> {
+pub fn public_key_to_str<'a>(public_key : &RsaPublicKey) -> Option<Cow<'a, str>> {
     match public_key.to_pkcs1_pem(LineEnding::default()) {
-       Ok(value) => Some(value),
+       Ok(value) => Some(Cow::from(value)),
        Err(err) => {
             println!("Error while serializing public key to PEM encoding: {}", err.to_string().warning());
             None

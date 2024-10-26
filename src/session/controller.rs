@@ -119,7 +119,7 @@ fn is_valid(email: &str, password : &str, auth_conn: &mut SqliteConnection, key_
     };
     
     let dec_password : String = match encryption::decrypt(&parser::unspaced_hex_str_to_u8_vec(&user.password), &encoded_priv_key) {
-        Some(value) => value,
+        Some(value) => value.into(),
         None => return false
     };       
 
