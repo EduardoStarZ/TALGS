@@ -24,6 +24,7 @@
 
 {% block body %}
 <div class="frame h-auto w-80">
+		<h1 class="title is-1 center mb-6">Criar Produto</h1>
 		<form action="/api/product/create" method="post">
 
 				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="file" id="file" name="file">
@@ -39,7 +40,12 @@
 				<center><label class="subtitle is-5 " for="nome">Categoria</label></center>
 
 				<input class="input is-medium w-80 my-4 is-responsive mx-4 center"  type="number" name="category" id="category"/>
-				<input type="submit" class="button blue is-medium center fit-space" value="Criar" />
+				
+				<div class="my-6"></div>
+				<div class="joiner">
+						<input type="reset" class="button orange is-medium mx-1 fit-space" value="Limpar" />
+						<input type="submit" class="button blue is-medium mx-1 fit-space" value="Criar" />
+				</div>
 		</form>
 </div>
 
@@ -48,6 +54,11 @@
 		<style>
 				#bytes {
 						opacity: 0;
+				}
+
+				input.button {
+						width: 45% !important;
+						margin: 0 auto !important;
 				}
 		</style>
 {% endblock %}
