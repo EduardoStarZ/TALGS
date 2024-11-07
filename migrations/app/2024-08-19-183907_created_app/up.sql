@@ -9,8 +9,11 @@ CREATE TABLE `product`(
 	`name` TEXT NOT NULL,
     `image` TEXT, 
     `price` FLOAT NOT NULL,
-	`id_category` INT2 NOT NULL,
-	`total_amount` INT4 NOT NULL
+    `warn_at` INT4 NOT NULL,  
+    `id_category` INT2 NOT NULL,
+	`total_amount` INT4 NOT NULL,
+    `measure` INT4,
+    `measure_unit` TEXT
 );
 
 CREATE TABLE `purchase`(
