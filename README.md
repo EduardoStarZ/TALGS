@@ -1,6 +1,6 @@
 # Documentação:
 
-- [Abrir Documentação](https://github.com/EduardoStarZ/TALGS/blob/main/docs/Documentation.pdf)
+- [Abrir Documentação](https://docs.google.com/document/d/1eCjoaOJcnrXXuLHxb8H9k85Ta_NlZ0fX/edit?usp=sharing&ouid=116396100953918624115&rtpof=true&sd=true)
 
 # Protótipos: 
 
