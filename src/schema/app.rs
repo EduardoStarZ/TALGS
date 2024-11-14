@@ -1,7 +1,7 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    adress (id) {
+    address (id) {
         id -> Integer,
         id_supplier -> Integer,
         cep -> Integer,

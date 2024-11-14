@@ -23,7 +23,7 @@ CREATE TABLE `purchase`(
 	`status` INT2 NOT NULL
 );
 
-CREATE TABLE `adress`(
+CREATE TABLE `address`(
 	`id` INT4 NOT NULL PRIMARY KEY,
 	`id_supplier` INT4 NOT NULL,
 	`cep` INT4 NOT NULL,
