@@ -106,8 +106,6 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         None => return web::HttpResponse::BadRequest().finish()
     };
 
-    println!("{payload}");
-
     let values : Vec<Form> = payload_into_values(&payload);
 
     let mut product : Product = Product {
@@ -152,6 +150,15 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
             },
             "category" => {
                 product.id_category = x.value.trim().parse::<i16>().unwrap();
+            },
+            "warn_at" => {
+                product.warn_at = x.value.trim().parse::<i32>().unwrap();
+            },
+            "measure" => {
+                product.measure = x.value.trim().parse::<i32>().unwrap();
+            },
+            "measure_unit" => {
+                product.measure_unit = Cow::from(x.value);
             },
             _ => return web::HttpResponse::Forbidden().finish()
         } 
