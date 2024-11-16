@@ -45,3 +45,34 @@ pub fn get_hash() -> Option<String> {
     }
     return None;
 }
+
+pub fn get_value(name : &str) -> Option<String> {
+    match fs::metadata(".env") {
+        Ok(_) => (),
+        Err(_) => {
+            let _ = fs::write(".env", "");
+        }
+    }
+    
+    let contents : Vec<String> = String::from_utf8(fs::read(".env").unwrap()).unwrap().split('\n').map(|x| x.to_string()).collect::<Vec<String>>();
+    
+    for line in contents {
+        let pairs : Vec<String> = line.split('=').map(|x| x.to_string()).collect::<Vec<String>>();
+
+        if pairs[0] == name {
+            return Some(pairs[1].clone());
+        }
+    }
+    return None;
+
+}
+
+pub fn set_value(name : &str, value : &str) {
+    let mut contents : String = String::from_utf8(fs::read(".env").unwrap()).unwrap();
+    contents.insert_str(0, format!("{name}={value}\n").as_str());
+
+    match fs::write(".env", contents) {
+        Ok(_) => (),
+        Err(_) => panic!("{}", "Could not write the content as an environment variable".warning())
+    } 
+}

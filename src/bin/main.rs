@@ -17,6 +17,7 @@ use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
 use ntex_files as fs;
 use talgs::files::fs as filesystem;
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 ///This is the main function of the cargo project
 #[ntex::main]
@@ -24,13 +25,31 @@ pub async fn main() -> std::io::Result<()> {
 
     filesystem::check_dir_existance(); 
 
-    let adress : &str = "127.0.0.1";
-    let port : u16 = 8080;
-
     let _ : () = match env::get_hash() {
         Some(_) => (),
         None => env::set_hash(hasher::hash::create_hash())
     };
+
+    let address : String = match env::get_value("IP") {
+        Some(value) => value,
+        None => {
+            env::set_value("IP", "127.0.0.1");
+            "127.0.0.1".to_string()
+        }
+    };
+
+    let port : u16 = match env::get_value("PORT") {
+        Some(value) => value.trim().parse::<u16>().unwrap(),
+        None => {
+            env::set_value("PORT", "8080");
+            8080
+        }
+    };
+
+    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
+
+    builder.set_certificate_chain_file("cert.pem").unwrap();
 
     let key_pool = KeyPool {pool: create_pool(create_connection("key.sqlite3"))};
     let app_pool = AppPool {pool: create_pool(create_connection("app.sqlite3"))};
@@ -59,7 +78,7 @@ pub async fn main() -> std::io::Result<()> {
                 .service(talgs::views::auth::register_form)
                 )
     })
-    .bind((adress, port))?
+    .bind_openssl((address, port), builder)?
     .run()
     .await
 }

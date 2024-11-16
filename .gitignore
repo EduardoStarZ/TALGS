@@ -12,4 +12,6 @@
 
 /target
 .env
+key.pem
+cert.pem
 /static/app/*
