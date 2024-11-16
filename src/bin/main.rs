@@ -17,7 +17,7 @@ use ntex::web::{self, middleware::Logger};
 use ntex_session::CookieSession;
 use ntex_files as fs;
 use talgs::files::fs as filesystem;
-use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
+//use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 ///This is the main function of the cargo project
 #[ntex::main]
@@ -46,10 +46,10 @@ pub async fn main() -> std::io::Result<()> {
         }
     };
 
-    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
-    builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
+    //let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    //builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
 
-    builder.set_certificate_chain_file("cert.pem").unwrap();
+    //builder.set_certificate_chain_file("cert.pem").unwrap();
 
     let key_pool = KeyPool {pool: create_pool(create_connection("key.sqlite3"))};
     let app_pool = AppPool {pool: create_pool(create_connection("app.sqlite3"))};
@@ -78,7 +78,8 @@ pub async fn main() -> std::io::Result<()> {
                 .service(talgs::views::auth::register_form)
                 )
     })
-    .bind_openssl((address, port), builder)?
+    //.bind_openssl((address, port), builder)?
+    .bind((address, port))?
     .run()
     .await
 }

@@ -97,7 +97,7 @@ pub async fn create_product_route(request : web::HttpRequest) -> web::HttpRespon
     return web::HttpResponse::Ok().body(NewProductpage{}.render().unwrap());
 }
 
-#[web::post("/product/create")]
+#[web::put("/product/create")]
 pub async fn create_product_receiver(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
@@ -115,6 +115,9 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         name: Cow::from(""),
         price: 0.0,
         id_category: 0,
+        warn_at: 0,
+        measure: 12,
+        measure_unit: Cow::from("This"),
         image: Cow::from(""),
         total_amount: 0
     };
@@ -123,7 +126,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
 
     for x in values {
         match x.name {
-            "file" => {
+            "filename" => {
                 filename = format!("{}.{}", rand_name(), x.value
                         .chars()
                         .rev()

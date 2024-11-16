@@ -35,8 +35,11 @@ diesel::table! {
         name -> Text,
         image -> Text,
         price -> Float,
+        warn_at -> Integer,
         id_category -> SmallInt,
         total_amount -> Integer,
+        measure -> Integer,
+        measure_unit -> Text
     }
 }
 
