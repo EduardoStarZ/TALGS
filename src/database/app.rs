@@ -60,9 +60,9 @@ pub struct Supplier<'a> {
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = adress)]
+#[diesel(table_name = address)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Adress<'a> {
+pub struct Address<'a> {
     pub id: i32,
     pub id_supplier: i32,
     pub cep: i32,
