@@ -15,7 +15,7 @@ use ntex::web;
 use ntex_session::Session;
 use askama::Template;
 use crate::database::connection::{AppPool, AuthPool};
-use crate::database::{app::{Purchase, Article, Product}, users::{get, User}};
+use crate::database::{app::{Purchase, Article, Product, Category}, users::{get, User}};
 use super::reqwestify;
 use crate::session::controller::check_token;
 use crate::colors::color::Color;
@@ -88,13 +88,20 @@ pub async fn home(session: Session, request : web::HttpRequest, app_pool: web::t
 
 #[derive(Template)]
 #[template(path="new_product.html")]
-struct NewProductpage {}
+struct NewProductpage<'a> {
+    categories : Vec<Category<'a>>
+}
 
 #[web::get("/product/create")]
-pub async fn create_product_route(request : web::HttpRequest) -> web::HttpResponse {
+pub async fn create_product_route(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
-    return web::HttpResponse::Ok().body(NewProductpage{}.render().unwrap());
+    let categories : Vec<Category> = category::table
+        .select(Category::as_select())
+        .load(&mut pool.pool.get().unwrap())
+        .unwrap();
+
+    return web::HttpResponse::Ok().body(NewProductpage{categories}.render().unwrap());
 }
 
 #[web::put("/product/create")]

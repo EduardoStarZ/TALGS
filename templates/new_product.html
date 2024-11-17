@@ -41,7 +41,12 @@
 
 				<center><label class="subtitle is-5 " for="category">Categoria</label></center>
 
-				<input class="input is-medium w-80 my-4 is-responsive mx-4 center"  type="number" name="category" id="category"/>
+				<center><select class="select is-medium w-80 my-4 is-responsive mx-4 center"  type="number" name="category" id="category">
+						<option value="none">Selecionar...</option>
+								{% for category in categories %}
+										<option value="{{category.id}}">{{category.name}}</option>
+								{% endfor %}
+						</select></center>
 
 				<center><label class="subtitle is-5 " for="warn_at">Avisar em:</label></center>
 
