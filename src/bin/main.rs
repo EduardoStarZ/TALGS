@@ -62,11 +62,10 @@ pub async fn main() -> std::io::Result<()> {
             .state(auth_pool.clone())
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(true))
-            .service(talgs::views::app::home)
             .service(
                 web::scope("/api")
-                .service(talgs::views::app::create_product_route)
-                .service(talgs::views::app::create_product_receiver)
+                .service(talgs::views::app::product::create_product_route)
+                .service(talgs::views::app::product::create_product_receiver)
                 )
             .service(get_info_handler)
             .service(fs::Files::new("/static", "static/").show_files_listing())
