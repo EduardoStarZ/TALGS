@@ -51,13 +51,11 @@ pub async fn main() -> std::io::Result<()> {
 
     //builder.set_certificate_chain_file("cert.pem").unwrap();
 
-    let key_pool = KeyPool {pool: create_pool(create_connection("key.sqlite3"))};
     let app_pool = AppPool {pool: create_pool(create_connection("app.sqlite3"))};
-    let auth_pool = AuthPool {pool: create_pool(create_connection("auth.sqlite3"))};
+    let auth_pool = AuthPool {user_pool: create_pool(create_connection("auth.sqlite3")), key_pool: create_pool(create_connection("key.sqlite3"))};
 
     web::HttpServer::new(move || {
         web::App::new()
-            .state(key_pool.clone())
             .state(app_pool.clone())
             .state(auth_pool.clone())
             .wrap(Logger::default())

@@ -11,5 +11,6 @@
  * */
 
 
+pub mod authentication;
 pub mod controller;
 pub mod model;
