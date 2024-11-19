@@ -59,7 +59,7 @@ pub async fn main() -> std::io::Result<()> {
             .state(app_pool.clone())
             .state(auth_pool.clone())
             .wrap(Logger::default())
-            .wrap(CookieSession::signed(&[0; 32]).secure(true))
+            .wrap(CookieSession::signed(&[0; 32]).secure(false))
             .service(
                 web::scope("/api")
                 .service(talgs::views::app::product::create_product_route)
