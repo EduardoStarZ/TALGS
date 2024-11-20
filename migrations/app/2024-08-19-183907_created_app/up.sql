@@ -20,7 +20,8 @@ CREATE TABLE `purchase`(
 	`id` INT4 NOT NULL PRIMARY KEY,
 	`id_user` INT4 NOT NULL,
 	`time` TIMESTAMP NOT NULL,
-	`status` INT2 NOT NULL
+	`status` INT2 NOT NULL,
+    `total` INT4 NOT NULL
 );
 
 CREATE TABLE `address`(
