@@ -49,6 +49,7 @@ diesel::table! {
         id_user -> Integer,
         time -> Timestamp,
         status -> SmallInt,
+        total -> Float
     }
 }
 

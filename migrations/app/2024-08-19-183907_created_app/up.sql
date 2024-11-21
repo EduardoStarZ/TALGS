@@ -21,7 +21,7 @@ CREATE TABLE `purchase`(
 	`id_user` INT4 NOT NULL,
 	`time` TIMESTAMP NOT NULL,
 	`status` INT2 NOT NULL,
-    `total` INT4 NOT NULL
+    `total` FLOAT NOT NULL
 );
 
 CREATE TABLE `address`(
