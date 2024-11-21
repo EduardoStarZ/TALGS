@@ -13,7 +13,7 @@ CREATE TABLE `product`(
     `id_category` INT2 NOT NULL,
 	`total_amount` INT4 NOT NULL,
     `measure` INT4,
-    `measure_unit` TEXT
+    `measure_unit` INT2
 );
 
 CREATE TABLE `purchase`(

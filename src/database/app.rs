@@ -38,7 +38,7 @@ pub struct Product<'a> {
     pub id_category: i16,
     pub total_amount: i32,
     pub measure: i32,
-    pub measure_unit: Cow<'a, str>
+    pub measure_unit: i16
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]

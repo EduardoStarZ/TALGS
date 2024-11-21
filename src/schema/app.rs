@@ -39,7 +39,7 @@ diesel::table! {
         id_category -> SmallInt,
         total_amount -> Integer,
         measure -> Integer,
-        measure_unit -> Text
+        measure_unit -> SmallInt
     }
 }
 
