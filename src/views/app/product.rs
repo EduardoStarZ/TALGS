@@ -60,7 +60,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         id_category: 0,
         warn_at: 0,
         measure: 12,
-        measure_unit: Cow::from("This"),
+        measure_unit: 0,
         image: Cow::from(""),
         total_amount: 0
     };
@@ -103,7 +103,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
                 product.measure = x.value.trim().parse::<i32>().unwrap();
             },
             "measure_unit" => {
-                product.measure_unit = Cow::from(x.value);
+                product.measure_unit = x.value.trim().parse::<i16>().unwrap();
             },
             _ => return web::HttpResponse::Forbidden().finish()
         } 
