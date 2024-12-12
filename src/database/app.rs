@@ -49,17 +49,6 @@ pub struct Purchase {
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = supplier)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Supplier<'a> {
-    pub id: i32,
-    pub name: Cow<'a, str>,
-    pub cnpj: Option<Cow<'a, str>>,
-    pub cpf: Option<Cow<'a, str>>,
-    pub email: Cow<'a, str>
-}
-
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = address)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Address<'a> {
