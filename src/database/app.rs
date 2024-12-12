@@ -12,14 +12,19 @@
 
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
-use crate::schema::app::*;
+use crate::schema::app::{
+    address,
+    article,
+    purchase,
+    supplier,
+    stock};
 use std::borrow::Cow;
 
 //pub mod article;
 //pub mod address;
-//pub mod product;
+pub mod product;
 //pub mod supplier;
-//pub mod category;
+pub mod category;
 //pub mod purchase;
 //pub mod stock;
 
@@ -31,21 +36,6 @@ pub struct Article {
     pub id_stock: i32,
     pub id_purchase: i32,
     pub amount: i32
-}
-
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = product)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Product<'a> {
-    pub id: i32,
-    pub name: Cow<'a, str>,
-    pub image: Cow<'a, str>,
-    pub price: f32,
-    pub warn_at: i32,
-    pub id_category: i16,
-    pub total_amount: i32,
-    pub measure: i32,
-    pub measure_unit: i16
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
@@ -81,14 +71,6 @@ pub struct Address<'a> {
     pub block: Option<Cow<'a, str>>,
     pub number: Cow<'a, str>,
     pub complement: Option<Cow<'a, str>>
-}
-
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = category)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Category<'a> {
-    pub id: i16,
-    pub name: Cow<'a, str>
 }
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]

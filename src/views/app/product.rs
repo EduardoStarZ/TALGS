@@ -13,10 +13,9 @@
 use ntex::web;
 use askama::Template;
 use crate::database::connection::AppPool;
-use crate::database::app::{Product, Category};
+use crate::database::app::{category::{Category, self}, product::{Product, self}};
 use super::super::reqwestify;
 use diesel::prelude::*;
-use crate::schema::app::*;
 use crate::files::receiver::read_payload_to_string;
 use crate::str::filter::{Form, payload_into_values};
 use crate::files::fs::{self, rand_name};
@@ -34,10 +33,9 @@ struct NewProductpage<'a> {
 pub async fn create_product_route(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
-    let categories : Vec<Category> = category::table
-        .select(Category::as_select())
-        .load(&mut pool.pool.get().unwrap())
-        .unwrap();
+    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
+
+    let categories : Vec<Category> = category::get_all(connection);
 
     return web::HttpResponse::Ok().body(NewProductpage{categories}.render().unwrap());
 }
@@ -51,15 +49,17 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         None => return web::HttpResponse::BadRequest().finish()
     };
 
+    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
+
     let values : Vec<Form> = payload_into_values(&payload);
 
     let mut product : Product = Product {
-        id: 134536,
+        id: product::new_id(connection),
         name: Cow::from(""),
         price: 0.0,
         id_category: 0,
         warn_at: 0,
-        measure: 12,
+        measure: 0,
         measure_unit: 0,
         image: Cow::from(""),
         total_amount: 0
@@ -109,10 +109,7 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
         } 
     }
 
-    diesel::insert_into(product::table)
-        .values(&product)
-        .execute(&mut pool.pool.get().unwrap())
-        .unwrap();
+    product::create(&product, connection);
 
     return web::HttpResponse::Ok().finish(); 
 }
