@@ -135,7 +135,7 @@ pub fn new_id<'a>(connection : &'a mut SqliteConnection) -> i32 {
      return new;
 }
 
-pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Category<'a>> {
+pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Supplier<'a>> {
     match supplier::table
         .select(Supplier::as_select())
         .load(connection) {

@@ -15,18 +15,16 @@ use diesel::prelude::*;
 use crate::schema::app::{
     address,
     article,
-    purchase,
-    supplier,
-    stock};
+    purchase};
 use std::borrow::Cow;
 
 //pub mod article;
 //pub mod address;
 pub mod product;
-//pub mod supplier;
+pub mod supplier;
 pub mod category;
 //pub mod purchase;
-//pub mod stock;
+pub mod stock;
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = article)]
@@ -60,18 +58,4 @@ pub struct Address<'a> {
     pub block: Option<Cow<'a, str>>,
     pub number: Cow<'a, str>,
     pub complement: Option<Cow<'a, str>>
-}
-
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = stock)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Stock {
-    pub id: i32,
-    pub id_product: i32,
-    pub id_supplier: i32,
-    pub expired: bool,
-    pub expire_date: NaiveDateTime,
-    pub available: bool,
-    pub batch: Option<i64>,
-    pub amount: i32
 }
