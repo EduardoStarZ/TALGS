@@ -14,27 +14,16 @@ use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use crate::schema::app::{
     address,
-    article,
     purchase};
 use std::borrow::Cow;
 
-//pub mod article;
+pub mod article;
 //pub mod address;
 pub mod product;
 pub mod supplier;
 pub mod category;
 //pub mod purchase;
 pub mod stock;
-
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
-#[diesel(table_name = article)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Article {
-    pub id: i32,
-    pub id_stock: i32,
-    pub id_purchase: i32,
-    pub amount: i32
-}
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
 #[diesel(table_name = purchase)]
