@@ -21,3 +21,8 @@ img.image {
     margin-left: auto !important;
     margin-right: auto !important;
 }
+
+img.logo {
+		width: 100px;
+		height: 100px;
+}
