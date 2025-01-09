@@ -29,8 +29,8 @@ struct NewProductpage<'a> {
     categories : Vec<Category<'a>>
 }
 
-#[web::get("/product/create")]
-pub async fn create_product_route(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
+#[web::get("/product")]
+pub async fn product_route(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
@@ -40,8 +40,8 @@ pub async fn create_product_route(request : web::HttpRequest, pool : web::types:
     return web::HttpResponse::Ok().body(NewProductpage{categories}.render().unwrap());
 }
 
-#[web::put("/product/create")]
-pub async fn create_product_receiver(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
+#[web::put("/product")]
+pub async fn create_product(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let payload : String = match read_payload_to_string(payload).await {
@@ -112,4 +112,28 @@ pub async fn create_product_receiver(request : web::HttpRequest, payload : web::
     product::create(&product, connection);
 
     return web::HttpResponse::Ok().finish(); 
+}
+
+#[web::patch("/product")]
+pub async fn update_product<'a>(request : web::HttpRequest, form : web::types::Form<Product<'a>> , pool: web::types::State<AppPool>) -> web::HttpResponse {
+    
+    reqwestify(request);
+    
+    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
+    
+    product::update(&*form, connection);
+
+    return web::HttpResponse::Ok().body("update");
+}
+
+#[web::delete("/product")]
+pub async fn delete_product(request : web::HttpRequest, form : web::types::Form<i32> , pool : web::types::State<AppPool>) -> web::HttpResponse {
+
+    reqwestify(request);
+
+    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
+
+    product::delete(&*form, connection);
+    
+    return web::HttpResponse::Ok().body("delete");
 }

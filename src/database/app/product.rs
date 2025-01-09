@@ -1,11 +1,12 @@
 use diesel::prelude::*;
+use serde::Deserialize;
 use crate::schema::app::product;
 use super::super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
 use std::borrow::Cow;
 
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
+#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug, Deserialize)]
 #[diesel(table_name = product)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Product<'a> {
