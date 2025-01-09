@@ -47,7 +47,7 @@ diesel::table! {
     purchase (id) {
         id -> Integer,
         id_user -> Integer,
-        time -> Timestamp,
+        time -> Text,
         status -> SmallInt,
         total -> Float
     }

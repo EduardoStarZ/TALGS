@@ -3,16 +3,16 @@ use crate::schema::app::purchase;
 use super::super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
-use chrono::NaiveDateTime;
 use serde::Deserialize;
+use std::borrow::Cow;
 
 #[derive(Insertable, Selectable, Queryable, AsChangeset, Deserialize, Debug)]
 #[diesel(table_name = purchase)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Purchase {
+pub struct Purchase<'a> {
     pub id: i32,
     pub id_user: i32,
-    pub time: NaiveDateTime, 
+    pub time: Cow<'a, str>, 
     pub status: i16
 }
 
@@ -96,7 +96,7 @@ pub fn exists<'a, 'b>(id: &'a i32, connection : &'b mut SqliteConnection) -> Opt
     }
 }
 
-pub fn get<'a, 'b>(id: &'a i32, connection: &'b mut SqliteConnection) -> Option<Purchase> {
+pub fn get<'a, 'b>(id: &'a i32, connection: &'b mut SqliteConnection) -> Option<Purchase<'a>> {
     let mut keys : Vec<Purchase> = match purchase::table
         .filter(purchase::id.eq(id))
         .select(Purchase::as_select())
@@ -134,7 +134,7 @@ pub fn new_id<'a>(connection : &'a mut SqliteConnection) -> i32 {
      return new;
 }
 
-pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Purchase> {
+pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Purchase<'a>> {
     match purchase::table
         .select(Purchase::as_select())
         .load(connection) {

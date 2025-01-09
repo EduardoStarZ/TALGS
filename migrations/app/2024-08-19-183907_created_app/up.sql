@@ -19,7 +19,7 @@ CREATE TABLE `product`(
 CREATE TABLE `purchase`(
 	`id` INT4 NOT NULL PRIMARY KEY,
 	`id_user` INT4 NOT NULL,
-	`time` TIMESTAMP NOT NULL,
+	`time` TEXT NOT NULL,
 	`status` INT2 NOT NULL,
     `total` FLOAT NOT NULL
 );

@@ -51,7 +51,7 @@ pub async fn purchase_reader(request : web::HttpRequest, path : web::types::Path
 }
 
 #[web::put("/purchase")]
-pub async fn create_purchase(request : web::HttpRequest, form : web::types::Form<Purchase>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn create_purchase<'a>(request : web::HttpRequest, form : web::types::Form<Purchase<'a>>, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
@@ -62,7 +62,7 @@ pub async fn create_purchase(request : web::HttpRequest, form : web::types::Form
 }
 
 #[web::patch("/purchase")]
-pub async fn update_purchase(request : web::HttpRequest, form : web::types::Form<Purchase> , pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn update_purchase<'a>(request : web::HttpRequest, form : web::types::Form<Purchase<'a>> , pool: web::types::State<AppPool>) -> web::HttpResponse {
     
     reqwestify(request);
     
