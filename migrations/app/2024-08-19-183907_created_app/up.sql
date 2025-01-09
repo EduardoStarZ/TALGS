@@ -55,7 +55,7 @@ CREATE TABLE `stock`(
 	`id_product` INT4 NOT NULL,
 	`id_supplier` INT4 NOT NULL,
 	`expired` BOOL NOT NULL,
-	`expire_date` TIMESTAMP NOT NULL,
+	`expire_date` TEXT NOT NULL,
 	`available` BOOL NOT NULL,
 	`batch` INT8,
 	`amount` INT4 NOT NULL

@@ -1,19 +1,20 @@
-use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use crate::schema::app::stock;
 use super::super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
+use std::borrow::Cow;
+use serde::Deserialize;
 
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
+#[derive(Insertable, Selectable, Queryable, AsChangeset, Deserialize, Debug)]
 #[diesel(table_name = stock)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct Stock {
+pub struct Stock<'a> {
     pub id: i32,
     pub id_product: i32,
     pub id_supplier: i32,
     pub expired: bool,
-    pub expire_date: NaiveDateTime,
+    pub expire_date: Cow<'a, str>,
     pub available: bool,
     pub batch: Option<i64>,
     pub amount: i32
@@ -99,7 +100,7 @@ pub fn exists<'a, 'b>(id: &'a i32, connection : &'b mut SqliteConnection) -> Opt
     }
 }
 
-pub fn get<'a, 'b>(id: &'a i32, connection: &'b mut SqliteConnection) -> Option<Stock> {
+pub fn get<'a, 'b>(id: &'a i32, connection: &'b mut SqliteConnection) -> Option<Stock<'a>> {
     let mut keys : Vec<Stock> = match stock::table
         .filter(stock::id.eq(id))
         .select(Stock::as_select())
@@ -137,7 +138,7 @@ pub fn new_id<'a>(connection : &'a mut SqliteConnection) -> i32 {
      return new;
 }
 
-pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Stock> {
+pub fn get_all<'a, 'b>(connection : &'b mut SqliteConnection) -> Vec<Stock<'a>> {
     match stock::table
         .select(Stock::as_select())
         .load(connection) {

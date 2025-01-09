@@ -74,7 +74,7 @@ pub async fn update_purchase<'a>(request : web::HttpRequest, form : web::types::
 }
 
 #[web::delete("/address")]
-pub async fn delete_address(request : web::HttpRequest, form : web::types::Form<i32> , pool : web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn delete_purchase(request : web::HttpRequest, form : web::types::Form<i32> , pool : web::types::State<AppPool>) -> web::HttpResponse {
 
     reqwestify(request);
 

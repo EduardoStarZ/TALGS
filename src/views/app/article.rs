@@ -37,7 +37,7 @@ pub async fn articles_reader(request : web::HttpRequest, pool : web::types::Stat
 }
 
 #[web::get("/article-{article}")]
-pub async fn supplier_reader(request : web::HttpRequest, path : web::types::Path<i32>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn article_reader(request : web::HttpRequest, path : web::types::Path<i32>, pool: web::types::State<AppPool>) -> web::HttpResponse {
     
     reqwestify(request);
     

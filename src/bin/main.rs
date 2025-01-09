@@ -62,15 +62,56 @@ pub async fn main() -> std::io::Result<()> {
             .wrap(CookieSession::signed(&[0; 32]).secure(false))
             .service(talgs::views::app::product::product_route)
             .service(talgs::views::app::supplier::supplier_route)
+            .service(talgs::views::app::stock::stock_route)
+            .service(talgs::views::app::article::article_route)
+            .service(talgs::views::app::purchase::purchase_route)
+            .service(talgs::views::app::category::category_route)
+            .service(talgs::views::app::address::address_route)
             .service(
                 web::scope("/api")
                 .service(talgs::views::app::product::create_product)
                 .service(talgs::views::app::product::update_product)
                 .service(talgs::views::app::product::delete_product)
+
                 .service(talgs::views::app::supplier::supplier_reader)
                 .service(talgs::views::app::supplier::suppliers_reader)
                 .service(talgs::views::app::supplier::create_supplier)
                 .service(talgs::views::app::supplier::delete_supplier)
+                .service(talgs::views::app::supplier::update_supplier)
+
+                .service(talgs::views::app::stock::create_stock)
+                .service(talgs::views::app::stock::delete_stock)
+                .service(talgs::views::app::stock::update_stock)
+                .service(talgs::views::app::stock::stock_reader)
+                .service(talgs::views::app::stock::stocks_reader)
+            
+
+                .service(talgs::views::app::purchase::create_purchase)
+                .service(talgs::views::app::purchase::delete_purchase)
+                .service(talgs::views::app::purchase::update_purchase)
+                .service(talgs::views::app::purchase::purchase_reader)
+                .service(talgs::views::app::purchase::purchases_reader)
+                
+
+                .service(talgs::views::app::address::create_address)
+                .service(talgs::views::app::address::update_address)
+                .service(talgs::views::app::address::address_reader)
+                .service(talgs::views::app::address::addresses_reader)
+                .service(talgs::views::app::address::delete_address)
+
+
+                .service(talgs::views::app::article::create_article)
+                .service(talgs::views::app::article::update_article)
+                .service(talgs::views::app::article::delete_article)
+                .service(talgs::views::app::article::articles_reader)
+                .service(talgs::views::app::article::article_reader)
+
+
+                .service(talgs::views::app::category::create_category)
+                .service(talgs::views::app::category::update_category)
+                .service(talgs::views::app::category::delete_category)
+                .service(talgs::views::app::category::category_reader)
+                .service(talgs::views::app::category::categories_reader)
                 )
             .service(get_info_handler)
             .service(fs::Files::new("/static", "static/").show_files_listing())

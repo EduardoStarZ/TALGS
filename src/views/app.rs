@@ -16,3 +16,4 @@ pub mod category;
 pub mod article;
 pub mod address;
 pub mod purchase;
+pub mod stock;
