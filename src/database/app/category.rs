@@ -5,8 +5,9 @@ use super::super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
 use diesel::SqliteConnection;
+use serde::Deserialize;
 
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
+#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug, Deserialize)]
 #[diesel(table_name = category)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Category<'a> {

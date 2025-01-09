@@ -4,8 +4,9 @@ use super::super::models::ResultCode;
 use rand::{thread_rng, Rng};
 use crate::colors::color::Color;
 use std::borrow::Cow;
+use serde::Deserialize;
 
-#[derive(Insertable, Selectable, Queryable, AsChangeset, Debug)]
+#[derive(Insertable, Selectable, Queryable, AsChangeset,  Deserialize, Debug)]
 #[diesel(table_name = address)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Address<'a> {
