@@ -47,6 +47,30 @@ pub fn login_handler(login_info : &web::types::Form<LoginInfo>, auth_connection:
     return Ok(LoginResponse {token: None, result: Some(ResultCode::UnauthorizedError)});
 }
 
+pub fn get_sub(session: Session) -> Option<String> {
+    let auth_header : String = match session.get::<String>("Auth-Token").unwrap() {
+        Some(value) => value,
+        None => {
+            return None; 
+        }
+    };
+
+    if auth_header.starts_with("Bearer ") {
+        let token : String = auth_header.trim_start_matches("Bearer ").to_string(); 
+
+        return match decode::<Claims>(&token, &DecodingKey::from_secret(hasher::get_hash_in_env().as_str().as_ref()), &Validation::default()) {
+            Ok(values) => Some(values.claims.sub),
+            Err(error) => {
+                println!("{}", error.to_string().warning());
+                return None
+            }
+        }
+
+    }
+    return None;
+}
+
+
 pub fn check_token(session: Session) -> bool {
     let auth_header : String = match session.get::<String>("Auth-Token").unwrap() {
         Some(value) => value,
