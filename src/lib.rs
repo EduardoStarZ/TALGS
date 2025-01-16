@@ -19,6 +19,7 @@ pub mod colors;
 pub mod hasher;
 pub mod files;
 pub mod str;
+pub mod forms;
 
 use ntex::web;
 use askama::Template;

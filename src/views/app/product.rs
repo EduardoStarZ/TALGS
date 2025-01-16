@@ -29,17 +29,6 @@ struct NewProductpage<'a> {
     categories : Vec<Category<'a>>
 }
 
-#[web::get("/product")]
-pub async fn product_route(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
-    reqwestify(request);
-
-    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
-
-    let categories : Vec<Category> = category::get_all(connection);
-
-    return web::HttpResponse::Ok().body(NewProductpage{categories}.render().unwrap());
-}
-
 #[web::put("/product")]
 pub async fn create_product(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);

@@ -17,13 +17,6 @@ use super::super::reqwestify;
 use diesel::prelude::*;
 
 #[web::get("/stock")]
-pub async fn stock_route(request : web::HttpRequest) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().finish();
-}
-
-#[web::get("/stock")]
 pub async fn stocks_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
    reqwestify(request);
 

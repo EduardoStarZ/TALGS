@@ -18,13 +18,6 @@ use diesel::prelude::*;
 use ntex_session::Session;
 
 #[web::get("/purchase")]
-pub async fn purchase_route(request : web::HttpRequest) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().finish();
-}
-
-#[web::get("/purchase")]
 pub async fn purchases_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
    reqwestify(request);
 

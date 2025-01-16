@@ -16,13 +16,6 @@ use crate::database::connection::AppPool;
 use super::super::reqwestify;
 use diesel::prelude::*;
 
-#[web::get("/category")]
-pub async fn category_route(request : web::HttpRequest) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().finish();
-}
-
 #[web::get("/categories")]
 pub async fn categories_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
    reqwestify(request);

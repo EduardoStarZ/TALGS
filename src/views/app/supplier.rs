@@ -17,13 +17,6 @@ use super::super::reqwestify;
 use diesel::prelude::*;
 
 #[web::get("/supplier")]
-pub async fn supplier_route(request : web::HttpRequest) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().finish();
-}
-
-#[web::get("/supplier")]
 pub async fn suppliers_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
    reqwestify(request);
 

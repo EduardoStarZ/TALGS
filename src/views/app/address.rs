@@ -17,13 +17,6 @@ use super::super::reqwestify;
 use diesel::prelude::*;
 
 #[web::get("/address")]
-pub async fn address_route(request : web::HttpRequest) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().finish();
-}
-
-#[web::get("/address")]
 pub async fn addresses_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
    reqwestify(request);
 
