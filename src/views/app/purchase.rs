@@ -15,7 +15,6 @@ use crate::database::app::purchase::{self, Purchase};
 use crate::database::connection::AppPool;
 use super::super::reqwestify;
 use diesel::prelude::*;
-use ntex_session::Session;
 
 #[web::get("/purchase")]
 pub async fn purchases_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
@@ -45,7 +44,7 @@ pub async fn purchase_reader(request : web::HttpRequest, path : web::types::Path
 }
 
 #[web::put("/purchase")]
-pub async fn create_purchase<'a>(request : web::HttpRequest, session : Session, form : web::types::Form<Purchase<'a>>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn create_purchase<'a>(request : web::HttpRequest, form : web::types::Form<Purchase<'a>>, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();

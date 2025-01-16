@@ -11,9 +11,8 @@
  * */
 
 use ntex::web;
-use askama::Template;
 use crate::database::connection::AppPool;
-use crate::database::app::{category::{Category, self}, product::{Product, self}};
+use crate::database::app::product::{Product, self};
 use super::super::reqwestify;
 use diesel::prelude::*;
 use crate::files::receiver::read_payload_to_string;
@@ -23,10 +22,15 @@ use crate::auth::parser::unspaced_hex_str_to_u8_vec;
 use std::borrow::Cow;
 
 
-#[derive(Template)]
-#[template(path="new_product.html")]
-struct NewProductpage<'a> {
-    categories : Vec<Category<'a>>
+#[web::get("/product/{id}")]
+pub async fn product_reader(request : web::HttpRequest, selected_id : web::types::Path<i32>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+    reqwestify(request);
+
+    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
+
+    let product : Product = product::get(&(*selected_id), connection).unwrap();
+
+    return web::HttpResponse::Ok().body("");
 }
 
 #[web::put("/product")]

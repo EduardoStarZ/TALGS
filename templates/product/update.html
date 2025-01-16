@@ -1,0 +1,57 @@
+{% extends "master.html" %}
+
+{% block title %}Atualizar produto{% endblock %}
+
+{% block body %}
+<div class="frame h-auto w-80">
+		<h1 class="title is-1 center mb-6">Alterar Produto</h1>
+
+		<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="file" id="file" name="file">
+		<form hx-patch="/api/product/">
+
+				<input type="text" id="filename" name="filename" />
+
+				<input type="text" id="bytes" name="bytes" />
+
+				<center><label class="subtitle is-5 " for="nome">Nome</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="text" id="name" name="name" value="{{product.name}}" />
+
+				<center><label class="subtitle is-5 " for="price">Preço</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="number" id="price" name="price" value="{{product.price}}" />
+
+				<center><label class="subtitle is-5 " for="warn_at">Avisar em:</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="number" name="warn_at" id="warn_at" value="{{product.warn_at}}"/>
+
+				<center><label class="subtitle is-5 " for="measure">Medida</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="number" name="measure" id="measure" value="{{product.measure}}" />
+
+				<center><label class="subtitle is-5 " for="measure_unit">Unidade de medida</label></center>
+
+				<input class="input is-medium w-80 my-4 is-responsive mx-4 center" type="number" name="measure_unit" id="measure_unit" value="{{product.measure_unit}}"/>
+			
+				<div class="my-6"></div>
+				<div class="joiner">
+						<input type="reset" class="button orange is-medium mx-1 fit-space" value="Limpar" />
+						<input type="submit" class="button blue is-medium mx-1 fit-space" value="Criar" />
+				</div>
+		</form>
+</div>
+
+		<script src="/static/js/files.js"></script>
+
+		<style>
+				#bytes, #filename {
+						opacity: 0;
+				}
+
+				input.button {
+						width: 45% !important;
+						margin: 0 auto !important;
+				}
+		</style>
+
+{% endblock %}
