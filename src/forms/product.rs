@@ -22,17 +22,3 @@ pub async fn create(request : web::HttpRequest, session : Session, app_pool : we
 
     return web::HttpResponse::Ok().body(NewProductTemplate{categories}.render().unwrap());
 }
-    
-
-pub async fn update<T: Template>(request : web::HttpRequest, session : Session, app_pool : web::types::State<AppPool>, auth_pool : web::types::State<AuthPool>, template : T) -> web::HttpResponse {
-    reqwestify(request);   
-
-    return web::HttpResponse::Ok().body(template.render().unwrap());
-}
-    
-
-pub async fn delete<T : Template>(request : web::HttpRequest, session : Session, app_pool : web::types::State<AppPool>, auth_pool : web::types::State<AuthPool>, template : T) -> web::HttpResponse {
-    reqwestify(request);
-
-    return web::HttpResponse::Ok().body(template.render().unwrap());
-}
