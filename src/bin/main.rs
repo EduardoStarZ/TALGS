@@ -64,6 +64,7 @@ pub async fn main() -> std::io::Result<()> {
             .service(talgs::forms::product::update)
             .service(
                 web::scope("/api")
+                .service(talgs::views::app::product::product_reader)
                 .service(talgs::views::app::product::create_product)
                 .service(talgs::views::app::product::update_product)
                 .service(talgs::views::app::product::delete_product)

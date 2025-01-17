@@ -11,6 +11,7 @@
  * */
 
 use ntex::web;
+use serde::Deserialize;
 use crate::database::connection::AppPool;
 use crate::database::app::product::{Product, self};
 use super::super::reqwestify;
@@ -21,14 +22,20 @@ use crate::files::fs::{self, rand_name};
 use crate::auth::parser::unspaced_hex_str_to_u8_vec;
 use std::borrow::Cow;
 
+#[derive(Deserialize)]
+struct Q {
+    field : String
+}
 
 #[web::get("/product/{id}")]
-pub async fn product_reader(request : web::HttpRequest, selected_id : web::types::Path<i32>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn product_reader(request : web::HttpRequest, selected_id : web::types::Path<i32>, query : web::types::Query<Q>, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-    let product : Product = product::get(&(*selected_id), connection).unwrap();
+    match *query.field {
+        _ => println!("{}", query.field)
+    }
 
     return web::HttpResponse::Ok().body("");
 }
