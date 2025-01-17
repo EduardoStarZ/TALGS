@@ -40,7 +40,7 @@ pub async fn product_reader(request : web::HttpRequest, selected_id : web::types
     return web::HttpResponse::Ok().body("");
 }
 
-#[web::put("/product")]
+#[web::put("/product/")]
 pub async fn create_product(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
@@ -126,14 +126,14 @@ pub async fn update_product<'a>(request : web::HttpRequest, form : web::types::F
     return web::HttpResponse::Ok().body("update");
 }
 
-#[web::delete("/product")]
-pub async fn delete_product(request : web::HttpRequest, form : web::types::Form<i32> , pool : web::types::State<AppPool>) -> web::HttpResponse {
+#[web::delete("/product/{id}")]
+pub async fn delete_product(request : web::HttpRequest, id : web::types::Path<i32> ,  pool : web::types::State<AppPool>) -> web::HttpResponse {
 
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-    product::delete(&*form, connection);
+    product::delete(&*id, connection);
     
     return web::HttpResponse::Ok().body("delete");
 }

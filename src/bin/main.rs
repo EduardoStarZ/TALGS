@@ -62,6 +62,7 @@ pub async fn main() -> std::io::Result<()> {
             .wrap(CookieSession::signed(&[0; 32]).secure(false))
             .service(talgs::forms::product::create)
             .service(talgs::forms::product::update)
+            .service(talgs::forms::product::delete)
             .service(
                 web::scope("/api")
                 .service(talgs::views::app::product::product_reader)

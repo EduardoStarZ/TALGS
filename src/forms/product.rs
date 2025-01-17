@@ -38,3 +38,20 @@ pub async fn update(request : web::HttpRequest, id : web::types::Path<i32>, app_
 
     return web::HttpResponse::Ok().body(UpdateProductTemplate{product}.render().unwrap());
 }
+
+#[derive(Template)]
+#[template(path = "product/delete.html")]
+struct DeleteProductTemplate<'a> {
+    product : Product<'a>
+}
+
+#[web::get("/product/delete/{id}")]
+pub async fn delete(request : web::HttpRequest, id : web::types::Path<i32>, app_pool : web::types::State<AppPool>) -> web::HttpResponse {
+    reqwestify(request);
+
+    let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
+
+        let product : Product = product::get(&*id, connection).unwrap();
+
+    return web::HttpResponse::Ok().body(DeleteProductTemplate{product}.render().unwrap());
+}

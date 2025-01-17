@@ -1,0 +1,43 @@
+{% extends "master.html" %}
+
+{#
+#
+#
+#
+# login.html
+#
+# Copyright (c) 2023-2024 EduardoStarZ, NandoBFK, Erenan257
+#
+# All rights reserved
+#
+# TALGS is distributed under the GNU General Public license v2, see LICENSE for details
+#
+#
+#
+#}
+
+{% block title %}Excluir produto{% endblock %}
+
+{% block body %}
+<div class="frame h-auto w-80">
+		<h1 class="title is-1 center mb-6">Excluir produto Produto</h1>
+
+		<form hx-delete="/api/product/{{product.id}}">
+
+				<h2 class="subtitle is-3 center">Deseja mesmo excluir o produto {{product.name}}? Não será possível recuperar este produto depois.</h2>
+
+				<div class="my-6"></div>
+				<div class="joiner">
+						<input type="reset" class="button orange is-medium mx-1 fit-space" value="Limpar" />
+						<input type="submit" class="button blue is-medium mx-1 fit-space" value="Criar" />
+				</div>
+		</form>
+</div>
+
+		<style>
+				input.button {
+						width: 45% !important;
+						margin: 0 auto !important;
+				}
+		</style>
+{% endblock %}
