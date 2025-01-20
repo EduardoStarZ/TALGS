@@ -12,6 +12,7 @@ use std::borrow::Cow;
 pub struct Purchase<'a> {
     pub id: i32,
     pub id_user: i32,
+    pub total: f32,
     pub time: Cow<'a, str>, 
     pub status: i16
 }

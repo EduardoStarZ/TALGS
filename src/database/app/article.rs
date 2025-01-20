@@ -18,7 +18,7 @@ pub struct Article {
 pub fn create<'a, 'b>(article : &'a Article , connection : &'b mut SqliteConnection) -> Option<ResultCode> {
     match exists(&article.id, connection) {
         Some(value) => return Some(value),
-        None => ()
+        None => () 
     }
 
     match diesel::insert_into(article::table)
