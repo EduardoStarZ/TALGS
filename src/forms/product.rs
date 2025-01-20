@@ -51,7 +51,7 @@ pub async fn delete(request : web::HttpRequest, id : web::types::Path<i32>, app_
 
     let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
 
-        let product : Product = product::get(&*id, connection).unwrap();
+    let product : Product = product::get(&*id, connection).unwrap();
 
     return web::HttpResponse::Ok().body(DeleteProductTemplate{product}.render().unwrap());
 }

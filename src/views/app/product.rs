@@ -16,61 +16,38 @@ use crate::database::connection::AppPool;
 use crate::database::app::product::{Product, self};
 use super::super::reqwestify;
 use diesel::prelude::*;
-use crate::files::receiver::read_payload_to_string;
-use crate::str::filter::{Form, payload_into_values};
 use crate::files::fs::{self, rand_name};
 use crate::auth::parser::unspaced_hex_str_to_u8_vec;
 use std::borrow::Cow;
 
-#[derive(Deserialize)]
-struct Q {
-    field : String
-}
-
-#[web::get("/product/{id}")]
-pub async fn product_reader(request : web::HttpRequest, selected_id : web::types::Path<i32>, query : web::types::Query<Q>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+#[web::get("/product/")]
+pub async fn product_reader(request : web::HttpRequest) -> web::HttpResponse {
     reqwestify(request);
-
-    let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
-
-    match *query.field {
-        _ => println!("{}", query.field)
-    }
 
     return web::HttpResponse::Ok().body("");
 }
 
-#[web::put("/product/")]
-pub async fn create_product(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
-    reqwestify(request);
+#[derive(Deserialize)]
+struct ProductReceiver {
+    name : String,
+    price : f32,
+    id_category : i16,
+    warn_at: i32,
+    measure: i32,
+    measure_unit: i16,
+    image: String,
+    total_amount: i32,
+    bytes: String
+}
 
-    let payload : String = match read_payload_to_string(payload).await {
-        Some(value) => value,
-        None => return web::HttpResponse::BadRequest().finish()
-    };
+#[web::put("/product/")]
+pub async fn create_product(request : web::HttpRequest, form : web::types::Form<ProductReceiver>, pool: web::types::State<AppPool>) ->  web::HttpResponse {
+    reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-    let values : Vec<Form> = payload_into_values(&payload);
 
-    let mut product : Product = Product {
-        id: product::new_id(connection),
-        name: Cow::from(""),
-        price: 0.0,
-        id_category: 0,
-        warn_at: 0,
-        measure: 0,
-        measure_unit: 0,
-        image: Cow::from(""),
-        total_amount: 0
-    };
-
-    let mut filename : String = String::new();
-
-    for x in values {
-        match x.name {
-            "filename" => {
-                filename = format!("{}.{}", rand_name(), x.value
+    let filename : String = format!("{}.{}", rand_name(), &form.image
                         .chars()
                         .rev()
                         .collect::<String>()
@@ -82,33 +59,23 @@ pub async fn create_product(request : web::HttpRequest, payload : web::types::Pa
                         .collect::<String>()
                         );
 
-                fs::create_file(&filename.clone());
-            },
-            "bytes" => {
-                fs::write_contents(&unspaced_hex_str_to_u8_vec(&String::from(x.value)), &filename);
-            },
-            "name" => {
-                product.name = Cow::from(x.value);
-            },
-            "price" => {
-                product.price = x.value.trim().parse::<f32>().unwrap();
-            },
-            "category" => {
-                product.id_category = x.value.trim().parse::<i16>().unwrap();
-            },
-            "warn_at" => {
-                product.warn_at = x.value.trim().parse::<i32>().unwrap();
-            },
-            "measure" => {
-                product.measure = x.value.trim().parse::<i32>().unwrap();
-            },
-            "measure_unit" => {
-                product.measure_unit = x.value.trim().parse::<i16>().unwrap();
-            },
-            _ => return web::HttpResponse::Forbidden().finish()
-        } 
-    }
 
+    let product : Product = Product {
+        id: product::new_id(connection),
+        image: Cow::Borrowed(&*filename),
+        name: Cow::Borrowed(&*form.name),
+        price: form.price,
+        warn_at: form.warn_at,
+        total_amount: form.total_amount,
+        measure: form.measure,
+        measure_unit: form.measure_unit,
+        id_category: form.id_category 
+    };
+
+    fs::create_file(&filename.clone());
+            
+    fs::write_contents(&unspaced_hex_str_to_u8_vec(&form.bytes), &filename);
+    
     product::create(&product, connection);
 
     return web::HttpResponse::Ok().finish(); 
