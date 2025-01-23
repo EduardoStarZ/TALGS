@@ -12,7 +12,9 @@
 
 
 use ntex::web;
-use crate::colors::color::Color;
+use serde::Deserialize;
+use crate::{colors::color::Color};
+use askama::Template;
 
 pub mod auth;
 pub mod app;
@@ -28,4 +30,39 @@ pub fn reqwestify(request: web::HttpRequest) {
 
 pub fn transform_payload(body : String) -> Vec<String> {
     return body.split("&").map(|x| x.to_string()).collect::<Vec<String>>();
+}
+
+#[derive(Deserialize)]
+struct TestStruct {
+    field : String
+}
+
+#[derive(Template)]
+#[template( path = "test.html")]
+struct TestTemplate {}
+
+#[web::get("/test")]
+pub async fn get_test_route(request : web::HttpRequest, query: web::types::Query<TestStruct>) -> web::HttpResponse {
+    reqwestify(request);
+
+    println!("{}", (*query).field);
+
+    return web::HttpResponse::Ok().body(TestTemplate{}.render().unwrap());
+}
+
+#[derive(Deserialize)]
+struct TestForm {
+    field : String
+}
+
+#[web::post("/test")]
+pub async fn post_test_route(request : web::HttpRequest, form : web::types::Form<TestForm>) -> web::HttpResponse {
+    reqwestify(request);
+
+    //let strng : String = read_payload_to_string(payload).await.unwrap();
+
+    println!("{}", (*form).field);
+    
+
+    return web::HttpResponse::Ok().body("Status code 200: Ok");
 }

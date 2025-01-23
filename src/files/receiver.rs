@@ -16,7 +16,8 @@ use crate::colors::color::Color;
 
 pub async fn read_payload_to_string(mut payload : web::types::Payload) -> Option<String> {
     let mut bytes = BytesMut::new();
-        while let Some(item) = ntex::util::stream_recv(&mut payload).await {
+    
+    while let Some(item) = ntex::util::stream_recv(&mut payload).await {
         bytes.extend_from_slice(&item.unwrap());
     }
 
