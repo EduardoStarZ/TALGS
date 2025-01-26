@@ -60,6 +60,7 @@ pub async fn main() -> std::io::Result<()> {
             .state(auth_pool.clone())
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(false))
+            .service(talgs::forms::purchase::create)
             .service(talgs::views::get_test_route)
             .service(talgs::views::post_test_route)
             .service(talgs::forms::product::create)

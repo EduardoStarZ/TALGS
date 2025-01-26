@@ -1,5 +1,7 @@
-{% comment %}
+{% extends "master.html" %}
 
+{#
+#
 #
 #
 # client.html
@@ -11,49 +13,57 @@
 # TALGS is distributed under the GNU General Public license v2, see LICENSE for details
 #
 #
+#
+#}
 
-{% endcomment %}
 
-
-{% include 'assets/frame.html' with color="dark" my="5" width="80" heigth="auto" hx_swap="none" %}
+{# include 'assets/frame.html' with color="dark" my="5" width="80" heigth="auto" hx_swap="none" #}
+{% block body %}
+<div class="frame w-80 h-auto my-6">
     <div class="columns is-mobile mt-4 mb-6">
 
         <div class="column auto">
-            <h2 id="header" class="subtitle is-2 is-light is-bolder mx-4">Meus Pedidos</h2>
+            <h2 id="header" class="title is-1 is-light is-bolder mx-4">Meus Pedidos</h2>
         </div>
 
         <div class="column is-one-quarter">
-            {% include 'assets/link.html' with text="Novo Pedido" color="light" id="new-request" float="right" size="medium" hx_get="/api/sale/create" hx_target="#master-frame" hx_swap="innerHTML" hx_trigger="click" %}
+				<a class="button blue is-responsive is-medium fit" href="/product/new/">Novo Pedido</a>
+
+				{# include 'assets/link.html' with text="Novo Pedido" color="light" id="new-request" float="right" size="medium" hx_get="/api/sale/create" hx_target="#master-frame" hx_swap="innerHTML" hx_trigger="click" #}
         </div>
     </div>
 
-{% for purchase in Purchases %}
-    {% include 'assets/frame.html' with color="normal" width="100" height="20" my="5" mx="" %}
-        <div class="columns">
+	<div class="columns is-mobile is-centered">
 
-            <div class="column is-one-quarter info h-20 mx-3">
-                <p class="subtitle is-5 is-dark">Data: {{ purchase.get_date }}</p>
-                <p class="subtitle is-5 is-dark">Horário: {{ purchase.get_time }}</p>
-                <p class="subtitle is-5 is-dark">Status: {{ purchase.status_str }}</p>
-                {% include 'assets/link.html' with href="#" color="dark" size="medium" text="Expandir" my="1" other_classes="fit" %}
-            </div>
+{% for purchase in purchases %}
+    {# include 'assets/frame.html' with color="normal" width="100" height="20" my="5" mx="" #}
+		<div class="column is-half mx-2">
+	<div class="frame w-100 h-auto my-5 color-light">
+		
+			<h2 class="subtitle text-dark has-text-centered is-2 is-bolder mx-4 mt-3 mb-4">Pedido #{{ purchase.id }}</h2>
+			<div class="columns">
+
+            <div class="column is-half info h-20 mx-1 my-3">
+                <p class="subtitle is-5 has-text-right text-dark">Data: {{ purchase.date }}</p>
+				<p class="subtitle is-5 has-text-right text-dark">Horário: {{ purchase.time }}</p>
+                {# include 'assets/link.html' with href="#" color="dark" size="medium" text="Expandir" my="1" other_classes="fit" #}
+			</div>
             
-            <div class="column auto description h-20 mx-3">
-                <div class="limiter">
-			<p class="is-dark">
-			{% for article in purchase.get_arts %}
-			{{ article.get_art_name }} - {{ article.amount}} {% if article.amount is 1 %}unidade{% else%}unidades{% endif %},
-			{% endfor %}
-			</p>
-                </div>
-            </div>
-            
+            <div class="column is-half description h-20 mx-1 my-3">
+                <p class="subtitle is-5 has-text-left text-dark">Total: R$ {{ purchase.total }}</p>
+				<p class="subtitle is-5 has-text-left text-dark">Status: {{ purchase.status_str}}</a>
+			</div>
+           
+
         </div>
-    {% include 'assets/close_frame.html' %}
+
+				<a class="button orange is-medium is-responsive fit my-1">Expandir</a>
+	</div>
+		</div>
+    {# include 'assets/close_frame.html' #}
 {% endfor %}
-
-{% include 'assets/close_frame.html' %}
-
+	</div>
+</div>
 <style>
     div.w-80 {
         width: 95% !important;
@@ -66,4 +76,5 @@
     a.fit {
         width: 100%;
     }
+{% endblock %}
 </style>

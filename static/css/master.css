@@ -102,6 +102,10 @@ div.spacing {
     width: 40% !important;
 }
 
+.w-50 {
+		width:  50% !important;
+}
+
 .w-60 {
     width: 60% !important;
 }
