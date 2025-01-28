@@ -2,7 +2,7 @@ use diesel::SqliteConnection;
 use ntex::web;
 //use ntex_session::Session;
 use askama::Template;
-use crate::database::{app::purchase::{self, Purchase}, connection::AppPool};
+use crate::database::{app::{purchase::{self, Purchase}, category::{self, Category}}, connection::AppPool};
 use super::super::views::reqwestify;
 
 struct PurchaseRender {
@@ -15,12 +15,12 @@ struct PurchaseRender {
 
 #[derive(Template)]
 #[template(path="sale/client.html")]
-struct NewPurchaseTemplate{
+struct ViewPurchaseTemplate{
     purchases : Vec<PurchaseRender>
 }
 
-#[web::get("/purchase/new/")]
-pub async fn create(request : web::HttpRequest, app_pool : web::types::State<AppPool> ) -> web::HttpResponse {
+#[web::get("/purchase/view/")]
+pub async fn view(request : web::HttpRequest, app_pool : web::types::State<AppPool> ) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
@@ -43,5 +43,22 @@ pub async fn create(request : web::HttpRequest, app_pool : web::types::State<App
             }
         }).collect::<Vec<PurchaseRender>>();
 
-    return web::HttpResponse::Ok().body(NewPurchaseTemplate{purchases}.render().unwrap());
+    return web::HttpResponse::Ok().body(ViewPurchaseTemplate{purchases}.render().unwrap());
+}
+
+#[derive(Template)]
+#[template(path = "sale/create.html")]
+struct NewPurchaseTemplate<'a> {
+    categories : Vec<Category<'a>>
+}
+
+#[web::get("/purchase/new/")]
+pub async fn create(request : web::HttpRequest, app_pool : web::types::State<AppPool>) -> web::HttpResponse {
+    reqwestify(request);
+
+    let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
+
+    let categories : Vec<Category> = category::get_all(connection);
+
+    return web::HttpResponse::Ok().body(NewPurchaseTemplate{categories}.render().unwrap());    
 }
