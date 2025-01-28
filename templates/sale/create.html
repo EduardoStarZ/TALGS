@@ -1,5 +1,6 @@
-{% comment %}
+{% extends "master.html" %}
 
+{#
 #
 #
 # create.html
@@ -11,42 +12,44 @@
 # TALGS is distributed under the GNU General Public license v2, see LICENSE for details
 #
 #
+#
+#}
 
-{% endcomment %}
+{% block body %}
 
-
-{% load static %}
-
-<form method="post" action="/api/sale/create" target="_self" hx-swap="none">
+<form method="post" action="/api/purchase/new" target="_self" hx-swap="none">
 		<div class="columns mb-6">
 				<div class="column">
 						<h1 class="subtitle is-3 is-normal-light ml-6 mb-3" >Produtos Selecionados:</h1>
 				</div>
 
 				<div class="column">
-						{% csrf_token %}
+						<input class="button blue is-medium float-right mr-6 ml-3 mb-6" type="submit" value="Finalizar" />
+						{# include 'assets/input.html' with type="submit" value="Finalizar" color="dark" size="medium" float="right" other_classes="mr-6 ml-3 mb-6" #}
 
-						{% include 'assets/input.html' with type="submit" value="Finalizar" color="dark" size="medium" float="right" other_classes="mr-6 ml-3 mb-6" %}
-						{% include 'assets/input.html' with type="reset" value="Cancelar" id="cancel" color="gray" size="medium" float="right" %}
+						<input class="button orange is-medium float-right" type="reset" value="Cancelar" id="cancel">
+						{# include 'assets/input.html' with type="reset" value="Cancelar" id="cancel" color="gray" size="medium" float="right" #}
 				</div>
 		</div>
 
-		{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile mt-6"  %}
-		<div class="grid" id="htmx-target"></div>
-		{% include 'assets/close_frame.html' %}
+		<div class="frame w-90 h-auto fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile mt-6" >
+		{# include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile mt-6"  #}
+				<div class="grid" id="htmx-target"></div>
+		</div>
+		{# include 'assets/close_frame.html' #}
 
 </form>
 
 <div class="columns mt-6 mb-6" hx-swap="none">
 		<div class="column">
-				<h2 class="subtitle is-3 is-normal-light ml-6" >Produtos Disponíveis:</h1>
+				<h2 class="subtitle is-3 text-light ml-6" >Produtos Disponíveis:</h1>
 		</div>
 
 		<div class="column">
-				<select id="filtro" name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left ml-6 mb-6 has-icons-left" hx-get="/api/sale/available_card" hx-target="#htmx-available" hx-swap="innerHTML" hx-trigger="load" >
+				<select id="filtro" name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left ml-6 mb-6 has-icons-left" hx-get="/api/purchase/available_card" hx-target="#htmx-available" hx-swap="innerHTML" hx-trigger="load" >
 
 						<option value="none">Todos os Produtos</option>
-						{% for category in Categories %}
+						{% for category in categories %}
 						<option value="{{ category.id }}">{{ category }}</option>
 						{% endfor %}
 				</select>   
@@ -54,11 +57,13 @@
 </div>
 
 
-{% include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile" hx_swap="none" %}
+<div class="frame w-90 h-auto fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile mt-6" >
+{# include 'assets/frame.html' with color="dark" width="90" height="auto" other_classes="fixed-grid has-4-cols-fullhd has-4-cols-widescreen has-2-cols-tablet has-1-cols-mobile" hx_swap="none" #}
 
 <div class="grid" id="htmx-available"></div>
 
-{% include 'assets/close_frame.html' %}
+</div>
+{# include 'assets/close_frame.html' #}
 
 <style>
 .w-90 {
@@ -90,4 +95,6 @@
 
 </style>
 
-<script src="{% static 'js/create-page.js' %}"></script>
+<script src="/static/js/create-page.js"></script>
+
+{% endblock %}
