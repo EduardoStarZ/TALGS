@@ -15,20 +15,20 @@ htmx.onLoad(function(content) {
 		// Creates an event listener to allow for click listening
 		$(".has-consequences").click(function(e){
 				let element_id = $(this).attr('id');
-				let splitter = element_id.split('-');
+				let splitter = element_id.split('+');
 				let buffer = splitter[0];
 
 				switch(buffer) {
 						case "available": {
-								$(`#selected-${splitter[1]}`).removeClass("hidden");
-								$(`#available-${splitter[2]}`).addClass("hidden");
+								$(`#selected+${splitter[2]}`).removeClass("hidden");
+								$(`#available+${splitter[2]}`).addClass("hidden");
 						}
 								break;
 						case "selected": {
-								$(`#available-${splitter[1]}`).removeClass("hidden");
-								$(`#selected-${splitter[1]}`).remove();
-								$(`#product-id-${splitter[1]}`).remove();
-								$(`#product-amount-${splitter[1]}`).remove();
+								$(`#available+${splitter[2]}`).removeClass("hidden");
+								$(`#selected+${splitter[2]}`).remove();
+								$(`#product+id+${splitter[2]}`).remove();
+								$(`#product+amount+${splitter[2]}`).remove();
 								check_for_frame_changes();
 						}
 								break;
@@ -65,7 +65,7 @@ function check_for_frame_changes() {
 		}
 
 		elements.forEach((value) => {
-				target += value.id.replace('selected-', '') + ",";
+				target += value.id.replace('selected+', '') + ",";
 		})
 
 		htmx.ajax('GET', target, '#htmx-available');

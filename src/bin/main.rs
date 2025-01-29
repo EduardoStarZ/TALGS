@@ -58,6 +58,7 @@ pub async fn main() -> std::io::Result<()> {
         web::App::new()
             .state(app_pool.clone())
             .state(auth_pool.clone())
+            .state(web::types::FormConfig::default().limit(50000000))
             .wrap(Logger::default())
             .wrap(CookieSession::signed(&[0; 32]).secure(false))
             .service(talgs::forms::purchase::create)

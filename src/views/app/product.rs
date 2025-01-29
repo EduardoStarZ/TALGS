@@ -15,8 +15,6 @@ use ntex::web;
 use serde::Deserialize;
 use crate::database::connection::AppPool;
 use crate::database::app::product::{Product, self};
-use crate::files::receiver::read_payload_to_string;
-use crate::str::filter::payload_into_values;
 use super::super::reqwestify;
 use diesel::prelude::*;
 use crate::files::fs::{self, rand_name};
@@ -63,25 +61,8 @@ struct ProductReceiver {
     warn_at: i32,
     measure: i32,
     measure_unit: i16,
-    image: String,
+    filename: String,
     bytes: String
-}
-
-#[web::post("/product/image/")]
-pub async fn create_product_image(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
-    let deloaded = read_payload_to_string(payload).await.unwrap();
-
-    let fields = payload_into_values(&deloaded);
-
-    for field in fields {
-        match field.name {
-            "filename" => {},
-            "bytes" => {},
-            _ => ()
-        }
-    }
-
-    return web::HttpResponse::Ok().body("");
 }
 
 #[web::put("/product/")]
@@ -90,7 +71,7 @@ pub async fn create_product(request : web::HttpRequest, form : web::types::Form<
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-    let filename : String = format!("{}.{}", rand_name(), &form.image
+    let filename : String = format!("{}.{}", rand_name(), &form.filename
         .chars()
         .rev()
         .collect::<String>()

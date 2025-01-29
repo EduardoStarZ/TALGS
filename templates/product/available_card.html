@@ -17,7 +17,7 @@
 
 {% for product in products %}
 		
-		<div id="available-{{product.id}}" class="frame w-80 color-light h-auto my-5 cell" hx-swap="none">
+<div id="available+{{product.id}}" class="frame w-80 color-light h-auto my-5 cell" hx-swap="none">
 		{# include 'assets/frame.html' with id=product.available_card color="light" width="80" height="auto" my="5" other_classes="cell"  hx_swap="none" #}
 		<img src="/static/app/img/{{product.image}}" class="image mt-3 mb-6" />
 
@@ -28,7 +28,7 @@
 		<p class="title is-5 text-dark is-lighter mx-2">R$ {{ product.price }}</p>
 
 
-		<input class="button blue w-100 my-2 has-consequences" value="Selecionar" hx-get="/api/product/selected-card?only={{product.id}}" hx-trigger="click" hx-target="#htmx-target" hx-swap="beforeend" />
+		<input class="button blue w-100 my-2 has-consequences" id="available+input+{{product.id}}" value="Selecionar" hx-get="/api/product/selected-card?only={{product.id}}" type="button" hx-trigger="click" hx-target="#htmx-target" hx-swap="beforeend" />
 		{# include 'assets/input.html' with id=product.available_input type="button" color="dark" width="100" my="2" value="Selecionar" other_classes="has-consequences" hx_get=product.create__card_get_url hx_target="#htmx-target" hx_swap="beforeend" hx_trigger="click" #}
 
 		{# include 'assets/close_frame.html' #}
