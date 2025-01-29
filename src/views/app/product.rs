@@ -24,9 +24,10 @@ use std::borrow::Cow;
 
 #[derive(Deserialize)]
 struct ProductQuery {
-    category: Option<i32>,
+    category: Option<String>,
     exclude: Option<String>,
     only: Option<i32>
+
 }
 
 #[derive(Template)]
@@ -35,18 +36,41 @@ struct AvailableProductCard<'a> {
     products : Vec<Product<'a>>
 }
 
+#[derive(Template)]
+#[template(path = "product/selected_card.html")]
+struct SelectedProductCard<'a> {
+    product : Product<'a>
+}
+
 #[web::get("/product/{format}")]
 pub async fn product_reader(request : web::HttpRequest, query : web::types::Query<ProductQuery>, path : web::types::Path<String>, app_pool : web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
 
-    let products : Vec<Product> = product::get_all(connection);
+    let mut products : Vec<Product> = product::get_all(connection);
+
+    match &query.category {
+        Some(value) => {
+            if !(value.as_str() == "none") {
+                products = products.into_iter().filter(|product| product.id_category == value.parse::<i16>().unwrap()).collect();
+           
+                return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
+            }
+                return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
+        },
+        None => ()
+    }
 
     match path.as_str() {
             "available-card" => {
                 return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
             },
+            "selected-card" => {
+                let id : i32 = query.only.unwrap();
+                let product : Product = product::get(&id, connection).unwrap();
+                return web::HttpResponse::Ok().body(SelectedProductCard{product}.render().unwrap());
+            }
             _ => ()
     } 
 

@@ -17,18 +17,24 @@ htmx.onLoad(function(content) {
 				let element_id = $(this).attr('id');
 				let splitter = element_id.split('+');
 				let buffer = splitter[0];
+				
+				console.log(`${element_id}, ${splitter}`);
+
+				let available = document.getElementById("available+" + splitter[2]);
+				let selected = document.getElementById("selected+" + splitter[2]);
 
 				switch(buffer) {
 						case "available": {
-								$(`#selected+${splitter[2]}`).removeClass("hidden");
-								$(`#available+${splitter[2]}`).addClass("hidden");
+								available.classList.add("hidden");
+								//$(`#selected+${splitter[2]}`).removeClass("hidden");
+								//$('#available+' + splitter[2]).addClass("hidden");
 						}
 								break;
 						case "selected": {
-								$(`#available+${splitter[2]}`).removeClass("hidden");
-								$(`#selected+${splitter[2]}`).remove();
-								$(`#product+id+${splitter[2]}`).remove();
-								$(`#product+amount+${splitter[2]}`).remove();
+
+								available.classList.remove("hidden");
+								selected.parentNode.removeChild(selected);
+
 								check_for_frame_changes();
 						}
 								break;
@@ -46,7 +52,7 @@ $("#cancel").click(function() {
 
 		let id = $('#filtro').children("option:selected").val();
 
-		htmx.ajax('GET', '/api/sale/available_card?filtro='+id, '#htmx-available');
+		htmx.ajax('GET', '/api/product/available_card?category='+id, '#htmx-available');
 })
 
 
@@ -56,7 +62,7 @@ function check_for_frame_changes() {
 
 		elements = document.querySelectorAll("#htmx-target .frame");
 		
-		id = $(event.target).children("option:selected").val();
+		id = $("#filtro").children("option:selected").val();
 
 		let target = `/api/product/available_card?category=${id}`;
 

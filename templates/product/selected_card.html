@@ -1,5 +1,5 @@
-{% comment %}
-
+{#
+#
 #
 #
 # selected_card.html
@@ -11,27 +11,28 @@
 # TALGS is distributed under the GNU General Public license v2, see LICENSE for details
 #
 #
+#
+#}
 
-{% endcomment %}
-
-{% load static %}
-
-{% include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target" hx_swap="none" %}
-		<img src="{% static 'images/logo.jpg' %}" class="image mt-3 mb-6" /> 
+<div id="selected+{{product.id}}" class="frame color-light w-80 h-auto my-5 cell input-target" hx-swap="none">
+		{# include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target" hx_swap="none" #}
+		<img src="/static/app/img/{{product.image}}" class="image mt-3 mb-6" /> 
 		<div class="center mx-3">
-				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}  <a class="button dark is-disabled">{{ product.measure}}{{ product.choosen_measure }}</a></h3>
+				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}<a class="button dark is-disabled">{{ product.measure}}{{ product.measure_unit }}</a></h3>
 		</div>
 
-		<p class="subtitle is-5 is-dark is-lighter mx-2">Seção: {{ product.category }}</p> 
-		<p class="title is-5 is-dark is-lighter mx-2">R$ {{ product.price }}</p>
+		<p class="subtitle is-5 text-dark is-lighter mx-2">Seção: {{ product.id_category }}</p> 
+		<p class="title is-5 text-dark is-lighter mx-2">R$ {{ product.price }}</p>
 
 		<div class="columns is-mobile mx-1">
 				<div class="column is-half">
-						{% include 'assets/input.html' with id=product.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences" %}
+						{# include 'assets/input.html' with id=product.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences" #}
+						<input type="button" id="selected+input+{{product.id}}" class="button orange w-100 my-2 has-consequences" value="Cancelar"/>
 				</div>
 				<div class="column is-half">
-						<input type="number" id="{{ product.create__get_card_id_name }}" name="{{ product.create__get_card_id_name }}" value="{{ product.id }}" hidden />
-						<input type="number" id="{{ product.create__get_card_amount_name }}" name="{{ product.create__get_card_amount_name }}" class="input button dark w-100 my-2 amount-changer" value="1" min="1" max="{{ product.total_amount }}" step="1" />
+						<input type="number" id="product+id+{{product.id}}" name="id+{{product.id}}" value="{{product.id}}" hidden />
+						<input type="number" id="product+amount+{{product.id}}" name="amount+{{ product.id}}" class="input button dark w-100 my-2 amount-changer" value="1" min="1" max="{{ product.total_amount }}" step="1" />
 				</div>
 		</div>
-{% include 'assets/close_frame.html' %}
+</div>
+{# include 'assets/close_frame.html' #}
