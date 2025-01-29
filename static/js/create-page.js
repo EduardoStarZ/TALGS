@@ -20,15 +20,15 @@ htmx.onLoad(function(content) {
 
 				switch(buffer) {
 						case "available": {
-								$(`#selected-card-${splitter[2]}`).removeClass("hidden");
-								$(`#available-card-${splitter[2]}`).addClass("hidden");
+								$(`#selected-${splitter[1]}`).removeClass("hidden");
+								$(`#available-${splitter[2]}`).addClass("hidden");
 						}
 								break;
 						case "selected": {
-								$(`#available-card-${splitter[2]}`).removeClass("hidden");
-								$(`#selected-card-${splitter[2]}`).remove();
-								$(`#product-id-${splitter[2]}`).remove();
-								$(`#product-amount-${splitter[2]}`).remove();
+								$(`#available-${splitter[1]}`).removeClass("hidden");
+								$(`#selected-${splitter[1]}`).remove();
+								$(`#product-id-${splitter[1]}`).remove();
+								$(`#product-amount-${splitter[1]}`).remove();
 								check_for_frame_changes();
 						}
 								break;
@@ -58,10 +58,14 @@ function check_for_frame_changes() {
 		
 		id = $(event.target).children("option:selected").val();
 
-		let target = `/api/sale/available_card?filtro=${id}`;
+		let target = `/api/product/available_card?category=${id}`;
+
+		if (elements.len > 0) {
+				target += '&exclude';
+		}
 
 		elements.forEach((value) => {
-				target += '&exclude=' + value.id.replace('selected-card-', '')
+				target += value.id.replace('selected-', '') + ",";
 		})
 
 		htmx.ajax('GET', target, '#htmx-available');

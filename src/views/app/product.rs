@@ -10,19 +10,47 @@
  * 
  * */
 
+use askama::Template;
 use ntex::web;
 use serde::Deserialize;
 use crate::database::connection::AppPool;
 use crate::database::app::product::{Product, self};
+use crate::files::receiver::read_payload_to_string;
+use crate::str::filter::payload_into_values;
 use super::super::reqwestify;
 use diesel::prelude::*;
 use crate::files::fs::{self, rand_name};
 use crate::auth::parser::unspaced_hex_str_to_u8_vec;
 use std::borrow::Cow;
 
-#[web::get("/product/")]
-pub async fn product_reader(request : web::HttpRequest) -> web::HttpResponse {
+
+#[derive(Deserialize)]
+struct ProductQuery {
+    category: Option<i32>,
+    exclude: Option<String>,
+    only: Option<i32>
+}
+
+#[derive(Template)]
+#[template(path = "product/available_card.html")]
+struct AvailableProductCard<'a> {
+    products : Vec<Product<'a>>
+}
+
+#[web::get("/product/{format}")]
+pub async fn product_reader(request : web::HttpRequest, query : web::types::Query<ProductQuery>, path : web::types::Path<String>, app_pool : web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
+
+    let connection : &mut SqliteConnection = &mut app_pool.pool.get().unwrap();
+
+    let products : Vec<Product> = product::get_all(connection);
+
+    match path.as_str() {
+            "available-card" => {
+                return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
+            },
+            _ => ()
+    } 
 
     return web::HttpResponse::Ok().body("");
 }
@@ -36,8 +64,24 @@ struct ProductReceiver {
     measure: i32,
     measure_unit: i16,
     image: String,
-    total_amount: i32,
     bytes: String
+}
+
+#[web::post("/product/image/")]
+pub async fn create_product_image(request : web::HttpRequest, payload : web::types::Payload, pool: web::types::State<AppPool>) -> web::HttpResponse {
+    let deloaded = read_payload_to_string(payload).await.unwrap();
+
+    let fields = payload_into_values(&deloaded);
+
+    for field in fields {
+        match field.name {
+            "filename" => {},
+            "bytes" => {},
+            _ => ()
+        }
+    }
+
+    return web::HttpResponse::Ok().body("");
 }
 
 #[web::put("/product/")]
@@ -46,18 +90,17 @@ pub async fn create_product(request : web::HttpRequest, form : web::types::Form<
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-
     let filename : String = format!("{}.{}", rand_name(), &form.image
-                        .chars()
-                        .rev()
-                        .collect::<String>()
-                        .split_once(".")
-                        .unwrap()
-                        .0
-                        .chars()
-                        .rev()
-                        .collect::<String>()
-                        );
+        .chars()
+        .rev()
+        .collect::<String>()
+        .split_once(".")
+        .unwrap()
+        .0
+        .chars()
+        .rev()
+        .collect::<String>()
+    );
 
 
     let product : Product = Product {
@@ -66,7 +109,7 @@ pub async fn create_product(request : web::HttpRequest, form : web::types::Form<
         name: Cow::Borrowed(&*form.name),
         price: form.price,
         warn_at: form.warn_at,
-        total_amount: form.total_amount,
+        total_amount: 0,
         measure: form.measure,
         measure_unit: form.measure_unit,
         id_category: form.id_category 

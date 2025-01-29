@@ -46,13 +46,14 @@ pub async fn purchase_reader(request : web::HttpRequest, path : web::types::Path
     return web::HttpResponse::Ok().body(format!("{:?}", purchase));
 }
 
+// format should be "{stock_id}:{amount};..."
 #[derive(Deserialize)]
-struct PurchaseQuery {
+struct PurchaseForm {
     values : String 
-} // format should be "{stock_id}:{amount};..."
+} 
 
 #[web::put("/purchase")]
-pub async fn create_purchase<'a>(request : web::HttpRequest, query : web::types::Query<PurchaseQuery>, pool: web::types::State<AppPool>) -> web::HttpResponse {
+pub async fn create_purchase<'a>(request : web::HttpRequest, query : web::types::Form<PurchaseForm>, pool: web::types::State<AppPool>) -> web::HttpResponse {
     reqwestify(request);
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
