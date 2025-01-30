@@ -62,16 +62,26 @@ function check_for_frame_changes() {
 
 		elements = document.querySelectorAll("#htmx-target .frame");
 		
-		id = $("#filtro").children("option:selected").val();
+		id = document.getElementById("filtro").value;
 
-		let target = `/api/product/available_card?category=${id}`;
+		let target = "/api/product/available_card?";
 
-		if (elements.len > 0) {
-				target += '&exclude';
+		if (id != "none") {
+				target += `category=${id}` 
 		}
 
-		elements.forEach((value) => {
-				target += value.id.replace('selected+', '') + ",";
+		console.log(elements.length)
+
+		if (elements.length > 0) {
+				target += '&exclude=';
+		}
+
+		elements.forEach((value, index) => {
+				if (index > 0) {
+						target += ":";
+				}
+
+				target += value.id.replace('selected+', '');
 		})
 
 		htmx.ajax('GET', target, '#htmx-available');

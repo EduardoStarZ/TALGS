@@ -27,7 +27,7 @@
 		<div class="columns is-mobile mx-1">
 				<div class="column is-half">
 						{# include 'assets/input.html' with id=product.selected_input type="button" color="gray" width="100" my="2" value="Cancelar" other_classes="has-consequences" #}
-						<input type="button" id="selected+input+{{product.id}}" class="button orange w-100 my-2 has-consequences" value="Cancelar"/>
+						<input type="button" id="selected+input+{{product.id}}" class="button orange w-100 my-2 has-consequences" value="Cancelar" hx-get="/api/product/available-card?only={{product.id}}"/>
 				</div>
 				<div class="column is-half">
 						<input type="number" id="product+id+{{product.id}}" name="id+{{product.id}}" value="{{product.id}}" hidden />

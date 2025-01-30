@@ -52,18 +52,33 @@ pub async fn product_reader(request : web::HttpRequest, query : web::types::Quer
 
     match &query.category {
         Some(value) => {
-            if !(value.as_str() == "none") {
+            println!("{value}");
+            if value.as_str() != "none" {
                 products = products.into_iter().filter(|product| product.id_category == value.parse::<i16>().unwrap()).collect();
-           
-                return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
             }
-                return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
+        },
+        None => ()
+    }
+
+    match &query.exclude {
+        Some(value) => {
+            println!("{value}");
+            let ids : Vec<i32> = value.split(":").map(|id| id.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+
+            for id in ids {
+                products = products.into_iter().filter(|product| product.id != id).collect();
+            }
         },
         None => ()
     }
 
     match path.as_str() {
             "available-card" => {
+                match query.only {
+                    Some(value) => return web::HttpResponse::Ok().body(AvailableProductCard{products: Vec::from(product::get(value).unwrap())}),
+                    None => ()
+                }
+
                 return web::HttpResponse::Ok().body(AvailableProductCard{products}.render().unwrap());                
             },
             "selected-card" => {
