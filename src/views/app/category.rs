@@ -15,6 +15,13 @@ use crate::database::app::category::{self, Category};
 use crate::database::connection::AppPool;
 use super::super::reqwestify;
 use diesel::prelude::*;
+use askama::Template;
+
+#[derive(Template)]
+#[template(path = "category/view.html")]
+struct ViewCategoryTemplate<'a> {
+    categories : Vec<Category<'a>>
+}
 
 #[web::get("/categories")]
 pub async fn categories_reader(request : web::HttpRequest, pool : web::types::State<AppPool>) -> web::HttpResponse {
@@ -24,9 +31,7 @@ pub async fn categories_reader(request : web::HttpRequest, pool : web::types::St
     
     let categories : Vec<Category> = category::get_all(connection);
 
-    let response_string = categories.iter().map(|x| format!("{:?}", x)).collect::<String>();
-
-    return web::HttpResponse::Ok().body(response_string);
+    return web::HttpResponse::Ok().body(ViewCategoryTemplate{categories}.render().unwrap());
 }
 
 #[web::get("/category-{category}")]

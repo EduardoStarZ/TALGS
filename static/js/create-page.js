@@ -48,7 +48,7 @@ htmx.onLoad(function(content) {
 $("#cancel").click(function() {
 
 		$("#htmx-target").empty();
-		$("htmx-available").empty();
+		$("#htmx-available").empty();
 
 		let id = $('#filtro').children("option:selected").val();
 
@@ -82,7 +82,7 @@ function check_for_frame_changes() {
 				}
 
 				target += value.id.replace('selected+', '');
-		})
+		});
 
 		htmx.ajax('GET', target, '#htmx-available');
 }

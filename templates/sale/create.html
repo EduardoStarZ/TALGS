@@ -40,13 +40,13 @@
 
 </form>
 
-<div class="columns mt-6 mb-3" hx-swap="none">
+<div class="columns mt-6 mb-6" hx-swap="none">
 		<div class="column">
 				<h2 class="subtitle is-3 text-dark ml-6" >Produtos Disponíveis:</h1>
 		</div>
 
 		<div class="column">
-				<select id="filtro" name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left ml-6 has-icons-left" hx-get="/api/product/available-card" hx-target="#htmx-available" hx-swap="innerHTML" hx-trigger="load, changed" >
+				<select id="filtro" name="filtro" class="select normal is-dark is-medium is-rounded w-80 is-pulled-left ml-6 has-icons-left" hx-get="/api/product/available-card" hx-target="#htmx-available" hx-swap="innerHTML" hx-trigger="load" >
 
 						<option value="none">Todos os Produtos</option>
 						{% for category in categories %}

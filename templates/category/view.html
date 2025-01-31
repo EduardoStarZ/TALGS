@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+
+{% block body %}
+<div class="frame w-80 h-auto my-6">
+    <div class="columns is-mobile mt-4 mb-6">
+
+        <div class="column auto">
+            <h2 id="header" class="title is-1 is-light is-bolder mx-4">Categorias</h2>
+        </div>
+
+        <div class="column is-one-quarter">
+				<a class="button blue is-responsive is-medium fit" href="/category/new/">Nova Categoria</a>
+
+        </div>
+    </div>
+
+	<div class="columns is-mobile is-centered">
+
+{% for category in categories %}
+		<div class="column is-half mx-2">
+	<div class="frame w-100 h-auto my-5 color-light">
+			<div class="columns">
+
+            <div class="column is-half info h-20 mx-1 my-3">
+                <p class="subtitle is-5 has-text-right text-dark">Nome: {{ category.name }}</p>
+				<p class="subtitle is-5 has-text-right text-dark">Id: {{ category.id }}</p>
+			</div>
+            
+            <div class="column is-half description h-20 mx-1 my-3">
+
+				<a class="button orange is-medium is-responsive fit my-1">Editar</a>
+			</div>
+           
+
+        </div>
+	</div>
+		</div>
+{% endfor %}
+	</div>
+</div>
+{% endblock %}
