@@ -37,3 +37,9 @@ pub async fn index() -> web::HttpResponse {
 pub async fn form() -> web::HttpResponse {
     return web::HttpResponse::Ok().body(FormTemplate{}.render().unwrap())
 }
+
+#[derive(Template)]
+#[template(path = "redirect.html")]
+pub struct Redirect<'a> {
+    location : &'a str
+}

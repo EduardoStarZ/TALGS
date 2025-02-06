@@ -13,7 +13,7 @@
 
 use ntex::web;
 use ntex_session::Session;
-use crate::{colors::color::Color, database::{connection::AuthPool, models::ResultCode}, session::controller};
+use crate::{colors::color::Color, database::{connection::AuthPool, models::ResultCode}, session::controller, Redirect};
 use askama::Template;
 use crate::session::model::{LoginInfo, RegisterForm};
 use super::reqwestify;
@@ -61,7 +61,7 @@ pub async fn login_form(session : Session, auth_pool : web::types::State<AuthPoo
             match response.token {
                 Some(value) => {
                     session.set("Auth-Token", &value).unwrap();
-                    return web::HttpResponse::Ok().body(format!("Logged in with token: {value}"));
+                    return web::HttpResponse::Ok().body(Redirect{location: "/purchase/view/"}.render().unwrap());
                 },
                 None => return web::HttpResponse::InternalServerError().body("")
             } 
@@ -114,5 +114,5 @@ pub async fn register_form(form : web::types::Form<RegisterForm>, auth_pool : we
         return web::HttpResponse::Unauthorized().body(RegisterTemplate{}.render().unwrap());
     }
 
-    return web::HttpResponse::Ok().body("Created account");
+    return web::HttpResponse::Ok().body(Redirect{location : "/auth/login"}.render().unwrap());
 }

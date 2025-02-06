@@ -10,11 +10,13 @@
  * 
  * */
 
+use askama::Template;
 use ntex::web;
 use serde::Deserialize;
 use crate::database::app::article::{self, Article};
 use crate::database::app::purchase::{self, Purchase};
 use crate::database::connection::AppPool;
+use crate::Redirect;
 use super::super::reqwestify;
 use diesel::prelude::*;
 use std::borrow::Cow;
@@ -81,7 +83,7 @@ pub async fn create_purchase<'a>(request : web::HttpRequest, query : web::types:
         article::create(&article, connection);
     }
 
-    return web::HttpResponse::Ok().finish(); 
+    return web::HttpResponse::Ok().body(Redirect{location: "/purchase/view/"}.render().unwrap()); 
 }
 
 #[web::patch("/purchase")]
