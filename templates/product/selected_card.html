@@ -14,11 +14,11 @@
 #
 #}
 
-<div id="selected+{{product.id}}" class="frame color-light w-80 h-auto my-5 cell input-target" hx-swap="none">
+<div id="selected+{{product.id}}" class="frame color-light w-80 h-80 my-5 cell input-target" hx-swap="none">
 		{# include 'assets/frame.html' with id=product.selected_card color="light" width="80" height="auto" my="5" other_classes="cell input-target" hx_swap="none" #}
 		<img src="/static/app/img/{{product.image}}" class="image mt-3 mb-2" /> 
 		<div class="center mx-3">
-				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}<a class="button dark is-disabled">{{ product.measure}}{{ product.measure_unit }}</a></h3>
+				<h3 class="subtitle is-4 is-dark is-bolder mb-5">{{ product.name }}</h3>
 		</div>
 
 		<p class="subtitle is-5 text-dark is-lighter mx-2">Seção: {{ product.id_category }}</p> 

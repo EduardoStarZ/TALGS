@@ -48,10 +48,10 @@ pub async fn purchase_reader(request : web::HttpRequest, path : web::types::Path
     return web::HttpResponse::Ok().body(format!("{:?}", purchase));
 }
 
-// format should be "{stock_id}:{amount};..."
 #[derive(Deserialize)]
 struct PurchaseForm {
-    values : String 
+    ids : String,
+    amounts : String
 } 
 
 #[web::put("/purchase")]
@@ -60,8 +60,15 @@ pub async fn create_purchase<'a>(request : web::HttpRequest, query : web::types:
 
     let connection : &mut SqliteConnection = &mut pool.pool.get().unwrap();
 
-    let articles : Vec<Vec<i32>> = query.values.split(";")
-        .map(|substr| substr.split(":").map(|x| x.parse::<i32>().unwrap()).collect::<Vec<i32>>()).collect::<Vec<Vec<i32>>>();
+    let mut collection : Vec<(i32, i32)> = Vec::new();
+
+    let articles : Vec<i32> = query.ids.split(":").map(|id| id.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+
+    let amounts : Vec<i32> = query.amounts.split(":").map(|amount| amount.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+
+    for x in 0..articles.len()-1 {
+        collection.push((articles[x], amounts[x]));
+    }
 
     let id : i32 = purchase::new_id(connection);
 
@@ -72,12 +79,12 @@ pub async fn create_purchase<'a>(request : web::HttpRequest, query : web::types:
         status: 0 }
     , connection);
 
-    for article in articles {
+    for (id_product, amount) in collection {
         let article : Article = Article { 
             id: article::new_id(connection),
-            id_stock: article[0],
+            id_stock: id_product,
             id_purchase: id,
-            amount: article[1]
+            amount
         };
 
         article::create(&article, connection);
