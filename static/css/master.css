@@ -25,6 +25,8 @@
 html {
     background-color: var(--primary-white) !important;
 		scroll-behavior: smooth !important;
+		scrollbar-color: #FF0000 #00FF00 !important;
+		scrollbar-width: 40% !important;
 }
 
 .navbar {
